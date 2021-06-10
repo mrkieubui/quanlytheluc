@@ -1,0 +1,173 @@
+{
+  "participantGroups": [
+    {
+      "id": "1",
+      "name": "Nam dưới 45",
+      "slash": "namduoi45"
+    },
+    {
+      "id": "2",
+      "name": "Nam trên 45",
+      "slash": "namtren45"
+    },
+    {
+      "id": "3",
+      "name": "Nữ",
+      "slash": "nu"
+    }
+  ],
+  "participants": [
+    {
+      "id": 5,
+      "name": "Nam dưới 50",
+      "slash": "namduoi50",
+      "participantGroup": "2"
+    },
+    {
+      "id": 6,
+      "name": "Nam dưới 55",
+      "slash": "namduoi55",
+      "participantGroup": "2"
+    },
+    {
+      "id": 8,
+      "name": "Nữ dưới 27",
+      "slash": "nuduoi27",
+      "participantGroup": "3"
+    },
+    {
+      "id": 9,
+      "name": "Nữ dưới 35",
+      "slash": "nuduoi35",
+      "participantGroup": "3"
+    },
+    {
+      "id": 10,
+      "name": "Nữ dưới 40",
+      "slash": "nuduoi40",
+      "participantGroup": "3"
+    },
+    {
+      "id": 11,
+      "name": "Nữ dưới 45",
+      "slash": "nuduoi45",
+      "participantGroup": "3"
+    },
+    {
+      "name": "SQ và QNCN dưới 36",
+      "slash": "namduoi36",
+      "participantGroup": "1",
+      "id": 27
+    },
+    {
+      "name": "SQ và QNCN dưới 45",
+      "slash": "namduoi45",
+      "participantGroup": "1",
+      "id": 28
+    },
+    {
+      "name": "SQ và QNCN  trên 55",
+      "slash": "namtren55",
+      "participantGroup": "2",
+      "id": 29
+    },
+    {
+      "name": "Nữ dưới 50",
+      "slash": "nuduoi50",
+      "participantGroup": "3",
+      "id": 30
+    },
+    {
+      "name": "Nữ trên 50",
+      "slash": "nutren50",
+      "participantGroup": "3",
+      "id": 31
+    },
+    {
+      "name": "Học viên sĩ quan",
+      "slash": "HVSQ",
+      "participantGroup": "1",
+      "id": 33
+    },
+    {
+      "name": "Chiến sĩ nghĩa vụ",
+      "slash": "CSNV",
+      "participantGroup": "1",
+      "id": 34
+    }
+  ],
+  "jobs": [
+    {
+      "id": 1,
+      "name": "Trung đội trưởng",
+      "slash": "bt",
+      "order": "1"
+    },
+    {
+      "id": 2,
+      "name": "Đại đội trưởng",
+      "slash": "ct",
+      "order": "3"
+    },
+    {
+      "id": 3,
+      "name": "Tiểu đoàn trưởng",
+      "slash": "dt",
+      "order": "4"
+    },
+    {
+      "id": 4,
+      "name": "Chính trị viên đại đội",
+      "slash": "bt",
+      "order": "1"
+    },
+    {
+      "id": 5,
+      "name": "Chính trị viên tiểu đoàn",
+      "slash": "bt",
+      "order": "5"
+    },
+    {
+      "id": 6,
+      "name": "Tiểu đoàn phó",
+      "slash": "bt",
+      "order": "6"
+    },
+    {
+      "id": 7,
+      "name": "Trợ lý tiểu đoàn",
+      "slash": "bt",
+      "order": "7"
+    },
+    {
+      "id": 8,
+      "name": "Trưởng phòng",
+      "slash": "TP",
+      "order": "8"
+    },
+    {
+      "id": 9,
+      "name": "Trưởng ban",
+      "slash": "TB",
+      "order": "9"
+    },
+    {
+      "id": 10,
+      "name": "Phó trưởng phòng",
+      "slash": "PTP",
+      "order": "10"
+    },
+    {
+      "id": 11,
+      "name": "Nhân viên",
+      "slash": "NV",
+      "order": "11"
+    },
+    {
+      "id": 12,
+      "name": "Chủ nhiệm khoa",
+      "slash": "CNK",
+      "order": "12"
+    }
+  ]
+}

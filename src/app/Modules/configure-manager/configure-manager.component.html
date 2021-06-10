@@ -1,0 +1,50 @@
+<!-- Main content -->
+<div class="content-wrapper">
+    <!-- @@include('../../global/header/page-header.html', {
+  "breadcrumb": {
+  "item1": "Home",
+  "activeItem": "Danh sách đơn vị"
+
+  }
+  }) -->
+    <!-- Content area -->
+    <div class="content">
+        <div class="card">
+            <form enctype="multipart/form-data">
+                <div class="text-danger"></div>
+                <input type="hidden" />
+                <div class="card-header bg-white header-elements-inline">
+                    <h5 class="big-title mb-0 text-uppercase">Cấu hình phần mềm</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-3"><strong>Tên phần mềm</strong></label>
+                        <div class="col-lg-9">
+                            <input class="form-control" placeholder="Nhập tên đơn vị" />
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-3"><strong>Tên logo</strong></label>
+                        <div class="col-lg-9">
+                            <input class="form-control" placeholder="Nhập tên đơn vị" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-3"><strong>Logo </strong></label>
+                        <div class="col-lg-9">
+                            <div class="previewFileChoosed" data-id="logo-header"></div>
+                            <img src="~/ImageLogo" style="height: 200px; margin-bottom: 15px;" />
+                            <input type="file" accept=".png, .jpg, .jpeg" />
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-white text-center">
+                    <button type="submit" class="btn bg-primary-color ml-3 legitRipple sweet_toast_bottom_right_create">
+                        Lưu lại
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
