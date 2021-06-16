@@ -1,0 +1,56 @@
+<!-- Main content -->
+<div class="content-wrapper">
+    <div class="content">
+        <div class="card">
+            <div class="card-header card-header-content text-center d-flex justify-content-between align-items-center">
+                <h5 class="big-title mb-0">DANH SÁCH ĐƠN VỊ</h5>
+                <a routerLink="create"
+                    class="btn btn-link btn bg-primary-color font-size-sm font-weight-semibold text-default">
+                    <i class="icon-plus3 mr-1"></i>
+                    <span>Tạo mới</span>
+                </a>
+            </div>
+            <div class="card-body card-body-content unit-list">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div *ngFor="let unit of units">
+                            <div class="card-group-control card-group-control-left">
+                                <div class="card">
+                                    <div class="card-header header-elements-inline">
+                                        <h6 class="card-title" (click)="changeCollapse(unit)">
+                                            <a class="text-default"
+                                                [ngClass]=" (unit.children && collapseId == unit.id && collapseStatus) ? 'collapsed' : ''"
+                                                data-toggle=" collapse">{{unit.title}}</a>
+                                        </h6>
+                                        <div class="header-elements">
+                                            <div class="list-icons">
+                                                <a [routerLink]="['update/', unit.id]" class="text-black text ml-2">
+                                                    <i class="far fa-edit" data-popup="tooltip" title="Sửa"></i>
+                                                </a>
+                                                <a data-toggle="modal" data-target="#confirmModal"
+                                                    (click)="getDeleteId(unit.id)" class="text-danger text ml-2">
+                                                    <i class="far fa-trash-alt sweet_delete" data-popup="tooltip"
+                                                        title="Xóa"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-group-control-child">
+                                        <div class="collapse"
+                                            [ngClass]="(collapseId == unit.id && collapseStatus) ? '' : 'show'">
+                                            <div *ngFor="let child of unit.children">
+                                                <app-unit-tree-card [child]="child"></app-unit-tree-card>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <app-confirm-modal [id]="id" [path]="'units'" (fetchData)="fetchData()">
+                                    </app-confirm-modal>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

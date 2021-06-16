@@ -1,0 +1,77 @@
+<!-- Main content -->
+<div class="content-wrapper">
+    <div class="content">
+        <div class="card" style="height: 100%;">
+            <div class="card-header bg-white header-elements-inline">
+                <h5 class="big-title mb-0 text-uppercase">Danh sách đối tượng</h5>
+                <a routerLink="create"
+                    class="btn btn-link btn bg-primary-color font-size-sm font-weight-semibold text-default">
+                    <i class="icon-plus3"></i>
+                    <span> Tạo mới</span>
+                </a>
+            </div>
+            <div class="card-body card-body-content table-content">
+                <table class="table table-custom" width="100%" *ngIf="participantGroups.length !== 0">
+                    <thead>
+                        <tr>
+                            <th class="text-500 text-center" style="width: 100px">STT</th>
+                            <th class="text-500 text-center">Nhóm đối tượng</th>
+                            <th class="text-500 text-center">Tên đối tượng</th>
+                            <th class="text-500 text-center">Ký hiệu</th>
+                            <th class="text-500 text-center" style="width: 150px">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let participant of participantGroup1;let index1=index;">
+                            <td class="text-center"> {{index1 +1}} </td>
+                            <td class="text-center" [attr.rowspan]="group1Length" *ngIf="index1 === 0">
+                                {{participantGroups[0].name}}</td>
+                            <td class="text-center"> {{participant.name}}</td>
+                            <td class="text-center"> {{participant.slash}}</td>
+                            <td class="text-center">
+                                <a class="text-black text ml-2" data-popup="tooltip" title="Sửa"
+                                    [routerLink]="['update/', participant.id]"><i class="far fa-edit"></i></a>
+                                <a class="text-danger ml-2" data-popup="tooltip" title="Xóa" data-toggle="modal"
+                                    data-target="#confirmModal" (click)="getDeleteId(participant.id)"><i
+                                        class="far fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                        <tr *ngFor="let participant of participantGroup2;let index2=index;">
+                            <td class="text-center">{{index2 + group1Length + 1}} </td>
+                            <td class="text-center" [attr.rowspan]="group2Length" *ngIf="index2 === 0">
+                                {{participantGroups[1].name}}</td>
+                            <td class="text-center"> {{participant.name}}</td>
+                            <td class="text-center"> {{participant.slash}}</td>
+                            <td class="text-center">
+                                <a class="text-black text ml-2" data-popup="tooltip" title="Sửa"><i class="far fa-edit"
+                                        [routerLink]="['update/', participant.id]"></i></a>
+                                <a class="text-danger ml-2" data-popup="tooltip" title="Xóa" data-toggle="modal"
+                                    data-target="#confirmModal" (click)="getDeleteId(participant.id)"><i
+                                        class="far fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                        <tr *ngFor="let participant of participantGroup3;let index3=index;">
+                            <td class="text-center">{{index3 + group1Length + group2Length + 1}} </td>
+                            <td class="text-center" [attr.rowspan]="group3Length" *ngIf="index3 === 0">
+                                {{participantGroups[2].name}}</td>
+                            <td class="text-center"> {{participant.name}}</td>
+                            <td class="text-center"> {{participant.slash}}</td>
+                            <td class="text-center">
+                                <a class="text-black text ml-2" data-popup="tooltip" title="Sửa"><i class="far fa-edit"
+                                        [routerLink]="['update/', participant.id]"></i></a>
+                                <a class="text-danger ml-2" data-popup="tooltip" title="Xóa" data-toggle="modal"
+                                    data-target="#confirmModal" (click)="getDeleteId(participant.id)"><i
+                                        class="far fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                        <app-confirm-modal [id]="id" [path]="'participants'" (fetchData)="fetchData()">
+                        </app-confirm-modal>
+                    </tbody>
+                </table>
+                <div class="p-2" *ngIf="participants.length === 0">
+                    <div class="alert alert-info alert-sm">Không tìm thấy dữ liệu</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

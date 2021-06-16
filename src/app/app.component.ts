@@ -7,9 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   loginStatus = true;
-  title = 'quan-ly-the-luc';
+  title = 'Quản lý thể lực';
 
   changeLoginStatus(_event: any) {
-    console.log("change login status: " );
+    // console.log("change login status: " );
   }
 }

@@ -1189,8 +1189,8 @@ var App = function () {
     //                                     <div class="form-group row align-items-center">
     //                                         <div class="col-lg-4">
     //                                             <div class="form-group row">
-    //                                                 <label class="col-form-label col-lg-3 text-500 text-right py-1"">Giỏi</label>
-    //                                                 <div class="col-lg-9">
+    //                                                 <label class="col-form-label col-lg-4 text-500 text-right py-1"">Giỏi</label>
+    //                                                 <div class="col-lg-8">
     //                                                     <input type="text" class="form-control" placeholder="Nhập chỉ tiêu">
     //                                                 </div>
     //                                             </div>
@@ -1198,8 +1198,8 @@ var App = function () {
     
     //                                         <div class="col-lg-4">
     //                                             <div class="form-group row">
-    //                                                 <label class="col-form-label col-lg-3 text-500 text-right py-1"">Khá</label>
-    //                                                 <div class="col-lg-9">
+    //                                                 <label class="col-form-label col-lg-4 text-500 text-right py-1"">Khá</label>
+    //                                                 <div class="col-lg-8">
     //                                                     <input type="text" class="form-control" placeholder="Nhập chỉ tiêu">
     //                                                 </div>
     //                                             </div>
@@ -1207,8 +1207,8 @@ var App = function () {
     
     //                                         <div class="col-lg-4">
     //                                             <div class="form-group row">
-    //                                                 <label class="col-form-label col-lg-3 text-500 text-right py-1"">Đạt</label>
-    //                                                 <div class="col-lg-9">
+    //                                                 <label class="col-form-label col-lg-4 text-500 text-right py-1"">Đạt</label>
+    //                                                 <div class="col-lg-8">
     //                                                     <input type="text" class="form-control" placeholder="Nhập chỉ tiêu">
     //                                                 </div>
     //                                             </div>
@@ -1419,7 +1419,7 @@ var App = function () {
                                 <input type="text" class="form-control" name="nStandard" placeholder="Nhập tên nội dung">
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                                 <select class="form-control" name="sStandard">
                                 <optgroup label="Chọn đơn vị tính">
                                 ${listUnit.map(itemU => {

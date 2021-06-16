@@ -1,6 +1,5 @@
 <!-- Main sidebar -->
 <div class="sidebar sidebar-light sidebar-main sidebar-expand-md fixed-nav-menu">
-
     <!-- Sidebar mobile toggler -->
     <div class="sidebar-mobile-toggler text-center">
         <a routerLink="/" class="sidebar-mobile-main-toggle">
@@ -12,38 +11,35 @@
             <i class="icon-screen-normal"></i>
         </a>
     </div>
-    <!-- /sidebar mobile toggler -->
 
-    <!-- Sidebar content -->
     <div class="sidebar-content">
-        <!-- User menu -->
         <div class="sidebar-user-material">
         </div>
-        <!-- Main navigation -->
         <div class="card card-sidebar-mobile">
             <ul class="nav nav-sidebar" data-nav-type="accordion">
-
-                <!-- Main -->
                 <li class="nav-item" *ngFor="let item of menuList" [ngClass]="{'nav-item-submenu' : item.child}">
-                    <a routerLink="/{{item.path}}" class="nav-link " [ngClass]="{'active' : item.path === activePath}"
+                    <!-- Tranh trung active menu khi path = null -->
+                    <a *ngIf="item.path && item.path !== ''" routerLink="/{{item.path}}" class="nav-link "
+                        [ngClass]="{'active' : item.path === activePath && activePath !== null}"
                         (click)="setActiveMenu(item.path)">
                         <i class={{item.icon}}></i>
                         <span> {{item.name}} </span>
                     </a>
+                    <a *ngIf="item.path == null" class="nav-link "
+                        [ngClass]="{'active' : item.path === activePath && activePath !== null}">
+                        <i class={{item.icon}}></i>
+                        <span> {{item.name}} </span>
+                    </a>
+                    
                     <ul class="nav nav-group-sub" data-submenu-title="" *ngIf="item.child">
                         <li class="nav-item" *ngFor="let childItem of item.child">
                             <a routerLink="/{{childItem.path}}" class="nav-link"
-                                [ngClass]="{'active' : childItem.path === activePath}"
+                                [ngClass]="{'active' : childItem.path === activePath && activePath !== null}"
                                 (click)="setActiveMenu(childItem.path)">{{childItem.name}}</a>
                         </li>
                     </ul>
                 </li>
             </ul>
         </div>
-        <!-- /main navigation -->
-
     </div>
-    <!-- /sidebar content -->
-
 </div>
-<!-- /main sidebar -->

@@ -1,0 +1,53 @@
+<div class="content-wrapper">
+    <div class="content">
+        <div class="card">
+            <div class="card-header card-header-content text-center d-flex justify-content-between align-items-center">
+                <h5 class="big-title mb-0">DANH SÁCH CHỨC VỤ</h5>
+                <a routerLink="create"
+                    class="btn btn-link btn bg-primary-color font-size-sm font-weight-semibold text-default">
+                    <i class="icon-plus3 mr-1"></i>
+                    <span>Tạo mới</span>
+                </a>
+            </div>
+            <div class="card-body card-body-content table-content">
+                <table class="table table-custom" width="100%">
+                    <thead>
+                        <tr>
+                            <th class="text-500 text-center" style="width: 10%">STT</th>
+                            <th class="text-500" style="width: 60%">Tên chức vụ</th>
+                            <th class="text-500 text-center" style="width: 20%">Ký hiệu</th>
+                            <th class="text-500 text-center" style="width: 10%">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let job of pageOfItems; let index = index;">
+                            <td class="text text-center">{{index + 1}}</td>
+                            <td class="text">{{job.name}}</td>
+                            <td class="text text-center">{{job.slash}}</td>
+                            <td class="text text-center">
+                                <div class="list-icons">
+                                    <a [routerLink]="['update/', job.id]" class="text-black text ml-2">
+                                        <i class="far fa-edit" data-popup="tooltip" title="Sửa"></i>
+                                    </a>
+                                    <a class="text-danger text ml-2" data-toggle="modal" data-target="#confirmModal"
+                                        (click)="getDeleteId(job.id)" data-popup="tooltip" title="Xóa">
+                                        <i class="far fa-trash-alt sweet_delete"></i>
+                                    </a>
+                                    <app-confirm-modal [id]="id" [path]="'jobs'" (fetchData)="fetchData()"></app-confirm-modal>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+                <div>
+                  Hiển thị
+                  <b>10</b> trên tổng số
+                  <b>{{jobs.length}}</b> kết quả
+                </div>
+                <jw-pagination [items]="jobs" (changePage)="onChangePage($event)"></jw-pagination>
+              </div>
+        </div>
+    </div>
+</div>

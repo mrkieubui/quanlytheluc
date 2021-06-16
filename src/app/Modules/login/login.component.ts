@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     this.loginStatus = true;
-    console.log(this.loginStatus)
+    // console.log(this.loginStatus)
     this.changeLoginStatus.emit(this.loginStatus);
     this.router.navigate(['app-dashboard']);
   }

@@ -1,0 +1,48 @@
+<div class="content-wrapper">
+    <div class="content">
+        <div class="card">
+            <div class="card-header card-header-content text-center">
+                <h5 class="big-title mb-0">TẠO MỚI CHÚC VỤ</h5>
+            </div>
+            <div class="card-body card-body-content add-unit" id="add-unit">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <form #userForm="ngForm" (ngSubmit)="onCreateJob(userForm)">
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Tên chức vụ <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="text" required name="name" #pnamne="ngModel" [(ngModel)]="chucvu.name" class="form-control mb-2"
+                                        placeholder="Nhập tên chức vụ" pattern="^(?!\s*$).+">
+                                    <div *ngIf="pnamne.invalid && userForm.submitted" [ngClass]="'error'" class="ml-2 text-danger">
+                                        Chưa nhập tên chức vụ!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Ký hiệu <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="text" required name="slash" #pslash="ngModel" [(ngModel)]="chucvu.slash" class="form-control mb-2"
+                                        placeholder="Nhập ký hiệu" pattern="^(?!\s*$).+">
+                                    <div *ngIf="pslash.invalid && userForm.submitted" class="ml-2 text-danger">
+                                        Chưa nhập ký hiệu!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-center align-items-center btn-group-content">
+                                <a routerLink="/job-manager" type="button" class="btn btn-light legitRipple">Hủy</a>
+                                <button type="submit" class="btn bg-primary-color ml-3 legitRipple">
+                                    Tạo mới</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

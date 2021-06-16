@@ -1,0 +1,30 @@
+<div class="card-group-control card-group-control-left" *ngIf="child">
+    <div class="card">
+        <div class="card-header header-elements-inline">
+            <h6 class="card-title" (click)="changeCollapse(child)">
+                <a class="text-default"
+                    [ngClass]=" (child.children && collapseId == child.id && collapseStatus) ? '' : 'collapsed'"
+                    data-toggle="collapse">
+                    {{child.title}}</a>
+            </h6>
+            <div class="header-elements">
+                <div class="list-icons">
+                    <a [routerLink]="['update/', child.id]" class="text-black text ml-2">
+                        <i class="far fa-edit" data-popup="tooltip" title="Sửa"></i>
+                    </a>
+                    <a data-toggle="modal" data-target="#confirmModal" (click)="getDeleteId(child.id)"
+                        class="text-danger text ml-2">
+                        <i class="far fa-trash-alt" data-popup="tooltip" title="Xóa"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-group-control-child">
+            <div class="collapse" [ngClass]="(collapseId == child.id && collapseStatus) ? 'show' : ''">
+                <div *ngFor="let item of child.children">
+                    <app-unit-tree-card [child]="item"></app-unit-tree-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

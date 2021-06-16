@@ -99,75 +99,554 @@
   "jobs": [
     {
       "id": 1,
-      "name": "Trung đội trưởng",
-      "slash": "bt",
-      "order": "1"
+      "name": "Tư lệnh binh chủng",
+      "slash": "TLBC",
+      "order": ""
     },
     {
       "id": 2,
-      "name": "Đại đội trưởng",
-      "slash": "ct",
-      "order": "3"
+      "name": "Phó tư lệnh binh chủng",
+      "slash": "PTLBC",
+      "order": ""
     },
     {
       "id": 3,
-      "name": "Tiểu đoàn trưởng",
-      "slash": "dt",
-      "order": "4"
+      "name": "Chính ủy binh chủng",
+      "slash": "CUBC",
+      "order": ""
     },
     {
       "id": 4,
-      "name": "Chính trị viên đại đội",
-      "slash": "bt",
-      "order": "1"
+      "name": "Phó chính ủy binh chủng",
+      "slash": "PCUBC",
+      "order": ""
     },
     {
       "id": 5,
-      "name": "Chính trị viên tiểu đoàn",
-      "slash": "bt",
-      "order": "5"
+      "name": "Tham mưu trưởng",
+      "slash": "TMT",
+      "order": ""
     },
     {
       "id": 6,
-      "name": "Tiểu đoàn phó",
-      "slash": "bt",
-      "order": "6"
+      "name": "Phó tham mưu trưởng",
+      "slash": "PTMT",
+      "order": ""
     },
     {
       "id": 7,
-      "name": "Trợ lý tiểu đoàn",
-      "slash": "bt",
-      "order": "7"
+      "name": "Cục trưởng",
+      "slash": "CT",
+      "order": ""
     },
     {
       "id": 8,
-      "name": "Trưởng phòng",
-      "slash": "TP",
-      "order": "8"
+      "name": "Phó cục trưởng",
+      "slash": "PCT",
+      "order": ""
     },
     {
       "id": 9,
-      "name": "Trưởng ban",
-      "slash": "TB",
-      "order": "9"
+      "name": "Giám đốc",
+      "slash": "GĐ",
+      "order": ""
     },
     {
       "id": 10,
-      "name": "Phó trưởng phòng",
-      "slash": "PTP",
-      "order": "10"
+      "name": "Phó giám đốc",
+      "slash": "PGĐ",
+      "order": ""
     },
     {
       "id": 11,
-      "name": "Nhân viên",
-      "slash": "NV",
-      "order": "11"
+      "name": "Chủ nhiệm",
+      "slash": "CN",
+      "order": ""
     },
     {
       "id": 12,
+      "name": "Phó chủ nhiệm",
+      "slash": "PCN",
+      "order": ""
+    },
+    {
+      "id": 13,
+      "name": "Chính trị viên",
+      "slash": "CTV",
+      "order": ""
+    },
+    {
+      "id": 14,
+      "name": "Chánh thanh tra",
+      "slash": "CTT",
+      "order": ""
+    },
+    {
+      "id": 15,
+      "name": "Thanh tra viên",
+      "slash": "TTV",
+      "order": ""
+    },
+    {
+      "id": 16,
+      "name": "Trưởng phòng",
+      "slash": "TP",
+      "order": ""
+    },
+    {
+      "id": 17,
+      "name": "Phó trưởng phòng",
+      "slash": "PTP",
+      "order": ""
+    },
+    {
+      "id": 18,
+      "name": "Trợ lý",
+      "slash": "TL",
+      "order": ""
+    },
+    {
+      "id": 19,
+      "name": "Trưởng ban",
+      "slash": "TB",
+      "order": ""
+    },
+    {
+      "id": 20,
+      "name": "Phó trưởng ban",
+      "slash": "PTB",
+      "order": ""
+    },
+    {
+      "id": 21,
+      "name": "Nhân viên",
+      "slash": "NV",
+      "order": ""
+    },
+    {
+      "id": 22,
+      "name": "Trạm trưởng",
+      "slash": "TrT",
+      "order": ""
+    },
+    {
+      "id": 23,
+      "name": "Phó trạm trưởng",
+      "slash": "PTT",
+      "order": ""
+    },
+    {
+      "id": 24,
+      "name": "Đội trưởng",
+      "slash": "ĐT",
+      "order": ""
+    },
+    {
+      "id": 25,
       "name": "Chủ nhiệm khoa",
       "slash": "CNK",
-      "order": "12"
+      "order": ""
+    },
+    {
+      "id": 26,
+      "name": "Phó chủ nhiệm khoa",
+      "slash": "PCNK",
+      "order": ""
+    },
+    {
+      "id": 27,
+      "name": "Chủ nhiệm bộ môn",
+      "slash": "CNBM",
+      "order": ""
+    },
+    {
+      "id": 28,
+      "name": "Phó chủ nhiệm bộ môn",
+      "slash": "PCNBM",
+      "order": ""
+    },
+    {
+      "id": 29,
+      "name": "Giáo viên",
+      "slash": "GV",
+      "order": ""
+    },
+    {
+      "id": 30,
+      "name": "Tiểu đoàn trưởng",
+      "slash": "dt",
+      "order": ""
+    },
+    {
+      "id": 31,
+      "name": "Phó tiểu đoàn trưởng",
+      "slash": "dp",
+      "order": ""
+    },
+    {
+      "id": 32,
+      "name": "Chính trị viên tiểu đoàn",
+      "slash": "CTVd",
+      "order": ""
+    },
+    {
+      "id": 33,
+      "name": "Chính trị viên phó tiểu đoàn",
+      "slash": "CTVPd",
+      "order": ""
+    },
+    {
+      "id": 34,
+      "name": "Đại đội trưởng",
+      "slash": "ct",
+      "order": ""
+    },
+    {
+      "id": 35,
+      "name": "Phó đại đội trưởng",
+      "slash": "cp",
+      "order": ""
+    },
+    {
+      "id": 36,
+      "name": "Chính trị viên đại đội",
+      "slash": "CTVc",
+      "order": ""
+    },
+    {
+      "id": 37,
+      "name": "Chính trị viên phó đại đội",
+      "slash": "CTVPc",
+      "order": ""
+    },
+    {
+      "id": 38,
+      "name": "Trung đội trưởng",
+      "slash": "bt",
+      "order": ""
+    },
+    {
+      "id": 39,
+      "name": "Phó trung đội trưởng",
+      "slash": "bp",
+      "order": ""
+    },
+    {
+      "id": 40,
+      "name": "Tiểu đội trưởng",
+      "slash": "at",
+      "order": ""
+    },
+    {
+      "id": 41,
+      "name": "Tổ trưởng",
+      "slash": "tt",
+      "order": ""
+    },
+    {
+      "id": 42,
+      "name": "Học viên",
+      "slash": "HV",
+      "order": ""
+    },
+    {
+      "id": 43,
+      "name": "Chiến sĩ",
+      "slash": "CS",
+      "order": ""
+    },
+    {
+      "id": 44,
+      "name": "Bác sĩ",
+      "slash": "BS",
+      "order": ""
+    },
+    {
+      "id": 45,
+      "name": "Huấn luyện viên",
+      "slash": "HLV",
+      "order": ""
+    },
+    {
+      "id": 46,
+      "name": "Xưởng trưởng",
+      "slash": "XT",
+      "order": ""
+    },
+    {
+      "id": 47,
+      "name": "Xưởng phó",
+      "slash": "XP",
+      "order": ""
+    },
+    {
+      "id": 48,
+      "name": "Phân xưởng trưởng",
+      "slash": "PXT",
+      "order": ""
+    },
+    {
+      "id": 49,
+      "name": "Nghiên cứu viên",
+      "slash": "NCV",
+      "order": ""
+    }
+  ],
+  "ranks": [
+    {
+      "id": 1,
+      "name": "Binh nhì"
+    },
+    {
+      "id": 2,
+      "name": "Binh nhất"
+    },
+    {
+      "id": 3,
+      "name": "Hạ sĩ"
+    },
+    {
+      "id": 4,
+      "name": "Trung sĩ"
+    },
+    {
+      "id": 5,
+      "name": "Thượng sĩ"
+    },
+    {
+      "id": 6,
+      "name": "Thiếu úy"
+    },
+    {
+      "id": 7,
+      "name": "Trung úy"
+    },
+    {
+      "id": 8,
+      "name": "Thượng úy"
+    },
+    {
+      "id": 9,
+      "name": "Đại úy"
+    },
+    {
+      "id": 10,
+      "name": "Thiếu tá"
+    },
+    {
+      "id": 11,
+      "name": "Trung tá"
+    },
+    {
+      "id": 12,
+      "name": "Thượng tá"
+    },
+    {
+      "id": 13,
+      "name": "Đại tá"
+    },
+    {
+      "id": 14,
+      "name": "Thiếu tướng"
+    },
+    {
+      "id": 15,
+      "name": "Trung tướng"
+    },
+    {
+      "id": 16,
+      "name": "Thượng tướng"
+    },
+    {
+      "id": 17,
+      "name": "Đại tướng"
+    }
+  ],
+  "units": [
+    {
+      "id": "1",
+      "key": "1",
+      "value": "1",
+      "title": "Binh chủng thông tin liên lạc",
+      "slash": "BCTT",
+      "parentId": "0"
+    },
+    {
+      "id": "2",
+      "key": "2",
+      "value": "2",
+      "title": "Trường sĩ quan thông tin",
+      "slash": "SQTT",
+      "parentId": "1"
+    },
+    {
+      "id": "17",
+      "key": "17",
+      "value": "17",
+      "title": "Trung tâm CNC",
+      "slash": "SQTT",
+      "parentId": "1"
+    },
+    {
+      "id": "8b710e2d-26cb-c7e3-ce36-b75a760d66fe",
+      "title": "Tiểu đoàn 30",
+      "key": "8b710e2d-26cb-c7e3-ce36-b75a760d66fe",
+      "value": "8b710e2d-26cb-c7e3-ce36-b75a760d66fe",
+      "slash": "d30",
+      "parentId": "2"
+    },
+    {
+      "id": "ec435ce8-0b9e-5967-2ecc-d2eb29da51c7",
+      "title": "Phòng đào tạo",
+      "key": "ec435ce8-0b9e-5967-2ecc-d2eb29da51c7",
+      "value": "ec435ce8-0b9e-5967-2ecc-d2eb29da51c7",
+      "slash": "P1",
+      "parentId": "2"
+    },
+    {
+      "id": "3b5cedd1-88ae-ce1d-b33a-2822b759bd46",
+      "title": "Ban kế hoạch",
+      "key": "3b5cedd1-88ae-ce1d-b33a-2822b759bd46",
+      "value": "3b5cedd1-88ae-ce1d-b33a-2822b759bd46",
+      "slash": "B11",
+      "parentId": "ec435ce8-0b9e-5967-2ecc-d2eb29da51c7"
+    },
+    {
+      "id": "b42c3768-ffb9-53ec-9ebf-d4eb164162a5",
+      "title": "Trường cao đăng kỹ thuật thông tin",
+      "key": "b42c3768-ffb9-53ec-9ebf-d4eb164162a5",
+      "value": "b42c3768-ffb9-53ec-9ebf-d4eb164162a5",
+      "slash": "CDKTTT",
+      "parentId": "1"
+    },
+    {
+      "id": "551e12ce-8109-9fe0-8a38-6ef78d128161",
+      "title": "Phòng truyền dẫn",
+      "key": "551e12ce-8109-9fe0-8a38-6ef78d128161",
+      "value": "551e12ce-8109-9fe0-8a38-6ef78d128161",
+      "slash": "P1",
+      "parentId": "17"
+    },
+    {
+      "id": "f5645f06-e28e-7b08-299d-139f33c3973f",
+      "title": "Phòng phần mềm",
+      "key": "f5645f06-e28e-7b08-299d-139f33c3973f",
+      "value": "f5645f06-e28e-7b08-299d-139f33c3973f",
+      "slash": "P2",
+      "parentId": "17"
+    },
+    {
+      "id": "9b4aad40-4c2b-1e58-5f97-c7beaa49659e",
+      "title": "Khoa Viễn thông",
+      "key": "9b4aad40-4c2b-1e58-5f97-c7beaa49659e",
+      "value": "9b4aad40-4c2b-1e58-5f97-c7beaa49659e",
+      "slash": "K6",
+      "parentId": "b42c3768-ffb9-53ec-9ebf-d4eb164162a5"
+    }
+  ],
+  "soilders": [
+    {
+      "name": "Lee Min Hoo",
+      "identitynumber": "TSQ-15012301",
+      "gender": "Nữ",
+      "birthday": "2021-06-25",
+      "timestart": "2021-06-24",
+      "rank": "Trung sĩ",
+      "job": "Chiến sĩ",
+      "unit": "Trung tâm CNC",
+      "participant": "Chiến sĩ nghĩa vụ",
+      "id": 7
+    },
+    {
+      "name": "Hoàng Mạnh Đức",
+      "identitynumber": "TSQ-15012302",
+      "gender": "Nữ",
+      "birthday": "2021-06-09",
+      "timestart": "2021-06-24",
+      "rank": "Hạ sĩ",
+      "job": "Học viên",
+      "unit": "Trường sĩ quan thông tin",
+      "participant": "Học viên sĩ quan",
+      "id": 8
+    },
+    {
+      "name": "12121212",
+      "identitynumber": "1212121",
+      "gender": "Nữ",
+      "birthday": "2021-06-10",
+      "timestart": "2021-06-10",
+      "rank": "Trung sĩ",
+      "job": "Tiểu đội trưởng",
+      "unitId": "8b710e2d-26cb-c7e3-ce36-b75a760d66fe",
+      "participant": "Học viên sĩ quan",
+      "id": 9
+    }
+  ],
+  "genders": [
+    {
+      "name": "Nam",
+      "id": 1,
+      "slash": "nam"
+    },
+    {
+      "name": "Nữ",
+      "id": 2,
+      "slash": "nu"
+    }
+  ],
+  "measureUnits": [
+    {
+      "id": 1,
+      "name": "mét",
+      "slash": "m"
+    },
+    {
+      "id": 2,
+      "name": "lần",
+      "slash": "lần"
+    },
+    {
+      "id": 3,
+      "name": "lần/2 phút",
+      "slash": "lần/2p"
+    },
+    {
+      "id": 4,
+      "name": "giờ",
+      "slash": "h"
+    },
+    {
+      "id": 5,
+      "name": "phút",
+      "slash": "p"
+    },
+    {
+      "id": 6,
+      "name": "giây",
+      "slash": "s"
+    }
+  ],
+  "documents": [
+    {
+      "id": 1,
+      "name": "Thông tư thể lực 1",
+      "docNumber": "TT-BCTT/TSQ-2020",
+      "startDate": "2021-06-25",
+      "startUnit": "1"
+    },
+    {
+      "id": 2,
+      "name": "Thông tư thể lực 2",
+      "docNumber": "TT-BCTT/TSQ-2020",
+      "startDate": "2021-06-25",
+      "startUnit": "1"
+    },
+    {
+      "id": 3,
+      "name": "Thông tư thể lực 3",
+      "docNumber": "TT-BCTT/TSQ-2020",
+      "startDate": "2021-06-25",
+      "startUnit": "1"
     }
   ]
 }

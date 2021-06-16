@@ -1,0 +1,61 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AppService } from 'src/app/app.service';
+import { NotificationsService } from 'src/app/notifications.service';
+import * as arrayToTree from 'array-to-tree';
+
+@Component({
+  selector: 'app-unit-update',
+  templateUrl: './unit-update.component.html',
+  styleUrls: ['./unit-update.component.css']
+})
+export class UnitUpdateComponent implements OnInit {
+
+  unit: any = {
+    title: "",
+    slash: ""
+  };
+  parentunit: string = "1";
+  units: any = [];
+  id: any;
+
+  // custom tree select 
+  expandKeys = ['1'];
+  value?: string;
+  nodes: any = [];
+
+  constructor(private AppService: AppService, private route: ActivatedRoute, private router: Router, private NotificationsService: NotificationsService) { }
+
+  ngOnInit(): void {
+    // get participant id from url param to edit
+    this.id = this.route.snapshot.paramMap.get('id');
+
+    // get one participant
+    this.AppService.getItem('units', this.id).subscribe((res) => {
+      this.unit = res;
+      this.parentunit = this.unit.parentId;
+    });
+    this.AppService.getAllItems('units').subscribe(
+      res => {
+        this.units = res;
+        this.nodes = arrayToTree(res, { customID: "id", parentProperty: "parentId", childrenProperty: "children" });;
+      }
+    );
+  }
+
+  onChange(key: any) {
+    this.parentunit = key;
+  }
+
+  onUpdateUnit(unitUpdateForm: any) {
+    if (unitUpdateForm.value.title !== "" && unitUpdateForm.value.title.trim() !== "" && unitUpdateForm.value.slash !== "" && unitUpdateForm.value.slash.trim() !== "") {
+      this.unit.title = unitUpdateForm.value.title;
+      this.unit.slash = unitUpdateForm.value.slash;
+      this.unit.parentId = this.parentunit;
+      this.AppService.updateItem('units', this.id, this.unit).subscribe(() => {
+        this.router.navigate(['/unit-manager']);
+        this.NotificationsService.notiCreateSuccess();
+      });
+    }
+  }
+}
