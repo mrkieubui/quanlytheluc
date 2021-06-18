@@ -1,1 +1,519 @@
-<p>document-details works!</p>
+<!-- Main content -->
+<div class="content-wrapper">
+    <div class="content">
+        <div class="card">
+            <div class="card-header card-header-content text-center d-flex justify-content-between align-items-center">
+                <h5 class="big-title mb-0 text-uppercase">CHI TIẾT THÔNG TƯ</h5>
+            </div>
+            <div class="card-body card-body-content table-content">
+                <!-- tab -->
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link pt-1 pb-1" (click)="changeCurrentTab('namduoi45')"
+                            [ngClass]="currentTab == 'namduoi45' ? 'active' : ''" id="namduoi45-tab"
+                            data-bs-toggle="tab" data-bs-target="#namduoi45" type="button" role="tab"
+                            aria-controls="namduoi45" aria-selected="true">Nam dưới 45</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link pt-1 pb-1" (click)="changeCurrentTab('namtren45')"
+                            [ngClass]="currentTab == 'namtren45' ? 'active' : ''" id="namtren45-tab"
+                            data-bs-toggle="tab" data-bs-target="#namtren45" type="button" role="tab"
+                            aria-controls="namtren45" aria-selected="false">Nam trên 45</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link pt-1 pb-1" (click)="changeCurrentTab('nu')"
+                            [ngClass]="currentTab == 'nu' ? 'active' : ''" id="nu-tab" data-bs-toggle="tab"
+                            data-bs-target="#nu" type="button" role="tab" aria-controls="nu"
+                            aria-selected="false">Nữ</button>
+                    </li>
+                </ul>
+                <!-- content -->
+                <div class="form-group text-center">
+                    <h5 class="big-title text-uppercase">{{thongtu.name}}</h5>
+                    <h5 class="big-title text" style="font-style: italic;">Thông tư số: {{thongtu.docNumber}} ngày
+                        {{thongtu.startDate}}</h5>
+                </div>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade" [ngClass]="currentTab == 'namduoi45' ? 'show active' : ''" id="namduoi45"
+                        role="tabpanel" aria-labelledby="home-tab">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-group-object customTable">
+                                <thead>
+                                    <tr>
+                                        <td class="text-500" rowspan="2">STT</td>
+                                        <td class="text-500 text-center" style="min-width: 200px" rowspan="2">Nội dung
+                                        </td>
+                                        <td class="text-500 text-center" style="min-width: 200px" rowspan="2">Nhóm tiêu
+                                            chuẩn</td>
+                                        <td class="text-500 text-center" style="min-width: 100px" rowspan="2">Đơn vị
+                                            tính</td>
+                                        <td class="text-500 text-center" colspan="3">Chiến sĩ nghĩa vụ</td>
+                                        <td class="text-500 text-center" colspan="3">Học viên sĩ quan</td>
+                                        <td class="text-500 text-center" colspan="3">Nam dưới 36 </td>
+                                        <td class="text-500 text-center" colspan="3">Nam dưới 45</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-500">Giỏi</td>
+                                        <td class="text-500">Khá</td>
+                                        <td class="text-500">Đạt</td>
+                                        <td class="text-500">Giỏi</td>
+                                        <td class="text-500">Khá</td>
+                                        <td class="text-500">Đạt</td>
+                                        <td class="text-500">Giỏi</td>
+                                        <td class="text-500">Khá</td>
+                                        <td class="text-500">Đạt</td>
+                                        <td class="text-500">Giỏi</td>
+                                        <td class="text-500">Khá</td>
+                                        <td class="text-500">Đạt</td>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="editable == false">
+                                    <tr *ngFor="let content of thongtu.namduoi45; let index = index">
+                                        <td class="text-center">{{index + 1}}</td>
+                                        <td class="text-center">{{content.name}}</td>
+                                        <td class="text-center">{{content.contentGroup}}</td>
+                                        <td class="text-center">{{content.measureUnit}}</td>
+                                        <td class="text-center">{{content.csnv.gioi}}</td>
+                                        <td class="text-center">{{content.csnv.kha}}</td>
+                                        <td class="text-center">{{content.csnv.dat}}</td>
+                                        <td class="text-center">{{content.hvsq.gioi}}</td>
+                                        <td class="text-center">{{content.hvsq.kha}}</td>
+                                        <td class="text-center">{{content.hvsq.dat}}</td>
+                                        <td class="text-center">{{content.namduoi36.gioi}}</td>
+                                        <td class="text-center">{{content.namduoi36.kha}}</td>
+                                        <td class="text-center">{{content.namduoi36.dat}}</td>
+                                        <td class="text-center">{{content.namduoi45.gioi}}</td>
+                                        <td class="text-center">{{content.namduoi45.kha}}</td>
+                                        <td class="text-center">{{content.namduoi45.dat}}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="editable == true">
+                                    <tr *ngFor="let content of thongtu.namduoi45; let index = index">
+                                        <td class="text-center">
+                                            <i class="fa fa-times text-danger" aria-hidden="true"
+                                                (click)="removeContent(index)"></i>
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.name" #dname="ngModel"
+                                                [(ngModel)]="content.name" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.contentGroup" #dcontentGroup="ngModel"
+                                                [(ngModel)]="content.contentGroup" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.measureUnit" #dmeasureUnit="ngModel"
+                                                [(ngModel)]="content.measureUnit" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.csnv.gioi" #dcsnv.gioi="ngModel"
+                                                [(ngModel)]="content.csnv.gioi" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.csnv.kha" #dcsnv.kha="ngModel"
+                                                [(ngModel)]="content.csnv.kha" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.csnv.dat" #dcsnv.dat="ngModel"
+                                                [(ngModel)]="content.csnv.dat" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.hvsq.gioi" #dhvsq.gioi="ngModel"
+                                                [(ngModel)]="content.hvsq.gioi" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.hvsq.kha" #dhvsq.kha="ngModel"
+                                                [(ngModel)]="content.hvsq.kha" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.hvsq.dat" #dhvsq.dat="ngModel"
+                                                [(ngModel)]="content.hvsq.dat" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.namduoi36.gioi" #dnamduoi36.gioi="ngModel"
+                                                [(ngModel)]="content.namduoi36.gioi" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.namduoi36.kha" #dnamduoi36.kha="ngModel"
+                                                [(ngModel)]="content.namduoi36.kha" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.namduoi36.dat" #dnamduoi36.dat="ngModel"
+                                                [(ngModel)]="content.namduoi36.dat" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.namduoi45.gioi" #dnamduoi45.gioi="ngModel"
+                                                [(ngModel)]="content.namduoi45.gioi" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.namduoi45.kha" #dnamduoi45.kha="ngModel"
+                                                [(ngModel)]="content.namduoi45.kha" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.namduoi45.dat" #dnamduoi45.dat="ngModel"
+                                                [(ngModel)]="content.namduoi45.dat" class="form-control mb-2">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" [ngClass]="currentTab == 'namtren45' ? 'show active' : ''" id="namtren45"
+                        role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-group-object customTable">
+                                <thead>
+                                    <tr>
+                                        <td class="text-500" rowspan="2">STT</td>
+                                        <td class="text-500 text-center" style="min-width: 200px" rowspan="2">Nội dung
+                                        </td>
+                                        <td class="text-500 text-center" style="min-width: 200px" rowspan="2">Nhóm tiêu
+                                            chuẩn</td>
+                                        <td class="text-500 text-center" style="min-width: 100px" rowspan="2">Đơn vị
+                                            tính</td>
+                                        <td class="text-500 text-center" colspan="3">Nam dưới 50</td>
+                                        <td class="text-500 text-center" colspan="3">Nam dưới 55</td>
+                                        <td class="text-500 text-center" colspan="3">Nam trên 55 </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-500">Giỏi</td>
+                                        <td class="text-500">Khá</td>
+                                        <td class="text-500">Đạt</td>
+                                        <td class="text-500">Giỏi</td>
+                                        <td class="text-500">Khá</td>
+                                        <td class="text-500">Đạt</td>
+                                        <td class="text-500">Giỏi</td>
+                                        <td class="text-500">Khá</td>
+                                        <td class="text-500">Đạt</td>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="editable == false">
+                                    <tr *ngFor="let content of thongtu.namtren45; let index = index">
+                                        <td class="text-center">{{index + 1}}</td>
+                                        <td class="text-center">{{content.name}}</td>
+                                        <td class="text-center">{{content.contentGroup}}</td>
+                                        <td class="text-center">{{content.measureUnit}}</td>
+                                        <td class="text-center">{{content.namduoi50.gioi}}</td>
+                                        <td class="text-center">{{content.namduoi50.kha}}</td>
+                                        <td class="text-center">{{content.namduoi50.dat}}</td>
+                                        <td class="text-center">{{content.namduoi55.gioi}}</td>
+                                        <td class="text-center">{{content.namduoi55.kha}}</td>
+                                        <td class="text-center">{{content.namduoi55.dat}}</td>
+                                        <td class="text-center">{{content.namtren55.gioi}}</td>
+                                        <td class="text-center">{{content.namtren55.kha}}</td>
+                                        <td class="text-center">{{content.namtren55.dat}}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="editable == true">
+                                    <tr *ngFor="let content of thongtu.namtren45; let index = index">
+                                        <td class="text-center">
+                                            <i class="fa fa-times text-danger" aria-hidden="true"
+                                                (click)="removeContent(index)"></i>
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.name" #dname="ngModel"
+                                                [(ngModel)]="content.name" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.contentGroup" #dcontentGroup="ngModel"
+                                                [(ngModel)]="content.contentGroup" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.measureUnit" #dmeasureUnit="ngModel"
+                                                [(ngModel)]="content.measureUnit" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.namduoi50.gioi" #dnamduoi50.gioi="ngModel"
+                                                [(ngModel)]="content.namduoi50.gioi" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.namduoi50.kha" #dnamduoi50.kha="ngModel"
+                                                [(ngModel)]="content.namduoi50.kha" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.namduoi50.dat" #dnamduoi50.dat="ngModel"
+                                                [(ngModel)]="content.namduoi50.dat" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.namduoi55.gioi" #dnamduoi55.gioi="ngModel"
+                                                [(ngModel)]="content.namduoi55.gioi" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.namduoi55.kha" #dnamduoi55.kha="ngModel"
+                                                [(ngModel)]="content.namduoi55.kha" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.namduoi55.dat" #dnamduoi55.dat="ngModel"
+                                                [(ngModel)]="content.namduoi55.dat" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.namtren55.gioi" #dnamtren55.gioi="ngModel"
+                                                [(ngModel)]="content.namtren55.gioi" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.namtren55.kha" #dnamtren55.kha="ngModel"
+                                                [(ngModel)]="content.namtren55.kha" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.namtren55.dat" #dnamtren55.dat="ngModel"
+                                                [(ngModel)]="content.namtren55.dat" class="form-control mb-2">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" [ngClass]="currentTab == 'nu' ? 'show active' : ''" id="nu"
+                        role="tabpanel" aria-labelledby="contact-tab">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-group-object customTable">
+                                <thead>
+                                    <tr>
+                                        <td class="text-500" rowspan="2">STT</td>
+                                        <td class="text-500 text-center" style="min-width: 200px" rowspan="2">Nội dung
+                                        </td>
+                                        <td class="text-500 text-center" style="min-width: 200px" rowspan="2">Nhóm tiêu
+                                            chuẩn</td>
+                                        <td class="text-500 text-center" style="min-width: 100px" rowspan="2">Đơn vị
+                                            tính</td>
+                                        <td class="text-500 text-center" colspan="3">Nữ dưới 27</td>
+                                        <td class="text-500 text-center" colspan="3">Nữ dưới 35</td>
+                                        <td class="text-500 text-center" colspan="3">Nữ dưới 40</td>
+                                        <td class="text-500 text-center" colspan="3">Nữ dưới 45</td>
+                                        <td class="text-500 text-center" colspan="3">Nữ dưới 50</td>
+                                        <td class="text-500 text-center" colspan="3">Nữ trên 50</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-500">Giỏi</td>
+                                        <td class="text-500">Khá</td>
+                                        <td class="text-500">Đạt</td>
+                                        <td class="text-500">Giỏi</td>
+                                        <td class="text-500">Khá</td>
+                                        <td class="text-500">Đạt</td>
+                                        <td class="text-500">Giỏi</td>
+                                        <td class="text-500">Khá</td>
+                                        <td class="text-500">Đạt</td>
+                                        <td class="text-500">Giỏi</td>
+                                        <td class="text-500">Khá</td>
+                                        <td class="text-500">Đạt</td>
+                                        <td class="text-500">Giỏi</td>
+                                        <td class="text-500">Khá</td>
+                                        <td class="text-500">Đạt</td>
+                                        <td class="text-500">Giỏi</td>
+                                        <td class="text-500">Khá</td>
+                                        <td class="text-500">Đạt</td>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="editable == false">
+                                    <tr *ngFor="let content of thongtu.nu; let index = index">
+                                        <td class="text-center">{{index + 1}}</td>
+                                        <td class="text-center">{{content.name}}</td>
+                                        <td class="text-center">{{content.contentGroup}}</td>
+                                        <td class="text-center">{{content.measureUnit}}</td>
+                                        <td class="text-center">{{content.nuduoi27.gioi}}</td>
+                                        <td class="text-center">{{content.nuduoi27.kha}}</td>
+                                        <td class="text-center">{{content.nuduoi27.dat}}</td>
+                                        <td class="text-center">{{content.nuduoi35.gioi}}</td>
+                                        <td class="text-center">{{content.nuduoi35.kha}}</td>
+                                        <td class="text-center">{{content.nuduoi35.dat}}</td>
+                                        <td class="text-center">{{content.nuduoi40.gioi}}</td>
+                                        <td class="text-center">{{content.nuduoi40.kha}}</td>
+                                        <td class="text-center">{{content.nuduoi40.dat}}</td>
+                                        <td class="text-center">{{content.nuduoi45.gioi}}</td>
+                                        <td class="text-center">{{content.nuduoi45.kha}}</td>
+                                        <td class="text-center">{{content.nuduoi45.dat}}</td>
+                                        <td class="text-center">{{content.nuduoi50.gioi}}</td>
+                                        <td class="text-center">{{content.nuduoi50.kha}}</td>
+                                        <td class="text-center">{{content.nuduoi50.dat}}</td>
+                                        <td class="text-center">{{content.nutren50.gioi}}</td>
+                                        <td class="text-center">{{content.nutren50.kha}}</td>
+                                        <td class="text-center">{{content.nutren50.dat}}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="editable == true">
+                                    <tr *ngFor="let content of thongtu.nu; let index = index">
+                                        <td class="text-center">
+                                            <i class="fa fa-times text-danger" aria-hidden="true"
+                                                (click)="removeContent(index)"></i>
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.name" #dname="ngModel"
+                                                [(ngModel)]="content.name" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.contentGroup" #dcontentGroup="ngModel"
+                                                [(ngModel)]="content.contentGroup" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.measureUnit" #dmeasureUnit="ngModel"
+                                                [(ngModel)]="content.measureUnit" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.nuduoi27.gioi" #dnuduoi27.gioi="ngModel"
+                                                [(ngModel)]="content.nuduoi27.gioi" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.nuduoi27.kha" #dnuduoi27.kha="ngModel"
+                                                [(ngModel)]="content.nuduoi27.kha" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.nuduoi27.dat" #dnuduoi27.dat="ngModel"
+                                                [(ngModel)]="content.nuduoi27.dat" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.nuduoi35.gioi" #dnuduoi35.gioi="ngModel"
+                                                [(ngModel)]="content.nuduoi35.gioi" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.nuduoi35.kha" #dnuduoi35.kha="ngModel"
+                                                [(ngModel)]="content.nuduoi35.kha" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.nuduoi35.dat" #dnuduoi35.dat="ngModel"
+                                                [(ngModel)]="content.nuduoi35.dat" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.nuduoi40.gioi" #dnuduoi40.gioi="ngModel"
+                                                [(ngModel)]="content.nuduoi40.gioi" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.nuduoi40.kha" #dnuduoi40.kha="ngModel"
+                                                [(ngModel)]="content.nuduoi40.kha" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.nuduoi40.dat" #dnuduoi40.dat="ngModel"
+                                                [(ngModel)]="content.nuduoi40.dat" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.nuduoi45.gioi" #dnuduoi45.gioi="ngModel"
+                                                [(ngModel)]="content.nuduoi45.gioi" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.nuduoi45.kha" #dnuduoi45.kha="ngModel"
+                                                [(ngModel)]="content.nuduoi45.kha" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.nuduoi45.dat" #dnuduoi45.dat="ngModel"
+                                                [(ngModel)]="content.nuduoi45.dat" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.nuduoi50.gioi" #dnuduoi50.gioi="ngModel"
+                                                [(ngModel)]="content.nuduoi50.gioi" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.nuduoi50.kha" #dnuduoi50.kha="ngModel"
+                                                [(ngModel)]="content.nuduoi50.kha" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.nuduoi50.dat" #dnuduoi50.dat="ngModel"
+                                                [(ngModel)]="content.nuduoi50.dat" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.nutren50.gioi" #dnutren50.gioi="ngModel"
+                                                [(ngModel)]="content.nutren50.gioi" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.nutren50.kha" #dnutren50.kha="ngModel"
+                                                [(ngModel)]="content.nutren50.kha" class="form-control mb-2">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="content.nutren50.dat" #dnutren50.dat="ngModel"
+                                                [(ngModel)]="content.nutren50.dat" class="form-control mb-2">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="addContentModal" tabindex="-1" role="dialog"
+                    aria-labelledby="addContentModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addContentModalLabel">Tạo mới nội dung</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <form #documentForm="ngForm">
+                                            <div class="form-group row btn-group-content p-2">
+                                                <label class="col-form-label col-lg-4 text-500">Tên nội dung <span
+                                                        class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" required name="name" #dnamne="ngModel"
+                                                        [(ngModel)]="newContent.name" class="form-control mb-2"
+                                                        placeholder="Nhập tên nội dung" pattern="^(?!\s*$).+">
+                                                    <div *ngIf="dnamne.invalid && documentForm.submitted"
+                                                        [ngClass]="'error'" class="ml-2 text-danger">
+                                                        Chưa nhập tên nội dung!
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-lg-4 text-500">Nhóm tiêu chuẩn <span
+                                                        class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-8">
+                                                    <select name="contentGroupId" class="form-control mb-2"
+                                                        #dcontentGroupId="ngModel"
+                                                        [(ngModel)]="newContent.contentGroupId">
+                                                        <option value="">Chọn nhóm tiêu chuẩn</option>
+                                                        <option *ngFor="let group of contentGroups"
+                                                            [ngValue]="group.id">{{group.name}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-lg-4 text-500">Đơn vị tính <span
+                                                        class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-8">
+                                                    <select name="measureUnitId" class="form-control mb-2"
+                                                        #dmeasureUnitId="ngModel"
+                                                        [(ngModel)]="newContent.measureUnitId">
+                                                        <option value="">Chọn đơn vị tính</option>
+                                                        <option *ngFor="let mUnit of measureUnits" [ngValue]="mUnit.id">
+                                                            {{mUnit.name}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div
+                                                class="d-flex justify-content-center align-items-center btn-group-content">
+                                                <a type="button" class="btn btn-light" data-dismiss="modal">Hủy</a>
+                                                <button type="text" class="btn bg-primary-color ml-1"
+                                                    data-dismiss="modal" (click)="addContent(documentForm)">
+                                                    Tạo mới</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-center btn-group-content">
+                    <a routerLink="/document-manager" *ngIf="editable == false" type="text"
+                        class="btn btn-light legitRipple">Quay
+                        lại</a>
+                    <button class="btn btn-light ml-1" (click)="cancelEdit()" *ngIf="editable == true">Hủy</button>
+                    <button *ngIf="editable == false" class="btn bg-primary-color ml-1" data-toggle="modal"
+                        data-target="#addContentModal">Thêm nội
+                        dung</button>
+                    <button *ngIf="editable == false" class="btn bg-primary-color ml-1"
+                        (click)="editContent()">Sửa</button>
+                    <button *ngIf="editable == true" class="btn bg-primary-color ml-1" (click)="saveEdit()">Cập
+                        nhật</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

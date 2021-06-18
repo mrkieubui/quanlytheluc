@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as arrayToTree from 'array-to-tree';
 import { AppService } from 'src/app/app.service';
 import { NotificationsService } from 'src/app/notifications.service';
 
 @Component({
-  selector: 'app-document-update',
-  templateUrl: './document-update.component.html',
-  styleUrls: ['./document-update.component.css']
+  selector: 'app-plan-update',
+  templateUrl: './plan-update.component.html',
+  styleUrls: ['./plan-update.component.css']
 })
-export class DocumentUpdateComponent implements OnInit {
+export class PlanUpdateComponent implements OnInit {
 
   id: any = 0;
-  thongtu: any = {};
+  kehoach: any = {};
   // custom tree select 
   expandKeys = ['1'];
+  value?: string;
   nodes: any = [];
 
   constructor(private route: ActivatedRoute, private router: Router, private AppService: AppService, private NotificationsService: NotificationsService) { }
@@ -22,30 +24,33 @@ export class DocumentUpdateComponent implements OnInit {
     // get participant id from url param to edit
     this.id = this.route.snapshot.paramMap.get('id');
     // get one participant
-    this.AppService.getItem('documents', this.id).subscribe((res) => {
-      this.thongtu = res;
+    this.AppService.getItem('plans', this.id).subscribe((res) => {
+      this.kehoach = res;
     });
     // get unit nodes
-    this.nodes = this.AppService.getUnitNodes();
+    setTimeout(() => {
+      this.nodes = this.AppService.getUnitNodes();
+    }, 1000);
   }
 
-  onUpdateDocument(documentForm: any) {
-    if (documentForm.value.name !== "" && documentForm.value.name.trim() !== "" && documentForm.value.docNumber !== "" && documentForm.value.docNumber.trim() !== "" && documentForm.value.startDate !== "" && documentForm.value.startDate.trim() !== "" && documentForm.value.unitId !== "") {
-      this.AppService.updateItem('documents', this.id, this.thongtu).subscribe(() => {
-        this.router.navigate(['/document-manager']);
+  onUpdatePlan(planForm: any) {
+    if (planForm.value.name !== "" && planForm.value.name.trim() !== "" && planForm.value.planNumber !== "" && planForm.value.planNumber.trim() !== "" && planForm.value.startDate !== "" && planForm.value.startDate.trim() !== "" && planForm.value.unitId !== "") {
+      this.AppService.updateItem('plans', this.id, this.kehoach).subscribe(() => {
+        this.router.navigate(['/plan-manager']);
         this.NotificationsService.notiUpdateSuccess();
       });
     }
   }
 
   onChange(key: any) {
-    this.thongtu.unitId = key;
+    this.kehoach.unitId = key;
     // store unitid
     this.AppService.storeUnitId(key);
     this.NotificationsService.notiUnitUpdateSuccess();
     // get unit with 3 slash format
     setTimeout(() => {
-      this.thongtu.unit = this.AppService.getStoredUnit();
+      this.kehoach.unit = this.AppService.getStoredUnit();
     }, 500);
   }
+
 }

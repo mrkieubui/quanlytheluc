@@ -11,23 +11,17 @@ export class DocumentListComponent implements OnInit {
 
   documents: any;
   id: number = 0;
+  unit: any = "";
   // custom tree select 
   expandKeys = ['1'];
-  value?: string;
   nodes: any = [];
-  unit: any = "1";
-  units: any = [];
+  defaultUnit: any = "1";
 
   constructor(private AppService: AppService) { }
 
   ngOnInit(): void {
     this.getData();
-    this.AppService.getAllItems('units').subscribe(
-      res => {
-        this.units = res;
-        this.nodes = arrayToTree(res, { customID: "id", parentProperty: "parentId", childrenProperty: "children" });
-      }
-    );
+    this.nodes = this.AppService.getUnitNodes();
   }
 
   fetchData() {
@@ -44,6 +38,15 @@ export class DocumentListComponent implements OnInit {
   getDeleteId(id: number) {
     this.id = id;
     this.AppService.storeId(this.id);
+  }
+
+  // get unit by id
+  getUnitById(id: any) {
+    this.AppService.getItem("units", id).subscribe(res => {
+      this.unit = res.title;
+      // console.log(this.unit);
+      return this.unit;
+    })
   }
 
 }

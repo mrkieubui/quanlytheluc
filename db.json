@@ -484,7 +484,7 @@
       "key": "17",
       "value": "17",
       "title": "Trung tâm CNC",
-      "slash": "SQTT",
+      "slash": "TTCNC",
       "parentId": "1"
     },
     {
@@ -544,7 +544,7 @@
       "parentId": "b42c3768-ffb9-53ec-9ebf-d4eb164162a5"
     }
   ],
-  "soilders": [
+  "soldiers": [
     {
       "name": "Lee Min Hoo",
       "identitynumber": "TSQ-15012301",
@@ -553,7 +553,8 @@
       "timestart": "2021-06-24",
       "rank": "Trung sĩ",
       "job": "Chiến sĩ",
-      "unit": "Trung tâm CNC",
+      "unit": "B11-P1-SQTT",
+      "unitId": "3b5cedd1-88ae-ce1d-b33a-2822b759bd46",
       "participant": "Chiến sĩ nghĩa vụ",
       "id": 7
     },
@@ -565,7 +566,8 @@
       "timestart": "2021-06-24",
       "rank": "Hạ sĩ",
       "job": "Học viên",
-      "unit": "Trường sĩ quan thông tin",
+      "unit": "d30-SQTT-BCTT",
+      "unitId": "8b710e2d-26cb-c7e3-ce36-b75a760d66fe",
       "participant": "Học viên sĩ quan",
       "id": 8
     },
@@ -577,9 +579,36 @@
       "timestart": "2021-06-10",
       "rank": "Trung sĩ",
       "job": "Tiểu đội trưởng",
-      "unitId": "8b710e2d-26cb-c7e3-ce36-b75a760d66fe",
+      "unitId": "17",
+      "unit": "TTCNC-BCTT",
       "participant": "Học viên sĩ quan",
       "id": 9
+    },
+    {
+      "name": "12121212",
+      "identitynumber": "12121212",
+      "gender": "Nam",
+      "birthday": "2021-06-08",
+      "timestart": "2021-06-02",
+      "rank": "Binh nhất",
+      "job": "Học viên",
+      "unitId": "b42c3768-ffb9-53ec-9ebf-d4eb164162a5",
+      "unit": "CDKTTT-BCTT",
+      "participant": "Chiến sĩ nghĩa vụ",
+      "id": 10
+    },
+    {
+      "name": "151515",
+      "identitynumber": "151515",
+      "gender": "Nam",
+      "birthday": "2021-06-11",
+      "timestart": "2021-06-03",
+      "rank": "Binh nhì",
+      "job": "Chiến sĩ",
+      "unitId": "9b4aad40-4c2b-1e58-5f97-c7beaa49659e",
+      "unit": "K6-CDKTTT-BCTT",
+      "participant": "Chiến sĩ nghĩa vụ",
+      "id": 11
     }
   ],
   "genders": [
@@ -596,32 +625,32 @@
   ],
   "measureUnits": [
     {
-      "id": 1,
+      "id": "1",
       "name": "mét",
       "slash": "m"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "lần",
       "slash": "lần"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "lần/2 phút",
       "slash": "lần/2p"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "giờ",
       "slash": "h"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "phút",
       "slash": "p"
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "giây",
       "slash": "s"
     }
@@ -629,24 +658,677 @@
   "documents": [
     {
       "id": 1,
-      "name": "Thông tư thể lực 1",
+      "name": "Thông tư thể lực gần chuẩn",
       "docNumber": "TT-BCTT/TSQ-2020",
       "startDate": "2021-06-25",
-      "startUnit": "1"
+      "unitId": "1",
+      "unit": "BCTT",
+      "namduoi45": [
+        {
+          "id": "1",
+          "name": "Chạy 100m",
+          "contentGroupId": "1",
+          "contentGroup": "Tố chất sức nhanh",
+          "measureUnitId": "6",
+          "measureUnit": "giây",
+          "csnv": {
+            "gioi": "12",
+            "kha": "13",
+            "dat": "14"
+          },
+          "hvsq": {
+            "gioi": "13",
+            "kha": "14",
+            "dat": "15"
+          },
+          "namduoi36": {
+            "gioi": "13",
+            "kha": "14",
+            "dat": "15"
+          },
+          "namduoi45": {
+            "gioi": "13",
+            "kha": "14",
+            "dat": "15"
+          }
+        },
+        {
+          "id": "2",
+          "name": "Chạy 1500",
+          "contentGroupId": "1",
+          "contentGroup": "Tố chất sức nhanh",
+          "measureUnitId": "5",
+          "measureUnit": "phút",
+          "csnv": {
+            "gioi": "6",
+            "kha": "6.5",
+            "dat": "7"
+          },
+          "hvsq": {
+            "gioi": "6",
+            "kha": "7",
+            "dat": "8"
+          },
+          "namduoi36": {
+            "gioi": "6",
+            "kha": "7",
+            "dat": "8"
+          },
+          "namduoi45": {
+            "gioi": "6",
+            "kha": "7",
+            "dat": "8"
+          }
+        },
+        {
+          "id": "3",
+          "name": "Vượt vật cản HLTL",
+          "contentGroupId": "2",
+          "contentGroup": "Tố chất sức mạnh",
+          "measureUnitId": "6",
+          "measureUnit": "giây",
+          "csnv": {
+            "gioi": "1.1",
+            "kha": "1.2",
+            "dat": "1.3"
+          },
+          "hvsq": {
+            "gioi": "1.1",
+            "kha": "1.2",
+            "dat": "1.3"
+          },
+          "namduoi36": {
+            "gioi": "1.1",
+            "kha": "1.2",
+            "dat": "1.3"
+          },
+          "namduoi45": {
+            "gioi": "1.1",
+            "kha": "1.2",
+            "dat": "1.3"
+          }
+        },
+        {
+          "id": "4",
+          "name": "Bơi tự do",
+          "contentGroupId": "3",
+          "contentGroup": "Tố chất sức bền",
+          "measureUnitId": "1",
+          "measureUnit": "mét",
+          "csnv": {
+            "gioi": "100",
+            "kha": "70",
+            "dat": "50"
+          },
+          "hvsq": {
+            "gioi": "100",
+            "kha": "70",
+            "dat": "50"
+          },
+          "namduoi36": {
+            "gioi": "100",
+            "kha": "70",
+            "dat": "50"
+          },
+          "namduoi45": {
+            "gioi": "100",
+            "kha": "70",
+            "dat": "50"
+          }
+        }
+      ],
+      "namtren45": [
+        {
+          "id": "1",
+          "name": "Đứng lên ngồi xuống",
+          "contentGroupId": "5",
+          "contentGroup": "Nhóm 1",
+          "measureUnitId": "3",
+          "measureUnit": "lần/2p",
+          "namduoi50": {
+            "gioi": "45",
+            "kha": "40",
+            "dat": "35"
+          },
+          "namduoi55": {
+            "gioi": "45",
+            "kha": "40",
+            "dat": "35"
+          },
+          "namtren55": {
+            "gioi": "45",
+            "kha": "40",
+            "dat": "35"
+          }
+        },
+        {
+          "id": "2",
+          "name": "Nâng tạ tay",
+          "contentGroupId": "6",
+          "contentGroup": "Nhóm 2",
+          "measureUnitId": "3",
+          "measureUnit": "lần/2p",
+          "namduoi50": {
+            "gioi": "36",
+            "kha": "33",
+            "dat": "30"
+          },
+          "namduoi55": {
+            "gioi": "36",
+            "kha": "33",
+            "dat": "30"
+          },
+          "namtren55": {
+            "gioi": "36",
+            "kha": "33",
+            "dat": "30"
+          }
+        },
+        {
+          "id": "3",
+          "name": "Chạy 800m",
+          "contentGroupId": "7",
+          "contentGroup": "Nhóm 3",
+          "measureUnitId": "5",
+          "measureUnit": "phút",
+          "namduoi50": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "namduoi55": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "namtren55": {
+            "gioi": "5.3",
+            "kha": "5.4",
+            "dat": "6"
+          }
+        },
+        {
+          "id": "4",
+          "name": "Chạy 1500m",
+          "contentGroupId": "7",
+          "contentGroup": "Nhóm 3",
+          "measureUnitId": "5",
+          "measureUnit": "phút",
+          "namduoi50": {
+            "gioi": "8",
+            "kha": "8.3",
+            "dat": "9"
+          },
+          "namduoi55": {
+            "gioi": "8",
+            "kha": "8.3",
+            "dat": "9"
+          },
+          "namtren55": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          }
+        }
+      ],
+      "nu": [
+        {
+          "id": "1",
+          "name": "Nhảy xa",
+          "contentGroupId": "8",
+          "contentGroup": "Sức nhanh mạnh",
+          "measureUnitId": "1",
+          "measureUnit": "mét",
+          "nuduoi27": {
+            "gioi": "3.6",
+            "kha": "3.3",
+            "dat": "3"
+          },
+          "nuduoi35": {
+            "gioi": "3.6",
+            "kha": "3.3",
+            "dat": "3"
+          },
+          "nuduoi40": {
+            "gioi": "3.6",
+            "kha": "3.3",
+            "dat": "3"
+          },
+          "nuduoi45": {
+            "gioi": "3.6",
+            "kha": "3.3",
+            "dat": "3"
+          },
+          "nuduoi50": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "nutren50": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          }
+        },
+        {
+          "id": "2",
+          "name": "Chống đẩy",
+          "contentGroupId": "9",
+          "contentGroup": "Sức mạnh",
+          "measureUnitId": "3",
+          "measureUnit": "lần/2p",
+          "nuduoi27": {
+            "gioi": "20",
+            "kha": "18",
+            "dat": "16"
+          },
+          "nuduoi35": {
+            "gioi": "20",
+            "kha": "18",
+            "dat": "16"
+          },
+          "nuduoi40": {
+            "gioi": "20",
+            "kha": "18",
+            "dat": "16"
+          },
+          "nuduoi45": {
+            "gioi": "20",
+            "kha": "18",
+            "dat": "16"
+          },
+          "nuduoi50": {
+            "gioi": "20",
+            "kha": "18",
+            "dat": "16"
+          },
+          "nutren50": {
+            "gioi": "20",
+            "kha": "18",
+            "dat": "16"
+          }
+        },
+        {
+          "id": "3",
+          "name": "Chạy 800m",
+          "contentGroupId": "10",
+          "contentGroup": "Sức bền",
+          "measureUnitId": "5",
+          "measureUnit": "phút",
+          "nuduoi27": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "nuduoi35": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "nuduoi40": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "nuduoi45": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "nuduoi50": {
+            "gioi": "5.4",
+            "kha": "5.5",
+            "dat": "6"
+          },
+          "nutren50": {
+            "gioi": "5.5",
+            "kha": "6",
+            "dat": "6.1"
+          }
+        },
+        {
+          "id": "4",
+          "name": "Chạy 1500m",
+          "contentGroupId": "10",
+          "contentGroup": "Sức bền",
+          "measureUnitId": "5",
+          "measureUnit": "phút",
+          "nuduoi27": {
+            "gioi": "8.2",
+            "kha": "8.4",
+            "dat": "50"
+          },
+          "nuduoi35": {
+            "gioi": "8.2",
+            "kha": "8.4",
+            "dat": "9"
+          },
+          "nuduoi40": {
+            "gioi": "8.2",
+            "kha": "8.4",
+            "dat": "9"
+          },
+          "nuduoi45": {
+            "gioi": "8.2",
+            "kha": "8.4",
+            "dat": "9"
+          },
+          "nuduoi50": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "nutren50": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          }
+        }
+      ]
     },
     {
-      "id": 2,
-      "name": "Thông tư thể lực 2",
-      "docNumber": "TT-BCTT/TSQ-2020",
-      "startDate": "2021-06-25",
-      "startUnit": "1"
+      "name": "Thông tư test",
+      "docNumber": "TTT",
+      "unit": "CDKTTT-BCTT",
+      "unitId": "b42c3768-ffb9-53ec-9ebf-d4eb164162a5",
+      "startDate": "2021-03-08",
+      "namduoi45": [
+        {
+          "name": "Chạy 10000m",
+          "contentGroupId": "1",
+          "contentGroup": "Tố chất sức nhanh",
+          "measureUnitId": "6",
+          "measureUnit": "giây",
+          "csnv": {
+            "gioi": "8",
+            "kha": "8",
+            "dat": "8"
+          },
+          "hvsq": {
+            "gioi": "8",
+            "kha": "8",
+            "dat": "8"
+          },
+          "namduoi36": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "namduoi45": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          }
+        },
+        {
+          "name": "Bơi tự do",
+          "contentGroupId": "11",
+          "contentGroup": "Sức bền",
+          "measureUnitId": "1",
+          "measureUnit": "mét",
+          "csnv": {
+            "gioi": "9",
+            "kha": "9",
+            "dat": "9"
+          },
+          "hvsq": {
+            "gioi": "9",
+            "kha": "9",
+            "dat": "9"
+          },
+          "namduoi36": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "namduoi45": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          }
+        }
+      ],
+      "namtren45": [
+        {
+          "name": "Co tay xà đơn",
+          "contentGroupId": "2",
+          "contentGroup": "Tố chất sức mạnh",
+          "measureUnitId": "3",
+          "measureUnit": "lần/2 phút",
+          "csnv": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "hvsq": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "namduoi36": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "namduoi45": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "namduoi50": {
+            "gioi": "5",
+            "kha": "6",
+            "dat": "7"
+          },
+          "namduoi55": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "namtren55": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          }
+        },
+        {
+          "name": "Nhảy xa",
+          "contentGroupId": "2",
+          "contentGroup": "Tố chất sức mạnh",
+          "measureUnitId": "1",
+          "measureUnit": "mét",
+          "csnv": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "hvsq": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "namduoi36": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "namduoi45": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "namduoi50": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "namduoi55": {
+            "gioi": "9",
+            "kha": "9",
+            "dat": "9"
+          },
+          "namtren55": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          }
+        }
+      ],
+      "nu": [
+        {
+          "name": "Gập bụng",
+          "contentGroupId": "2",
+          "contentGroup": "Tố chất sức mạnh",
+          "measureUnitId": "3",
+          "measureUnit": "lần/2 phút",
+          "csnv": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "hvsq": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "namduoi36": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "namduoi45": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "namduoi50": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "namduoi55": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "namtren55": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "nuduoi27": {
+            "gioi": "10",
+            "kha": "10",
+            "dat": "10"
+          },
+          "nuduoi35": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "nuduoi40": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "nuduoi45": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "nuduoi50": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "nutren50": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          }
+        }
+      ],
+      "id": 2
+    }
+  ],
+  "contentGroups": [
+    {
+      "id": "1",
+      "name": "Tố chất sức nhanh"
     },
     {
-      "id": 3,
-      "name": "Thông tư thể lực 3",
-      "docNumber": "TT-BCTT/TSQ-2020",
-      "startDate": "2021-06-25",
-      "startUnit": "1"
+      "id": "2",
+      "name": "Tố chất sức mạnh"
+    },
+    {
+      "id": "3",
+      "name": "Tố chất sức bền"
+    },
+    {
+      "id": "4",
+      "name": "Bài tập tổng hợp"
+    },
+    {
+      "id": "5",
+      "name": "Bơi tự do"
+    },
+    {
+      "id": "6",
+      "name": "Nhóm 1"
+    },
+    {
+      "id": "7",
+      "name": "Nhóm 2"
+    },
+    {
+      "id": "8",
+      "name": "Nhóm 3"
+    },
+    {
+      "id": "9",
+      "name": "Sức nhanh mạnh"
+    },
+    {
+      "id": "10",
+      "name": "Sức mạnh"
+    },
+    {
+      "id": "11",
+      "name": "Sức bền"
+    }
+  ],
+  "plans": [
+    {
+      "id": "1",
+      "name": "Kế hoạch số 1",
+      "planNumber": "KH 1",
+      "unit": "K6-CDKTTT-BCTT",
+      "unitId": "9b4aad40-4c2b-1e58-5f97-c7beaa49659e",
+      "startDate": "2021-03-08"
+    },
+    {
+      "id": "2",
+      "name": "Kế hoạch số 2",
+      "planNumber": "KH 1212",
+      "unit": "BCTT",
+      "unitId": "1",
+      "startDate": "2021-03-08"
+    },
+    {
+      "id": "3",
+      "name": "Kế hoạch số 3",
+      "planNumber": "123456",
+      "unit": "SQTT-BCTT",
+      "unitId": "2",
+      "startDate": "2021-03-08"
+    },
+    {
+      "name": "Kế hoạch số 222",
+      "planNumber": "Kế hoạch số 222",
+      "unit": "CDKTTT-BCTT",
+      "unitId": "b42c3768-ffb9-53ec-9ebf-d4eb164162a5",
+      "startDate": "2021-08-08",
+      "id": "OYmaHM4"
     }
   ]
 }

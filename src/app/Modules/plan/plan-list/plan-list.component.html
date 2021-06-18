@@ -1,0 +1,90 @@
+<!-- Main content -->
+<div class="content-wrapper">
+    <div class="content">
+        <div class="card">
+            <div class="card-header card-header-content text-center d-flex justify-content-between align-items-center">
+                <h5 class="big-title mb-0 text-uppercase">Danh sách kế hoạch</h5>
+                <div class="list-icons">
+                    <a routerLink="create" class="btn btn-link bg-primary-color">
+                        <i class="icon-plus3 mr-1"></i>
+                        <span>Tạo mới</span>
+                    </a>
+                </div>
+            </div>
+            <div class="card-body card-body-content table-content">
+                <div class="form-group row mb-3">
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                placeholder="Tìm kiếm theo số kế hoạch, tên kế hoạch ">
+                            <span class=" input-group-prepend icon-picker">
+                                <span class="input-group-text"><i class="icon-search4"></i></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <nz-tree-select style="width: 100%" nzPlaceHolder="Chọn đơn vị"
+                                [nzExpandedKeys]="expandKeys" [nzNodes]="nodes" [(ngModel)]="unit" #uunit="ngModel"
+                                name="unit">
+                            </nz-tree-select>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="input-group">
+                            <div class="list-icons">
+                                <button
+                                    class="btn btn-default btn-outline bg-slate-600 text-slate-600 border-slate-600 legitRipple">
+                                    <i class="icon-filter3"></i>
+                                </button>
+                                <button
+                                    class="btn btn-default btn-outline bg-slate-600 text-slate-600 border-slate-600 legitRipple">
+                                    <i class="icon-eraser2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-custom" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="text-500 text-center" style="width: 5%">STT</th>
+                                <th class="text-500" style="width: 20%">Số kế hoạch</th>
+                                <th class="text-500" style="width: 30%">Tên kế hoạch</th>
+                                <th class="text-500" style="width: 20%">Đơn vị ban hành</th>
+                                <th class="text-500 text-center" style="width: 15%">Thời gian ban hành</th>
+                                <th class="text-500 text-center">Thao tác </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let plan of plans; let index = index">
+                                <td class="text text-center">{{index + 1}}</td>
+                                <td class="text">{{plan.planNumber}}</td>
+                                <td class="text">{{plan.name}}</td>
+                                <td class="text">{{plan.unit}}</td>
+                                <td class="text text-center">{{plan.startDate}}</td>
+                                <td class="text text-center">
+                                    <div class="list-icons">
+                                        <a [routerLink]="['details/', plan.id]" class="text-black text ml-2">
+                                            <i class="far fa-eye" data-popup="tooltip" title="Xem"></i>
+                                        </a>
+                                        <a [routerLink]="['update/', plan.id]" class="text-black text ml-2">
+                                            <i class="far fa-edit" data-popup="tooltip" title="Sửa"></i>
+                                        </a>
+                                        <a class="text-danger text ml-2" data-toggle="modal" data-target="#confirmModal"
+                                        (click)="getDeleteId(plan.id)">
+                                            <i class="far fa-trash-alt" data-popup="tooltip" title="Xóa"></i>
+                                        </a>
+                                        <app-confirm-modal [id]="id" [path]="'plans'" (fetchData)="fetchData()">
+                                        </app-confirm-modal>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

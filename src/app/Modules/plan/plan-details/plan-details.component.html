@@ -1,0 +1,62 @@
+<div class="content-wrapper">
+    <div class="content">
+        <div class="card">
+            <div class="card-header card-header-content text-center">
+                <h5 class="big-title mb-0">CHI TIẾT KẾ HOẠCH</h5>
+            </div>
+            <div class="card-body card-body-content add-unit" id="add-unit">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <form>
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Tên kế hoạch</label>
+                                <div class="col-lg-9">
+                                    <input type="text" disabled name="name" #pnamne="ngModel" [(ngModel)]="kehoach.name"
+                                        class="form-control mb-2" placeholder="Nhập tên kế hoạch">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Số kế hoạch</label>
+                                <div class="col-lg-9">
+                                    <input type="text" disabled name="planNumber" #pplanNumber="ngModel"
+                                        [(ngModel)]="kehoach.planNumber" class="form-control mb-2"
+                                        placeholder="Nhập số kế hoạch">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Ngày ban hành</label>
+                                <div class="col-lg-9">
+                                    <input type="date" disabled name="startDate" #pstartDate="ngModel"
+                                        [(ngModel)]="kehoach.startDate" class="form-control mb-2"
+                                        placeholder="Nhập ngày ban hành">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Đơn vị</label>
+                                <div class="col-lg-9">
+                                    <input type="text" disabled name="unit" #punit="ngModel" [(ngModel)]="kehoach.unit"
+                                        class="form-control mb-2" placeholder="Nhập ngày ban hành">
+                                </div>
+                            </div>
+                            <div class="form-group row ">
+                                <label class="col-form-label col-lg-3 text-500">File đính kèm
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="text" disabled name="fileName" #pfileName="ngModel"
+                                        [(ngModel)]="kehoach.fileName" class="form-control mb-2"
+                                        placeholder="Kế hoạch chi tiết 2020.pdf">
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center align-items-center btn-group-content">
+                                <a routerLink="/plan-manager" type="button" class="btn btn-light">Quay lại</a>
+                                <a type="button" [routerLink]="['/plan-manager/update/', this.id]"
+                                    class="btn bg-primary-color ml-3">
+                                    Sửa</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

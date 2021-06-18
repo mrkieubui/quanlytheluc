@@ -1,0 +1,87 @@
+<div class="content-wrapper">
+    <div class="content">
+        <div class="card">
+            <div class="card-header card-header-content text-center">
+                <h5 class="big-title mb-0">TẠO MỚI KẾ HOẠCH</h5>
+            </div>
+            <div class="card-body card-body-content add-unit" id="add-unit">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <form #planForm="ngForm" (ngSubmit)="onCreatePlan(planForm)">
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Tên kế hoạch <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="text" required name="name" #pnamne="ngModel" [(ngModel)]="kehoach.name"
+                                        class="form-control mb-2" placeholder="Nhập tên kế hoạch" pattern="^(?!\s*$).+">
+                                    <div *ngIf="pnamne.invalid && planForm.submitted" [ngClass]="'error'"
+                                        class="ml-2 text-danger">
+                                        Chưa nhập tên kế hoạch!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Số kế hoạch <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="text" required name="planNumber" #dplanNumber="ngModel"
+                                        [(ngModel)]="kehoach.planNumber" class="form-control mb-2"
+                                        placeholder="Nhập số kế hoạch" pattern="^(?!\s*$).+">
+                                    <div *ngIf="dplanNumber.invalid && planForm.submitted" class="ml-2 text-danger">
+                                        Chưa nhập số kế hoạch!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Ngày ban hành <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="date" required name="startDate" #pstartDate="ngModel"
+                                        [(ngModel)]="kehoach.startDate" class="form-control mb-2"
+                                        placeholder="Nhập ngày ban hành" pattern="^(?!\s*$).+">
+                                    <div *ngIf="pstartDate.invalid && planForm.submitted" class="ml-2 text-danger">
+                                        Chưa nhập ngày ban hành!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Chọn đơn vị <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-9">
+                                    <nz-tree-select style="width: 100%" nzPlaceHolder="Chọn đơn vị"
+                                        [nzExpandedKeys]="expandKeys" [nzNodes]="nodes" [(ngModel)]="kehoach.unitId"
+                                        #sunitId="ngModel" name="unitId" (ngModelChange)="onChange($event)">
+                                    </nz-tree-select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row ">
+                                <label class="col-form-label col-lg-3 text-500">File đính kèm
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="hidden" name="input-hidden" id="fileInput" />
+                                    <input type="file" name="File" class="form-control-lg file-input"
+                                        data-browse-class="btn btn-primary btn-block" data-show-remove="false"
+                                        data-show-caption="false" data-show-upload="false" data-fouc
+                                        data-main-class="input-group-lg">
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-center align-items-center btn-group-content">
+                                <a routerLink="/plan-manager" type="button" class="btn btn-light">Hủy</a>
+                                <button type="submit" class="btn bg-primary-color ml-3">
+                                    Tạo mới</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

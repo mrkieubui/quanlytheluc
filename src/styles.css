@@ -258,6 +258,9 @@ body {
 .bg-primary-color {
     background-color: #3F51B5;
 }
+.bg-secondary-color {
+    background-color: #09ca6a;
+}
 
 .bg-primary-color:hover {
     background-color: darkblue;
@@ -364,11 +367,11 @@ body {
 }
 
 .content-wrapper .form-control:disabled, .content-wrapper .select2-selection--single:disabled {
-    background-color: rgba(170, 170, 170, 0.3);
+    background-color: rgba(240, 240, 240, 0.3);
 }
 
 .content-wrapper select:disabled+.select2-container--disabled {
-    background-color: rgba(170, 170, 170, 0.3);
+    background-color: rgba(240, 240, 240, 0.3);
 }
 
 .content-wrapper .form-group {
@@ -729,4 +732,11 @@ body {
     width: 120px;
     height: 85%;
     transform: translateY(-50%);
+}
+
+.content-wrapper .form-control, .content-wrapper .select2-selection--single{
+    padding: 0.15rem 0.4rem;
+}
+.table-group-object.table td, .table-group-object.table th, .table-custom.table td, .table-custom.table th{
+    padding: 0.25rem 0.25rem;
 }

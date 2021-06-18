@@ -36,6 +36,12 @@ export class NotificationsService {
       title: 'Cập nhật nội dung thành công!'
     })
   }
+  notiUnitUpdateSuccess() {
+    this.Toast.fire({
+      icon: 'success',
+      title: 'Cập nhật đơn vị thành công!'
+    })
+  }
   notiError() {
     this.Toast.fire({
       icon: 'error',

@@ -85,7 +85,7 @@ export class SidebarComponent implements OnInit {
 					id: 71,
 					name: "Quân nhân",
 					icon: "icon-group",
-					path: "soilder-manager"
+					path: "soldier-manager"
 				},
 				{
 					id: 72,

@@ -32,8 +32,8 @@
                     <div class="col-lg-4">
                         <div class="input-group">
                             <nz-tree-select style="width: 100%" nzPlaceHolder="Chọn đơn vị"
-                                [nzExpandedKeys]="expandKeys" [nzNodes]="nodes" [(ngModel)]="unit"
-                                #uunit="ngModel" name="unit">
+                                [nzExpandedKeys]="expandKeys" [nzNodes]="nodes" [(ngModel)]="unit" #uunit="ngModel"
+                                name="unit">
                             </nz-tree-select>
                         </div>
                     </div>
@@ -65,30 +65,32 @@
                     <thead>
                         <tr>
                             <th class="text-500" style="width: 15%">Mã quân nhân</th>
-                            <th class="text-500" style="width: 30%">Họ và tên</th>
+                            <th class="text-500" style="width: 20%">Họ và tên</th>
                             <th class="text-500" style="width: 15%">Ngày sinh</th>
-                            <th class="text-500" style="width: 15%">Đối tượng</th>
                             <th class="text-500" style="width: 15%">Chức vụ </th>
+                            <th class="text-500" style="width: 25%">Đơn vị </th>
+                            <th class="text-500" style="width: 15%">Đối tượng</th>
                             <th class="text-500 text-center" style="width: 10%">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let soilder of soilders">
-                            <td class="text">{{soilder.identitynumber}}</td>
-                            <td class="text">{{soilder.name}}</td>
-                            <td class="text">{{soilder.birthday}}</td>
-                            <td class="text">{{soilder.job}}</td>
-                            <td class="text">{{soilder.rank}}</td>
+                        <tr *ngFor="let soldier of soldiers">
+                            <td class="text">{{soldier.identitynumber}}</td>
+                            <td class="text">{{soldier.name}}</td>
+                            <td class="text">{{soldier.birthday}}</td>
+                            <td class="text">{{soldier.job}}</td>
+                            <td class="text">{{soldier.unit}}</td>
+                            <td class="text">{{soldier.rank}}</td>
                             <td class="text text-center">
                                 <div class="list-icons">
-                                    <a [routerLink]="['update/', soilder.id]" class="text-black text ml-2">
+                                    <a [routerLink]="['update/', soldier.id]" class="text-black text ml-2">
                                         <i class=" far fa-edit" data-popup="tooltip" title="Sửa"></i>
                                     </a>
                                     <a class="text-danger text ml-2" data-toggle="modal" data-target="#confirmModal"
-                                        (click)="getDeleteId(soilder.id)">
+                                        (click)="getDeleteId(soldier.id)">
                                         <i class="far fa-trash-alt" data-popup="tooltip" title="Xóa"></i>
                                     </a>
-                                    <app-confirm-modal [id]="id" [path]="'soilders'" (fetchData)="fetchData()">
+                                    <app-confirm-modal [id]="id" [path]="'soldiers'" (fetchData)="fetchData()">
                                     </app-confirm-modal>
                                 </div>
                             </td>

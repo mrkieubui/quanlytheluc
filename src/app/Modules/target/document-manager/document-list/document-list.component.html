@@ -24,8 +24,8 @@
                     <div class="col-lg-4">
                         <div class="input-group">
                             <nz-tree-select style="width: 100%" nzPlaceHolder="Chọn đơn vị"
-                                [nzExpandedKeys]="expandKeys" [nzNodes]="nodes" [(ngModel)]="unit" #uunit="ngModel"
-                                name="unit">
+                                [nzExpandedKeys]="expandKeys" [nzNodes]="nodes" [(ngModel)]="defaultUnit"
+                                #uunit="ngModel" name="unit">
                             </nz-tree-select>
                         </div>
                     </div>
@@ -48,8 +48,9 @@
                     <thead>
                         <tr>
                             <th class="text-500" style="width: 100px">STT</th>
-                            <th class="text-500">Số thông tư</th>
                             <th class="text-500">Tên thông tư</th>
+                            <th class="text-500">Số thông tư</th>
+                            <th class="text-500">Đơn vị </th>
                             <th class="text-500">Ngày ban hành </th>
                             <th class="text-500 text-center" style="width: 150px">Thao tác</th>
                         </tr>
@@ -57,20 +58,21 @@
                     <tbody>
                         <tr *ngFor="let item of documents; let index = index">
                             <td class="text">{{index + 1}}</td>
-                            <td class="text">{{item.docNumber}}</td>
                             <td class="text">{{item.name}}</td>
-                            <td class="text">{{item.startDate}}</td>
+                            <td class="text">{{item.docNumber}}</td>
+                            <td class="text">{{item.unit}}</td>
+                            <td class="date">{{item.startDate}}</td>
                             <td class="text text-center">
                                 <div class="list-icons">
+                                    <a [routerLink]="['details/', item.id]" class="text-black text ml-2">
+                                        <i class="icon-calendar" data-popup="tooltip" title="Chi tiết"></i>
+                                    </a>
                                     <a [routerLink]="['update/', item.id]" class="text-black text ml-2">
                                         <i class="far fa-edit" data-popup="tooltip" title="Sửa"></i>
                                     </a>
                                     <a class="text-danger text ml-2" data-toggle="modal" data-target="#confirmModal"
-                                    (click)="getDeleteId(item.id)">
+                                        (click)="getDeleteId(item.id)">
                                         <i class="far fa-trash-alt sweet_delete" data-popup="tooltip" title="Xóa"></i>
-                                    </a>
-                                    <a router="details" class="text-black text ml-2">
-                                        <i class="icon-calendar" data-popup="tooltip" title="Chi tiết"></i>
                                     </a>
                                     <app-confirm-modal [id]="id" [path]="'documents'" (fetchData)="fetchData()">
                                     </app-confirm-modal>

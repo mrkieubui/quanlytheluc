@@ -558,8 +558,8 @@ var App = function () {
 
         $('.file-input-ajax').fileinput({
             browseLabel: 'Thêm',
-            uploadLabel: 'Tải lên',
-            removeLabel: 'Xóa',
+            // uploadLabel: 'Tải lên',
+            // removeLabel: 'Xóa',
 
             uploadClass: 'btn btn-success',
             removeClass: 'btn btn-danger',
@@ -569,16 +569,16 @@ var App = function () {
             maxFileCount: 5,
             initialPreview: [],
             browseIcon: '<i class="icon-file-plus mr-2"></i>',
-            uploadIcon: '<i class="icon-file-upload2 mr-2"></i>',
-            removeIcon: '<i class="icon-cross2 font-size-base mr-2"></i>',
+            // uploadIcon: '<i class="icon-file-upload2 mr-2"></i>',
+            // removeIcon: '<i class="icon-cross2 font-size-base mr-2"></i>',
 
             // allowedFileExtensions: ["jpg", "gif", "png", "txt"],
 
             fileActionSettings: {
-                removeIcon: '<i class="icon-bin"></i>',
-                removeClass: '',
-                uploadIcon: '<i class="icon-upload"></i>',
-                uploadClass: '',
+                // removeIcon: '<i class="icon-bin"></i>',
+                // removeClass: '',
+                // uploadIcon: '<i class="icon-upload"></i>',
+                // uploadClass: '',
                 zoomIcon: '<i class="icon-zoomin3"></i>',
                 zoomClass: '',
                 indicatorNew: '<i class="icon-file-plus text-success"></i>',
@@ -1964,7 +1964,7 @@ var App = function () {
             // _componentSel2ToTree();
             // _componentRenderObjectModal();
             _componentRenderStandar();
-            _componentElementCustomTable();
+            // _componentElementCustomTable();
 
 
         },

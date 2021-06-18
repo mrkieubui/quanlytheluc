@@ -32,7 +32,7 @@ export class MeasureUnitUpdateComponent implements OnInit {
     if (measureUnitForm.value.name !== "" && measureUnitForm.value.name.trim() !== "" && measureUnitForm.value.slash !== "" && measureUnitForm.value.slash.trim() !== "") {
       this.AppService.updateItem('measureUnits',this.id, this.donvitinh).subscribe(() => {
         this.router.navigate(['/measure-unit-manager']);
-        this.NotificationsService.notiCreateSuccess();
+        this.NotificationsService.notiUpdateSuccess();
       });
     }
   }

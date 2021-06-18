@@ -5,7 +5,7 @@ import { ConfigureManagerComponent } from './Modules/configure-manager/configure
 import { DashboardComponent } from './Modules/dashboard/dashboard.component';
 import { DocumentManagerComponent } from './Modules/target/document-manager/document-manager.component';
 import { LoginComponent } from './Modules/login/login.component';
-import { PlanManagerComponent } from './Modules/plan-manager/plan-manager.component';
+import { PlanManagerComponent } from './Modules/plan/plan-manager/plan-manager.component';
 import { ReportManagerComponent } from './Modules/report-manager/report-manager.component';
 import { ResultManagerComponent } from './Modules/result-manager/result-manager.component';
 

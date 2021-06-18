@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import * as arrayToTree from 'array-to-tree';
+import { AppService } from 'src/app/app.service';
+import { NotificationsService } from 'src/app/notifications.service';
 
 @Component({
   selector: 'app-document-create',
@@ -7,9 +11,45 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocumentCreateComponent implements OnInit {
 
-  constructor() { }
+  thongtu: any = {
+    name: "",
+    docNumber: "",
+    unit: "BCTT",
+    unitId: "1",
+    startDate: "2021-03-08",
+    namduoi45: [],
+    namtren45: [],
+    nu: []
+  }
+  // custom tree select 
+  expandKeys = ['1'];
+  nodes: any = [];
+  units: any = [];
+  unitId: any = "1";
+
+  constructor(private AppService: AppService, private router: Router, private NotificationsService: NotificationsService) { }
 
   ngOnInit(): void {
+    this.nodes = this.AppService.getUnitNodes();
   }
 
+  onCreateDocument(documentForm: any) {
+    if (documentForm.value.name !== "" && documentForm.value.name.trim() !== "" && documentForm.value.docNumber !== "" && documentForm.value.docNumber.trim() !== "" && documentForm.value.startDate !== "" && documentForm.value.startDate.trim() !== "" && documentForm.value.unitId !== "") {
+      this.AppService.createItem('documents', this.thongtu).subscribe(() => {
+        this.router.navigate(['/document-manager']);
+        this.NotificationsService.notiCreateSuccess();
+      });
+    }
+  }
+
+  onChange(key: any) {
+    this.thongtu.unitId = key;
+    // store unitid
+    this.AppService.storeUnitId(key);
+    this.NotificationsService.notiUnitUpdateSuccess();
+    // get unit with 3 slash format
+    setTimeout(() => {
+      this.thongtu.unit = this.AppService.getStoredUnit();
+    }, 500);
+  }
 }
