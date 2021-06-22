@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from 'src/app/Services/auth.guard';
 import { DocumentCreateComponent } from './document-manager/document-create/document-create.component';
 import { DocumentDetailsComponent } from './document-manager/document-details/document-details.component';
 import { DocumentListComponent } from './document-manager/document-list/document-list.component';
@@ -13,6 +14,7 @@ import { MeasureUnitUpdateComponent } from './measure-unit-manager/measure-unit-
 const routes: Routes = [
   {
     path: 'measure-unit-manager', component: MeasureUnitManagerComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: '', component: MeasureUnitListComponent },
       { path: 'create', component: MeasureUnitCreateComponent },
@@ -21,6 +23,7 @@ const routes: Routes = [
   },
   {
     path: 'document-manager', component: DocumentManagerComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: '', component: DocumentListComponent },
       { path: 'create', component: DocumentCreateComponent },

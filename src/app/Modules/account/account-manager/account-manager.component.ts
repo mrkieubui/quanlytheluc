@@ -10,7 +10,6 @@ export class AccountManagerComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    
   }
 
 }

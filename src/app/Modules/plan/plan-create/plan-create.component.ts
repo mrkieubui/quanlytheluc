@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import * as arrayToTree from 'array-to-tree';
-import { AppService } from 'src/app/app.service';
-import { NotificationsService } from 'src/app/notifications.service';
+import { AppService } from 'src/app/Services/app.service';
+import { NotificationsService } from 'src/app/Services/notifications.service';
 
 @Component({
   selector: 'app-plan-create',
@@ -20,7 +19,6 @@ export class PlanCreateComponent implements OnInit {
   }
   // custom tree select 
   expandKeys = ['1'];
-  value?: string;
   nodes: any = [];
   unitId: any = "1";
 

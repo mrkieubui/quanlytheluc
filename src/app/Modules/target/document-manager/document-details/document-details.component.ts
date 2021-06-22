@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppService } from 'src/app/app.service';
-import { NotificationsService } from 'src/app/notifications.service';
+import { AppService } from 'src/app/Services/app.service';
+import { NotificationsService } from 'src/app/Services/notifications.service';
 
 @Component({
   selector: 'app-document-details',

@@ -12,6 +12,7 @@ import { MeasureUnitCreateComponent } from './measure-unit-manager/measure-unit-
 import { FormsModule } from '@angular/forms';
 import { SharesModule } from '../shares/shares.module';
 import { DocumentDetailsComponent } from './document-manager/document-details/document-details.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { DocumentDetailsComponent } from './document-manager/document-details/do
     TargetRoutingModule,
     FormsModule,
     SharesModule,
-    NzTreeSelectModule
+    NzTreeSelectModule,
+    NgxPaginationModule
   ]
 })
 export class TargetModule { }

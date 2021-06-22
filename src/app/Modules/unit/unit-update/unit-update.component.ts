@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppService } from 'src/app/app.service';
-import { NotificationsService } from 'src/app/notifications.service';
+import { AppService } from 'src/app/Services/app.service';
 import * as arrayToTree from 'array-to-tree';
+import { NotificationsService } from 'src/app/Services/notifications.service';
 
 @Component({
   selector: 'app-unit-update',

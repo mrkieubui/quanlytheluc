@@ -1,0 +1,148 @@
+<div class="content-wrapper">
+    <div class="content">
+        <div class="card">
+            <div class="card-header card-header-content">
+                <h5 class="big-title mb-0 text-uppercase">Tạo mới tài khoản</h5>
+            </div>
+            <div class="card-body card-body-content add-unit" id="add-unit">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <form #accountUpdateForm="ngForm" (ngSubmit)="onUpdateAccount(accountUpdateForm)">
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Họ và tên <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="text" required name="name" #anamne="ngModel" [(ngModel)]="account.name"
+                                        class="form-control" placeholder="Nhập họ và tên">
+                                    <div *ngIf="anamne.invalid && accountUpdateForm.submitted" [ngClass]="'error'"
+                                        class="ml-2 text-danger">
+                                        Chưa nhập họ tên!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Tên đăng nhập<span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="text" required name="username" #ausername="ngModel"
+                                        [(ngModel)]="account.username" class="form-control"
+                                        placeholder="Nhập tên đăng nhập ">
+                                    <div *ngIf="ausername.invalid && accountUpdateForm.submitted" [ngClass]="'error'"
+                                        class="ml-2 text-danger">
+                                        Chưa nhập tên đăng nhập!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Mật khẩu<span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="text" required name="password" #apassword="ngModel"
+                                        [(ngModel)]="account.password" class="form-control " disabled
+                                        placeholder="Nhập mật khẩu" value="@a123456">
+                                    <div *ngIf="apassword.invalid && accountUpdateForm.submitted" [ngClass]="'error'"
+                                        class="ml-2 text-danger">
+                                        Chưa nhập mật khẩu!
+                                    </div>
+                                </div>
+                                <!-- <span class="badge badge-info text text-white pl-3 pr-3" (click)="changePassword()">Đổi
+                                    mật khẩu mặc định @a123456</span> -->
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Cấp bậc</label>
+                                <div class="col-lg-9">
+                                    <select class="form-control" required data-placeholder="Chọn cấp bậc" name="rank"
+                                        #anamne="ngModel" [(ngModel)]="account.rank" #arank="ngModel">
+                                        <option label="Chọn cấp bậc"></option>
+                                        <option *ngFor="let rank of ranks" [ngValue]="rank.name">{{rank.name}}</option>
+                                    </select>
+                                    <div *ngIf="arank.invalid && accountUpdateForm.submitted" class="ml-2 text-danger">
+                                        Chưa chọn cấp bậc!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Chức vụ</label>
+                                <div class="col-lg-9">
+                                    <select class="form-control" required data-placeholder="Chọn chức vụ" name="job"
+                                        #anamne="ngModel" [(ngModel)]="account.job" #ajob="ngModel">
+                                        <option label="Chọn chức vụ"></option>
+                                        <option *ngFor="let job of jobs" [ngValue]="job.name">{{job.name}}</option>
+                                    </select>
+                                    <div *ngIf="ajob.invalid && accountUpdateForm.submitted" class="ml-2 text-danger">
+                                        Chưa chọn chức vụ!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Đơn vị
+                                </label>
+                                <div class="col-lg-9">
+                                    <nz-tree-select style="width: 100%" required nzPlaceHolder="Chọn đơn vị"
+                                        [nzExpandedKeys]="expandKeys" [nzNodes]="nodes" [(ngModel)]="account.unitId"
+                                        #aunitId="ngModel" name="unitId" (ngModelChange)="onChange($event)">
+                                    </nz-tree-select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Quyền
+                                </label>
+                                <div class="col-lg-9">
+                                    <select class="form-control" required data-placeholder="Chọn quyền" name="role"
+                                        #anamne="ngModel" [(ngModel)]="account.role" #arole="ngModel">
+                                        <option label="Chọn quyền"></option>
+                                        <option *ngFor="let role of roles" [ngValue]="role.slash">{{role.name}}</option>
+                                    </select>
+                                    <div *ngIf="arole.invalid && accountUpdateForm.submitted" class="ml-2 text-danger">
+                                        Chưa chọn chức vụ!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Số điện thoại
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="tel" name="phone" #aphone="ngModel" [(ngModel)]="account.phone"
+                                        class="form-control" placeholder="Nhập số điện thoại">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Email
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="email" name="email" #aemail="ngModel" [(ngModel)]="account.email"
+                                        class="form-control" placeholder="Nhập Email">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">
+                                </label>
+                                <div class="col-lg-9">
+                                    <div class="custom-control custom-checkbox custom-control-in ne">
+                                        <input type="checkbox" class="custom-control-input"
+                                            id="custom_checkbox_inline_unchecked" checked name="status"
+                                            [(ngModel)]="account.status" required #status="ngModel">
+                                        <label class="custom-control-label d-flex align-items-center "
+                                            for="custom_checkbox_inline_unchecked">Kích hoạt tài khoản
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center btn-group-content px-3">
+                                <a routerLink="/account-manager" type="submit"
+                                    class="btn btn-outline bg-slate-600 text-slate-600 border-slate-600">Quay lại danh
+                                    sách</a>
+                                <button type="submit" class="btn bg-primary-color ml-3 ">Cập nhật</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

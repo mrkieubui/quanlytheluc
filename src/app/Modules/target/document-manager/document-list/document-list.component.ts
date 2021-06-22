@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as arrayToTree from 'array-to-tree';
-import { AppService } from 'src/app/app.service';
+import { AppService } from 'src/app/Services/app.service';
+import { FilterService } from 'src/app/Services/filter.service';
 
 @Component({
   selector: 'app-document-list',
@@ -9,19 +10,27 @@ import { AppService } from 'src/app/app.service';
 })
 export class DocumentListComponent implements OnInit {
 
-  documents: any;
+  documents: any = [];
+  originDocuments: any = [];
   id: number = 0;
-  unit: any = "";
+  unitId: any = "1";
   // custom tree select 
   expandKeys = ['1'];
   nodes: any = [];
-  defaultUnit: any = "1";
+  // Pagination default value
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  // search text
+  searchText: string = "";
+  unit: string = "";
 
-  constructor(private AppService: AppService) { }
+  constructor(private AppService: AppService, private FilterService: FilterService) { }
 
   ngOnInit(): void {
     this.getData();
-    this.nodes = this.AppService.getUnitNodes();
+    setTimeout(() => {
+      this.nodes = this.AppService.getUnitNodes();
+    }, 500);
   }
 
   fetchData() {
@@ -30,7 +39,7 @@ export class DocumentListComponent implements OnInit {
 
   getData() {
     this.AppService.getAllItems("documents").subscribe(res => {
-      this.documents = res;
+      this.originDocuments = this.documents = res;
     })
   }
 
@@ -47,6 +56,20 @@ export class DocumentListComponent implements OnInit {
       // console.log(this.unit);
       return this.unit;
     })
+  }
+
+  // search by name and unit
+  fullSearchFunction(searchText: any, unitId: any) {
+    this.AppService.getItem('units', unitId).subscribe(res => {
+      this.unit = res.slash;
+      this.documents = this.FilterService.searchByNameAndUnit(this.originDocuments, searchText, this.unit);
+    });
+  }
+  // clear search
+  clearSearch() {
+    this.searchText = "";
+    this.unitId = "1";
+    this.documents = this.originDocuments;
   }
 
 }

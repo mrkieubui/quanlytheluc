@@ -348,6 +348,9 @@ body {
     box-shadow: none;
 }
 
+/* 93% height */
+
+
 .content-wrapper .form-control, .content-wrapper .select2-selection--single {
     border: 1px solid #ced4da;
     border-top-color: #ced4da !important;
@@ -407,6 +410,18 @@ body {
 
 .content-wrapper .card-body.card-body-content {
     padding: 20px !important;
+}
+.content-wrapper .card-body.card-body-content.custom-body-70 {
+    padding: 20px !important;
+    height: 72vh;
+}
+.content-wrapper .card-body.card-body-content.custom-body-80 {
+    padding: 20px !important;
+    height: 80vh;
+}
+.content-wrapper .card-body.card-body-content.custom-body-90 {
+    padding: 20px !important;
+    height: 90vh;
 }
 
 .content-wrapper .btn-group-content {
@@ -492,7 +507,7 @@ body {
     position: relative;
     top: 0;
     left: 0;
-    background: url("/images/background.png") center center no-repeat;
+    /* background: url("/images/background.png") center center no-repeat; */
 }
 
 #main-login #loginForm-wrap {
@@ -503,7 +518,7 @@ body {
 }
 
 #main-login #loginForm-wrap #document-content {
-    width: 450px;
+    width: 400px;
     margin-left: auto;
     margin-right: auto;
     border: 1px solid #fff;
@@ -514,7 +529,7 @@ body {
 }
 
 #main-login #loginForm-wrap #document-content img.login-img {
-    width: 123px;
+    width: 134px;
     height: 134px;
     margin-bottom: 10px;
 }
@@ -738,5 +753,13 @@ body {
     padding: 0.15rem 0.4rem;
 }
 .table-group-object.table td, .table-group-object.table th, .table-custom.table td, .table-custom.table th{
-    padding: 0.25rem 0.25rem;
+    padding: 0.5rem 0.25rem;
+}
+
+.card-footer {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.ngx-pagination {
+    margin: 5px !important;
 }

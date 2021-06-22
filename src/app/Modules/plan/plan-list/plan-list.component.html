@@ -11,11 +11,11 @@
                     </a>
                 </div>
             </div>
-            <div class="card-body card-body-content table-content">
+            <div class="card-body card-body-content table-content custom-body-70">
                 <div class="form-group row mb-3">
                     <div class="col-lg-6">
                         <div class="input-group">
-                            <input type="text" class="form-control"
+                            <input type="text" class="form-control" [(ngModel)]="searchText"
                                 placeholder="Tìm kiếm theo số kế hoạch, tên kế hoạch ">
                             <span class=" input-group-prepend icon-picker">
                                 <span class="input-group-text"><i class="icon-search4"></i></span>
@@ -25,7 +25,7 @@
                     <div class="col-lg-4">
                         <div class="input-group">
                             <nz-tree-select style="width: 100%" nzPlaceHolder="Chọn đơn vị"
-                                [nzExpandedKeys]="expandKeys" [nzNodes]="nodes" [(ngModel)]="unit" #uunit="ngModel"
+                                [nzExpandedKeys]="expandKeys" [nzNodes]="nodes" [(ngModel)]="unitId" #uunit="ngModel"
                                 name="unit">
                             </nz-tree-select>
                         </div>
@@ -33,11 +33,11 @@
                     <div class="col-lg-2">
                         <div class="input-group">
                             <div class="list-icons">
-                                <button
+                                <button (click)="fullSearchFunction(searchText, unitId)"
                                     class="btn btn-default btn-outline bg-slate-600 text-slate-600 border-slate-600 legitRipple">
                                     <i class="icon-filter3"></i>
                                 </button>
-                                <button
+                                <button (click)="clearSearch()"
                                     class="btn btn-default btn-outline bg-slate-600 text-slate-600 border-slate-600 legitRipple">
                                     <i class="icon-eraser2"></i>
                                 </button>
@@ -58,8 +58,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let plan of plans; let index = index">
-                                <td class="text text-center">{{index + 1}}</td>
+                            <tr
+                                *ngFor="let plan of plans | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let index = index">
+                                <td class="text text-center">{{(currentPage-1)*itemsPerPage + index + 1}}</td>
                                 <td class="text">{{plan.planNumber}}</td>
                                 <td class="text">{{plan.name}}</td>
                                 <td class="text">{{plan.unit}}</td>
@@ -73,7 +74,7 @@
                                             <i class="far fa-edit" data-popup="tooltip" title="Sửa"></i>
                                         </a>
                                         <a class="text-danger text ml-2" data-toggle="modal" data-target="#confirmModal"
-                                        (click)="getDeleteId(plan.id)">
+                                            (click)="getDeleteId(plan.id)">
                                             <i class="far fa-trash-alt" data-popup="tooltip" title="Xóa"></i>
                                         </a>
                                         <app-confirm-modal [id]="id" [path]="'plans'" (fetchData)="fetchData()">
@@ -84,6 +85,12 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+                <div> Hiển thị <b>{{itemsPerPage*(currentPage - 1) + 1}}</b> đến <b>{{plans.length <
+                            itemsPerPage*currentPage ? plans.length : itemsPerPage*currentPage}}</b> trên tổng số
+                            <b>{{plans.length}}</b> kết quả </div>
+                <pagination-controls (pageChange)="(currentPage = $event)"></pagination-controls>
             </div>
         </div>
     </div>

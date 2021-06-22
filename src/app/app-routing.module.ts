@@ -1,23 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AccountManagerComponent } from './Modules/account/account-manager/account-manager.component';
-import { ConfigureManagerComponent } from './Modules/configure-manager/configure-manager.component';
-import { DashboardComponent } from './Modules/dashboard/dashboard.component';
-import { DocumentManagerComponent } from './Modules/target/document-manager/document-manager.component';
-import { LoginComponent } from './Modules/login/login.component';
-import { PlanManagerComponent } from './Modules/plan/plan-manager/plan-manager.component';
-import { ReportManagerComponent } from './Modules/report-manager/report-manager.component';
-import { ResultManagerComponent } from './Modules/result-manager/result-manager.component';
+import { ConfigureManagerComponent } from './Modules/account/configure-manager/configure-manager.component';
+import { DashboardComponent } from './Modules/account/dashboard/dashboard.component';
+import { LoginComponent } from './Modules/account/login/login.component';
+import { ReportManagerComponent } from './Modules/report/report-manager/report-manager.component';
+import { ResultManagerComponent } from './Modules/result/result-manager/result-manager.component';
+import { AuthGuard } from './Services/auth.guard';
 
 const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'plan-manager', component: PlanManagerComponent },
-  { path: 'document-manager', component: DocumentManagerComponent },
-  { path: 'result-manager', component: ResultManagerComponent },
-  { path: 'report-manager', component: ReportManagerComponent },
-  { path: 'account-manager', component: AccountManagerComponent },
-  { path: 'configure-manager', component: ConfigureManagerComponent },
+  { path: 'dashboard', component: DashboardComponent,  canActivate: [AuthGuard]},
+  { path: 'result-manager', component: ResultManagerComponent,  canActivate: [AuthGuard]},
+  { path: 'report-manager', component: ReportManagerComponent,  canActivate: [AuthGuard]},
+  { path: 'account-manager', component: AccountManagerComponent,  canActivate: [AuthGuard]},
+  { path: 'configure-manager', component: ConfigureManagerComponent,  canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent },
 ];
 
 @NgModule({

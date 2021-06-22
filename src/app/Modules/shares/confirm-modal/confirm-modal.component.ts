@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NotificationsService } from 'src/app/notifications.service';
-import { AppService } from 'src/app/app.service';
+import { AppService } from 'src/app/Services/app.service';
+import { NotificationsService } from 'src/app/Services/notifications.service';
 
 @Component({
   selector: 'app-confirm-modal',

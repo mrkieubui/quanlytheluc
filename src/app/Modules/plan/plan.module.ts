@@ -10,7 +10,7 @@ import { PlanDetailsComponent } from './plan-details/plan-details.component';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { SharesModule } from '../shares/shares.module';
 import { FormsModule } from '@angular/forms';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,8 @@ import { FormsModule } from '@angular/forms';
     NzTreeSelectModule,
     SharesModule,
     FormsModule,
-    AngularFileUploaderModule
+    AngularFileUploaderModule,
+    NgxPaginationModule
   ]
 })
 export class PlanModule { }

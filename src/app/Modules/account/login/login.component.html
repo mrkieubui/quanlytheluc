@@ -1,0 +1,65 @@
+<main id="main-login">
+    <div id="loginForm-wrap" class="container">
+        <div id="document-content">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 loginForm-page">
+                    <section class="loginForm-content">
+                        <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+                            <div class="cardCont text-center">
+                                <a title="Trang chủ"><img src="../assets/images/logo.png" alt="logo"
+                                        class="login-img m-bot"></a>
+                                <div class="loginForm-title AllPage-title">
+                                    HỆ THỐNG QUẢN LÝ <br> KẾT QUẢ KIỂM TRA THỂ LỰC
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="icon-user"></i></span>
+                                            </div>
+                                            <input type="text" required class="form-control check-value" name="username"
+                                                #lusername="ngModel" [(ngModel)]="username" placeholder="Tên đăng nhập">
+                                        </div>
+                                        <div *ngIf="lusername.invalid && loginForm.submitted" [ngClass]="'error'"
+                                            class="ml-2 text-danger">
+                                            Chưa nhập tài khoản!
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="icon-key"></i></span>
+                                            </div>
+                                            <input type="password" required name="password" #lpassword="ngModel"
+                                                [(ngModel)]="password" [(ngModel)]="password"
+                                                class="form-control check-value" placeholder="Mật khẩu">
+                                        </div>
+                                        <div *ngIf="lpassword.invalid && loginForm.submitted" [ngClass]="'error'"
+                                            class="ml-2 text-danger">
+                                            Chưa nhập mật khẩu!
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-group form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Ghi nhớ mật khẩu
+                                        </label>
+                                    </div> -->
+
+                                    <div class="button-group-contact m-bot">
+                                        <button type="submit"
+                                            class="btn btn-info btnAllGroup btnGruopReg btnSubmit">Đăngnhập</button>
+                                    </div>
+                                    <div *ngIf="userError && lusername.valid && lpassword.valid" [ngClass]="'error'"
+                                        class="ml-2 text-danger">
+                                        Tên đăng nhập hoặc mật khẩu chưa đúng!
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

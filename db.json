@@ -390,6 +390,30 @@
       "name": "Nghiên cứu viên",
       "slash": "NCV",
       "order": ""
+    },
+    {
+      "id": 50,
+      "name": "Hiệu trưởng",
+      "slash": "HT",
+      "order": ""
+    },
+    {
+      "id": 51,
+      "name": "Phó hiệu trưởng",
+      "slash": "PHT",
+      "order": ""
+    },
+    {
+      "id": 52,
+      "name": "Chính ủy",
+      "slash": "CU",
+      "order": ""
+    },
+    {
+      "id": 53,
+      "name": "Phó chính ủy",
+      "slash": "PCU",
+      "order": ""
     }
   ],
   "ranks": [
@@ -542,26 +566,66 @@
       "value": "9b4aad40-4c2b-1e58-5f97-c7beaa49659e",
       "slash": "K6",
       "parentId": "b42c3768-ffb9-53ec-9ebf-d4eb164162a5"
+    },
+    {
+      "id": "ac0c1417-2dd3-8ed3-58ed-01e0262991d6",
+      "title": "Lữ đoàn 139",
+      "key": "ac0c1417-2dd3-8ed3-58ed-01e0262991d6",
+      "value": "ac0c1417-2dd3-8ed3-58ed-01e0262991d6",
+      "slash": "e139",
+      "parentId": "1"
+    },
+    {
+      "id": "085339a4-9181-aaa5-ec20-cee752e67ad5",
+      "title": "Lữ đoàn 205",
+      "key": "085339a4-9181-aaa5-ec20-cee752e67ad5",
+      "value": "085339a4-9181-aaa5-ec20-cee752e67ad5",
+      "slash": "e205",
+      "parentId": "1"
+    },
+    {
+      "id": "9eb5963b-2a3d-dff8-f9c5-e47b2d78e25f",
+      "title": "Tiểu đoàn 45",
+      "key": "9eb5963b-2a3d-dff8-f9c5-e47b2d78e25f",
+      "value": "9eb5963b-2a3d-dff8-f9c5-e47b2d78e25f",
+      "slash": "d45",
+      "parentId": "085339a4-9181-aaa5-ec20-cee752e67ad5"
+    },
+    {
+      "id": "e8e41aa4-9bbb-ea4a-dece-918b54e93d2a",
+      "title": "Tiểu đoàn 22",
+      "key": "e8e41aa4-9bbb-ea4a-dece-918b54e93d2a",
+      "value": "e8e41aa4-9bbb-ea4a-dece-918b54e93d2a",
+      "slash": "d22",
+      "parentId": "ac0c1417-2dd3-8ed3-58ed-01e0262991d6"
+    },
+    {
+      "id": "8a4e3299-d593-4bac-9977-c37d305e08cb",
+      "title": "Đại đội 1",
+      "key": "8a4e3299-d593-4bac-9977-c37d305e08cb",
+      "value": "8a4e3299-d593-4bac-9977-c37d305e08cb",
+      "slash": "c1",
+      "parentId": "9eb5963b-2a3d-dff8-f9c5-e47b2d78e25f"
     }
   ],
   "soldiers": [
     {
-      "name": "Lee Min Hoo",
-      "identitynumber": "TSQ-15012301",
-      "gender": "Nữ",
+      "name": "Lê Anh Tài 2",
+      "identitynumber": "TSQ-100101",
+      "gender": "Nam",
       "birthday": "2021-06-25",
       "timestart": "2021-06-24",
-      "rank": "Trung sĩ",
-      "job": "Chiến sĩ",
-      "unit": "B11-P1-SQTT",
-      "unitId": "3b5cedd1-88ae-ce1d-b33a-2822b759bd46",
-      "participant": "Chiến sĩ nghĩa vụ",
-      "id": 7
+      "rank": "Thượng sĩ",
+      "job": "Học viên",
+      "unit": "d30-SQTT-BCTT",
+      "unitId": "8b710e2d-26cb-c7e3-ce36-b75a760d66fe",
+      "participant": "Học viên sĩ quan",
+      "id": 1
     },
     {
       "name": "Hoàng Mạnh Đức",
-      "identitynumber": "TSQ-15012302",
-      "gender": "Nữ",
+      "identitynumber": "TSQ-100102",
+      "gender": "Nam",
       "birthday": "2021-06-09",
       "timestart": "2021-06-24",
       "rank": "Hạ sĩ",
@@ -569,7 +633,124 @@
       "unit": "d30-SQTT-BCTT",
       "unitId": "8b710e2d-26cb-c7e3-ce36-b75a760d66fe",
       "participant": "Học viên sĩ quan",
+      "id": 2
+    },
+    {
+      "name": "Le Nam",
+      "identitynumber": "TSQ-100103",
+      "gender": "Nữ",
+      "birthday": "2021-06-10",
+      "timestart": "2021-06-10",
+      "rank": "Trung sĩ",
+      "job": "Tiểu đội trưởng",
+      "unitId": "17",
+      "unit": "TTCNC-BCTT",
+      "participant": "Học viên sĩ quan",
+      "id": 3
+    },
+    {
+      "name": "12121212",
+      "identitynumber": "12121212",
+      "gender": "Nữ",
+      "birthday": "2021-06-08",
+      "timestart": "2021-06-02",
+      "rank": "Binh nhất",
+      "job": "Học viên",
+      "unitId": "b42c3768-ffb9-53ec-9ebf-d4eb164162a5",
+      "unit": "CDKTTT-BCTT",
+      "participant": "Chiến sĩ nghĩa vụ",
+      "id": 4
+    },
+    {
+      "name": "ok",
+      "identitynumber": "151515",
+      "gender": "Nam",
+      "birthday": "2021-06-11",
+      "timestart": "2021-06-03",
+      "rank": "Binh nhì",
+      "job": "Chiến sĩ",
+      "unitId": "9b4aad40-4c2b-1e58-5f97-c7beaa49659e",
+      "unit": "K6-CDKTTT-BCTT",
+      "participant": "Chiến sĩ nghĩa vụ",
+      "id": 5
+    },
+    {
+      "name": "Toni Lee",
+      "identitynumber": "TSQ-100105",
+      "gender": "Nam",
+      "birthday": "2021-06-25",
+      "timestart": "2021-06-24",
+      "rank": "Trung sĩ",
+      "job": "Chiến sĩ",
+      "unit": "B11-P1-SQTT",
+      "unitId": "3b5cedd1-88ae-ce1d-b33a-2822b759bd46",
+      "participant": "Chiến sĩ nghĩa vụ",
+      "id": 6
+    },
+    {
+      "name": "333",
+      "identitynumber": "333",
+      "gender": "Nữ",
+      "birthday": "2021-06-10",
+      "timestart": "2021-06-10",
+      "rank": "Trung sĩ",
+      "job": "Tiểu đội trưởng",
+      "unitId": "17",
+      "unit": "TTCNC-BCTT",
+      "participant": "Học viên sĩ quan",
       "id": 8
+    },
+    {
+      "name": "9999999",
+      "identitynumber": "9999999",
+      "gender": "Nữ",
+      "birthday": "2021-06-08",
+      "timestart": "2021-06-02",
+      "rank": "Binh nhất",
+      "job": "Học viên",
+      "unitId": "ec435ce8-0b9e-5967-2ecc-d2eb29da51c7",
+      "unit": "P1-SQTT-BCTT",
+      "participant": "Chiến sĩ nghĩa vụ",
+      "id": 9
+    },
+    {
+      "name": "555",
+      "identitynumber": "555",
+      "gender": "Nam",
+      "birthday": "2021-06-11",
+      "timestart": "2021-06-03",
+      "rank": "Binh nhì",
+      "job": "Chiến sĩ",
+      "unitId": "17",
+      "unit": "TTCNC-BCTT",
+      "participant": "Chiến sĩ nghĩa vụ",
+      "id": 10
+    },
+    {
+      "name": "Lee Min Hoo",
+      "identitynumber": "TSQ-15012301",
+      "gender": "Nam",
+      "birthday": "2021-06-25",
+      "timestart": "2021-06-24",
+      "rank": "Trung sĩ",
+      "job": "Chiến sĩ",
+      "unit": "B11-P1-SQTT",
+      "unitId": "3b5cedd1-88ae-ce1d-b33a-2822b759bd46",
+      "participant": "Chiến sĩ nghĩa vụ",
+      "id": 11
+    },
+    {
+      "name": "Hoàng Mạnh Đức",
+      "identitynumber": "TSQ-15012302",
+      "gender": "Nam",
+      "birthday": "2021-06-09",
+      "timestart": "2021-06-24",
+      "rank": "Hạ sĩ",
+      "job": "Học viên",
+      "unit": "d30-SQTT-BCTT",
+      "unitId": "8b710e2d-26cb-c7e3-ce36-b75a760d66fe",
+      "participant": "Học viên sĩ quan",
+      "id": 12
     },
     {
       "name": "12121212",
@@ -582,12 +763,12 @@
       "unitId": "17",
       "unit": "TTCNC-BCTT",
       "participant": "Học viên sĩ quan",
-      "id": 9
+      "id": 13
     },
     {
       "name": "12121212",
       "identitynumber": "12121212",
-      "gender": "Nam",
+      "gender": "Nữ",
       "birthday": "2021-06-08",
       "timestart": "2021-06-02",
       "rank": "Binh nhất",
@@ -595,7 +776,7 @@
       "unitId": "b42c3768-ffb9-53ec-9ebf-d4eb164162a5",
       "unit": "CDKTTT-BCTT",
       "participant": "Chiến sĩ nghĩa vụ",
-      "id": 10
+      "id": 14
     },
     {
       "name": "151515",
@@ -607,8 +788,60 @@
       "job": "Chiến sĩ",
       "unitId": "9b4aad40-4c2b-1e58-5f97-c7beaa49659e",
       "unit": "K6-CDKTTT-BCTT",
+      "participant": "Học viên sĩ quan",
+      "id": 15
+    },
+    {
+      "name": "Van Thanh Bui",
+      "identitynumber": "TSQ-15012301",
+      "gender": "Nữ",
+      "birthday": "2000-06-10",
+      "timestart": "2018-09-04",
+      "rank": "Hạ sĩ",
+      "job": "Trợ lý",
+      "unitId": "17",
+      "unit": "TTCNC-BCTT",
+      "participant": "Học viên sĩ quan",
+      "id": 16
+    },
+    {
+      "name": "Lê Anh Tài",
+      "identitynumber": "TSQ-15012301",
+      "gender": "Nam",
+      "birthday": "2000-06-10",
+      "timestart": "2018-09-04",
+      "rank": "Binh nhất",
+      "job": "Tổ trưởng",
+      "unitId": "17",
+      "unit": "TTCNC-BCTT",
+      "participant": "Học viên sĩ quan",
+      "id": 17
+    },
+    {
+      "name": "abc",
+      "identitynumber": "TSQ-15012301",
+      "gender": "Nữ",
+      "birthday": "2000-06-10",
+      "timestart": "2018-09-04",
+      "rank": "Trung sĩ",
+      "job": "Trợ lý",
+      "unitId": "1",
+      "unit": "BCTT",
       "participant": "Chiến sĩ nghĩa vụ",
-      "id": 11
+      "id": 18
+    },
+    {
+      "name": "Van Thanh Bui",
+      "identitynumber": "TSQ-150123011",
+      "gender": "Nam",
+      "birthday": "2000-06-10",
+      "timestart": "2018-09-04",
+      "rank": "Đại úy",
+      "job": "Trợ lý",
+      "unitId": "17",
+      "unit": "TTCNC - BCTT",
+      "participant": "SQ và QNCN dưới 36",
+      "id": 19
     }
   ],
   "genders": [
@@ -774,6 +1007,33 @@
             "gioi": "100",
             "kha": "70",
             "dat": "50"
+          }
+        },
+        {
+          "name": "121212",
+          "contentGroupId": "2",
+          "contentGroup": "Tố chất sức mạnh",
+          "measureUnitId": "1",
+          "measureUnit": "mét",
+          "csnv": {
+            "gioi": "8",
+            "kha": "8",
+            "dat": "8"
+          },
+          "hvsq": {
+            "gioi": "8",
+            "kha": "8",
+            "dat": "8"
+          },
+          "namduoi36": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
+          },
+          "namduoi45": {
+            "gioi": "",
+            "kha": "",
+            "dat": ""
           }
         }
       ],
@@ -1249,6 +1509,39 @@
         }
       ],
       "id": 2
+    },
+    {
+      "name": "555",
+      "docNumber": "555",
+      "unit": "CDKTTT-BCTT",
+      "unitId": "b42c3768-ffb9-53ec-9ebf-d4eb164162a5",
+      "startDate": "2021-03-08",
+      "namduoi45": [],
+      "namtren45": [],
+      "nu": [],
+      "id": 3
+    },
+    {
+      "name": "909090",
+      "docNumber": "909090",
+      "unit": "P2-TTCNC-BCTT",
+      "unitId": "f5645f06-e28e-7b08-299d-139f33c3973f",
+      "startDate": "2021-03-08",
+      "namduoi45": [],
+      "namtren45": [],
+      "nu": [],
+      "id": 4
+    },
+    {
+      "name": "141414",
+      "docNumber": "141414",
+      "unit": "TTCNC - BCTT",
+      "unitId": "17",
+      "startDate": "2021-03-08",
+      "namduoi45": [],
+      "namtren45": [],
+      "nu": [],
+      "id": 5
     }
   ],
   "contentGroups": [
@@ -1318,17 +1611,134 @@
       "id": "3",
       "name": "Kế hoạch số 3",
       "planNumber": "123456",
-      "unit": "SQTT-BCTT",
-      "unitId": "2",
+      "unit": "BCTT",
+      "unitId": "1",
       "startDate": "2021-03-08"
     },
     {
       "name": "Kế hoạch số 222",
-      "planNumber": "Kế hoạch số 222",
+      "planNumber": "Kế hoạch số 2222222",
       "unit": "CDKTTT-BCTT",
       "unitId": "b42c3768-ffb9-53ec-9ebf-d4eb164162a5",
       "startDate": "2021-08-08",
       "id": "OYmaHM4"
+    }
+  ],
+  "roles": [
+    {
+      "id": 1,
+      "name": "Quản trị viên",
+      "slash": "admin"
+    },
+    {
+      "id": 2,
+      "name": "Trợ lý",
+      "slash": "assistant"
+    },
+    {
+      "id": 3,
+      "name": "Thủ trưởng",
+      "slash": "user"
+    }
+  ],
+  "accounts": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "123456",
+      "role": "admin",
+      "status": true,
+      "name": "Quản trị viên",
+      "rank": "Trung tá",
+      "job": "Trợ lý",
+      "unit": "BCTT",
+      "unitId": "1",
+      "email": "",
+      "phone": ""
+    },
+    {
+      "id": 2,
+      "username": "bctt.tulenh",
+      "password": "123456",
+      "role": "user",
+      "status": true,
+      "name": "Tư lệnh BCTT",
+      "rank": "Thiếu tướng",
+      "job": "Tư lệnh binh chủng",
+      "unit": "BCTT",
+      "unitId": "1",
+      "email": "",
+      "phone": ""
+    },
+    {
+      "id": 3,
+      "username": "tsq.troly",
+      "password": "123456",
+      "role": "assistant",
+      "status": true,
+      "name": "Trợ lý trường SQTT",
+      "rank": "Trung tá",
+      "job": "Trợ lý",
+      "unit": "SQTT - BCTT",
+      "unitId": "2",
+      "email": "",
+      "phone": ""
+    },
+    {
+      "id": 4,
+      "username": "tsq.hieutruong",
+      "password": "123456",
+      "role": "user",
+      "status": false,
+      "name": "Hiệu trưởng SQTT",
+      "rank": "Đại tá",
+      "job": "Hiệu trưởng",
+      "unit": "SQTT - BCTT",
+      "unitId": "2",
+      "email": "",
+      "phone": ""
+    },
+    {
+      "id": 5,
+      "username": "tsq.dtd30",
+      "password": "123456",
+      "role": "user",
+      "status": true,
+      "name": "Tiểu đoàn trưởng d30",
+      "rank": "Thượng tá",
+      "job": "Tiểu đoàn trưởng",
+      "unit": "d30 - SQTT - BCTT",
+      "unitId": "8b710e2d-26cb-c7e3-ce36-b75a760d66fe",
+      "email": "",
+      "phone": ""
+    },
+    {
+      "username": "cnc.latai",
+      "password": "@a123456",
+      "role": "user",
+      "status": true,
+      "name": "Lê Anh Tài",
+      "rank": "Thượng tá",
+      "job": "Phó giám đốc",
+      "unit": "TTCNC - BCTT",
+      "unitId": "17",
+      "email": "",
+      "phone": "",
+      "id": 7
+    },
+    {
+      "username": "cdtt.tpnha",
+      "password": "@a123456",
+      "role": "assistant",
+      "status": false,
+      "name": "Trịnh Phong Nha",
+      "rank": "Đại úy",
+      "job": "Trợ lý",
+      "unit": "CDKTTT - BCTT",
+      "unitId": "b42c3768-ffb9-53ec-9ebf-d4eb164162a5",
+      "email": "",
+      "phone": "",
+      "id": 8
     }
   ]
 }

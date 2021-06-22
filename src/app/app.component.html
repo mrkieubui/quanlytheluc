@@ -4,8 +4,8 @@
         <app-sidebar *ngIf="loginStatus"></app-sidebar>
 
         <div class="content-wrapper">
-            <router-outlet (changeLoginStatus)="changeLoginStatus($event)"></router-outlet>
+            <router-outlet></router-outlet>
         </div>
     </div>
-    <app-footer *ngIf="loginStatus"></app-footer>
+    <app-footer></app-footer>
 </div>
