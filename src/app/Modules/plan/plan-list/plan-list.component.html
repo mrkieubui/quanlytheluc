@@ -26,7 +26,7 @@
                         <div class="input-group">
                             <nz-tree-select style="width: 100%" nzPlaceHolder="Chọn đơn vị"
                                 [nzExpandedKeys]="expandKeys" [nzNodes]="nodes" [(ngModel)]="unitId" #uunit="ngModel"
-                                name="unit">
+                                name="unit"> 
                             </nz-tree-select>
                         </div>
                     </div>
@@ -65,16 +65,16 @@
                                 <td class="text">{{plan.name}}</td>
                                 <td class="text">{{plan.unit}}</td>
                                 <td class="text text-center">{{plan.startDate}}</td>
-                                <td class="text text-center">
+                                <td class="text">
                                     <div class="list-icons">
                                         <a [routerLink]="['details/', plan.id]" class="text-black text ml-2">
                                             <i class="far fa-eye" data-popup="tooltip" title="Xem"></i>
                                         </a>
-                                        <a [routerLink]="['update/', plan.id]" class="text-black text ml-2">
+                                        <a [routerLink]="['update/', plan.id]" class="text-black text ml-2" *ngIf="plan.unitId == userUnitId">
                                             <i class="far fa-edit" data-popup="tooltip" title="Sửa"></i>
                                         </a>
                                         <a class="text-danger text ml-2" data-toggle="modal" data-target="#confirmModal"
-                                            (click)="getDeleteId(plan.id)">
+                                            (click)="getDeleteId(plan.id)" *ngIf="plan.unitId == userUnitId">
                                             <i class="far fa-trash-alt" data-popup="tooltip" title="Xóa"></i>
                                         </a>
                                         <app-confirm-modal [id]="id" [path]="'plans'" (fetchData)="fetchData()">

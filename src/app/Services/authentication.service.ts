@@ -22,15 +22,16 @@ export class AuthenticationService {
         if (user.username == username && user.password == password) {
           this.isLoggedIn = true;
           this.userLogin = user;
+          if (this.isLoggedIn) {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('currentUser', JSON.stringify(this.userLogin));
+            localStorage.setItem('isLoggedIn', JSON.stringify(true));
+            this.router.navigate(['dashboard']);
+          }
         }
       });
     })
-    if (this.isLoggedIn) {
-      // store user details and jwt token in local storage to keep user logged in between page refreshes
-      localStorage.setItem('currentUser', JSON.stringify(this.userLogin));
-      localStorage.setItem('isLoggedIn', JSON.stringify(true));
-      this.router.navigate(['dashboard']);
-    }
+
   }
 
   logout() {

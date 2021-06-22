@@ -16,6 +16,7 @@ import { ParticipantListComponent } from './participant-manager/participant-list
 import { ParticipantCreateComponent } from './participant-manager/participant-create/participant-create.component';
 import { ParticipantUpdateComponent } from './participant-manager/participant-update/participant-update.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SoldierDetailsComponent } from './soldier-manager/soldier-details/soldier-details.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     JobUpdateComponent,
     ParticipantListComponent,
     ParticipantCreateComponent,
-    ParticipantUpdateComponent
+    ParticipantUpdateComponent,
+    SoldierDetailsComponent
   ],
   imports: [
     CommonModule,

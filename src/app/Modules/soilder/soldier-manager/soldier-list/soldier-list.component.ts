@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as arrayToTree from 'array-to-tree';
 import { AppService } from 'src/app/Services/app.service';
+import { FilterService } from 'src/app/Services/filter.service';
 
 @Component({
   selector: 'app-soldier-list',
@@ -10,24 +11,30 @@ import { AppService } from 'src/app/Services/app.service';
 export class SoldierListComponent implements OnInit {
 
   soldiers: any = [];
+  originSoldiers: any = [];
   ranks: any = [];
   id: any;
   // custom tree select 
   expandKeys = ['1'];
   nodes: any = [];
-  unit: any = "1";
+  unitId: any = "1";
   // Pagination default value
   currentPage: number = 1;
   itemsPerPage: number = 12;
+  // search text
+  searchText: string = "";
+  unit: string = "";
+  rank: string = "";
 
-  constructor(private AppService: AppService) { }
+  constructor(private AppService: AppService, private FilterService: FilterService) { }
 
   ngOnInit(): void {
     this.getData();
     setTimeout(() => {
       this.nodes = this.AppService.getUnitNodes();
+      this.ranks = this.AppService.getDataByModule('ranks');
     }, 500);
-    this.ranks = this.AppService.getDataByModule('ranks');
+    
   }
 
   fetchData() {
@@ -37,7 +44,7 @@ export class SoldierListComponent implements OnInit {
   getData() {
     // get soldiers
     this.AppService.getAllItems('soldiers').subscribe(res => {
-      this.soldiers = res;
+      this.soldiers = this.originSoldiers = res;
     });
   }
 
@@ -45,5 +52,20 @@ export class SoldierListComponent implements OnInit {
   getDeleteId(id: number) {
     this.id = id;
     this.AppService.storeId(this.id);
+  }
+
+  // search by name and unit
+  fullSearchFunction(searchText: any, unitId: any, rank: any) {
+    this.AppService.getItem('units', unitId).subscribe(res => {
+      this.unit = res.slash;
+      this.soldiers = this.FilterService.searchByNameUnitAndRank(this.originSoldiers, searchText, this.unit, rank);
+    });
+  }
+  // clear search
+  clearSearch() {
+    this.searchText = "";
+    this.unitId = "1";
+    this.rank = "0";
+    this.soldiers = this.originSoldiers;
   }
 }

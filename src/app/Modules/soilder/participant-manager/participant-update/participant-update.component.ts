@@ -13,6 +13,7 @@ export class ParticipantUpdateComponent implements OnInit {
   participantGroups: any = [];
   id: any = 0;
   participant: any = {};
+  userRole: any;
 
   constructor(public AppService: AppService, public NotificationsService: NotificationsService, private router: Router, private route: ActivatedRoute) { }
 
@@ -31,6 +32,8 @@ export class ParticipantUpdateComponent implements OnInit {
     this.AppService.getItem('participants', this.id).subscribe((res) => {
       this.participant = res;
     });
+    var tempUser: any = localStorage.getItem('currentUser');
+		this.userRole = JSON.parse(tempUser).role;
   }
   // edit participant
   onEditPaticipant(userForm: any) {

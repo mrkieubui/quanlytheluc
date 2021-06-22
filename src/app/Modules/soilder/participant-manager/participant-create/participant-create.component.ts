@@ -16,6 +16,7 @@ export class ParticipantCreateComponent implements OnInit {
 		participantGroup: ""
 	};
 	participantGroups: any = [];
+	userRole: any;
 
 	constructor(public AppService: AppService, public NotificationsService: NotificationsService, private router: Router) { }
 
@@ -25,6 +26,8 @@ export class ParticipantCreateComponent implements OnInit {
 				this.participantGroups = res;
 			}
 		);
+		var tempUser: any = localStorage.getItem('currentUser');
+		this.userRole = JSON.parse(tempUser).role;
 	}
 
 	// Tạo mới đối tượng

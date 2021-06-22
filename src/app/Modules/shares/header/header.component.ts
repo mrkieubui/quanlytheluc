@@ -10,9 +10,15 @@ import { AuthenticationService } from '../../../Services/authentication.service'
 })
 export class HeaderComponent implements OnInit {
 
+  user: any = {};
+
   constructor(private AppService: AppService, private route: ActivatedRoute, private AuthenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      var temp: any = localStorage.getItem('currentUser');
+      this.user = JSON.parse(temp);
+    }, 500);
   }
 
   logOut() {

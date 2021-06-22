@@ -20,6 +20,7 @@ export class ParticipantListComponent implements OnInit {
   public group3Length: any = 0;
 
   id: number = 0;
+  userRole: any;
 
   constructor(private AppService: AppService) { }
 
@@ -28,6 +29,8 @@ export class ParticipantListComponent implements OnInit {
     this.AppService.getAllItems('participantGroups').subscribe(res => {
       this.participantGroups = res;
     });
+    var tempUser: any = localStorage.getItem('currentUser');
+    this.userRole = JSON.parse(tempUser).role;
   }
 
   fetchData() {

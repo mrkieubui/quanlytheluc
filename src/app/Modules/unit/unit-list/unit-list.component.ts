@@ -13,7 +13,7 @@ export class UnitListComponent implements OnInit {
   id: any;
   collapseId: any;
   collapseStatus: boolean = false;
-
+  
   constructor(private AppService: AppService) { }
 
   ngOnInit(): void {

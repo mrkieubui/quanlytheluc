@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from 'src/app/Services/app.service';
+import { FilterService } from 'src/app/Services/filter.service';
 
 @Component({
   selector: 'app-account-list',
@@ -9,16 +10,20 @@ import { AppService } from 'src/app/Services/app.service';
 export class AccountListComponent implements OnInit {
 
   accounts: any = [];
+  originAccounts: any = [];
   id: any;
   // custom tree select 
   expandKeys = ['1'];
   nodes: any = [];
-  unit: any = "1";
+  unitId: any = "1";
   // Pagination default value
   currentPage: number = 1;
   itemsPerPage: number = 12;
+  // search text
+  searchText: string = "";
+  unit: string = "";
 
-  constructor(private AppService: AppService) { }
+  constructor(private AppService: AppService, private FilterService: FilterService) { }
 
   ngOnInit(): void {
     this.getData();
@@ -33,12 +38,26 @@ export class AccountListComponent implements OnInit {
 
   getData() {
     this.AppService.getAllItems('accounts').subscribe(res => {
-      this.accounts = res;
+      this.accounts = this.originAccounts = res;
     });
   }
   // get delete id to send to modal
   getDeleteId(id: number) {
     this.id = id;
     this.AppService.storeId(this.id);
+  }
+
+  // search by name and unit
+  fullSearchFunction(searchText: any, unitId: any) {
+    this.AppService.getItem('units', unitId).subscribe(res => {
+      this.unit = res.slash;
+      this.accounts = this.FilterService.searchByNameAndUnit(this.originAccounts, searchText, this.unit);
+    });
+  }
+  // clear search
+  clearSearch() {
+    this.searchText = "";
+    this.unitId = "1";
+    this.accounts = this.originAccounts;
   }
 }

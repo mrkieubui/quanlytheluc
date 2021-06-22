@@ -18,10 +18,10 @@ export class UnitUpdateComponent implements OnInit {
   parentunit: string = "1";
   units: any = [];
   id: any;
-
+  disableSubmit: boolean = false;
+  disableSelect: boolean = false;
   // custom tree select 
   expandKeys = ['1'];
-  value?: string;
   nodes: any = [];
 
   constructor(private AppService: AppService, private route: ActivatedRoute, private router: Router, private NotificationsService: NotificationsService) { }
@@ -34,6 +34,9 @@ export class UnitUpdateComponent implements OnInit {
     this.AppService.getItem('units', this.id).subscribe((res) => {
       this.unit = res;
       this.parentunit = this.unit.parentId;
+      if (this.parentunit == "0") {
+        this.disableSelect = true;
+      }
     });
     this.AppService.getAllItems('units').subscribe(
       res => {
@@ -44,7 +47,13 @@ export class UnitUpdateComponent implements OnInit {
   }
 
   onChange(key: any) {
-    this.parentunit = key;
+    if (key == null) {
+      this.disableSubmit = true;
+      this.parentunit = "0";
+    } else {
+      this.disableSubmit = false;
+      this.parentunit = key;
+    }
   }
 
   onUpdateUnit(unitUpdateForm: any) {

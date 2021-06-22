@@ -18,7 +18,7 @@
                             <th class="text-500 text-center">Nhóm đối tượng</th>
                             <th class="text-500 text-center">Tên đối tượng</th>
                             <th class="text-500 text-center">Ký hiệu</th>
-                            <th class="text-500 text-center" style="width: 150px">Thao tác</th>
+                            <th class="text-500 text-center" style="width: 150px" *ngIf="userRole == 'admin'">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,7 +28,7 @@
                                 {{participantGroups[0].name}}</td>
                             <td class="text-center"> {{participant.name}}</td>
                             <td class="text-center"> {{participant.slash}}</td>
-                            <td class="text-center">
+                            <td class="text-center" *ngIf="userRole == 'admin'">
                                 <a class="text-black text ml-2" data-popup="tooltip" title="Sửa"
                                     [routerLink]="['update/', participant.id]"><i class="far fa-edit"></i></a>
                                 <a class="text-danger ml-2" data-popup="tooltip" title="Xóa" data-toggle="modal"
@@ -42,7 +42,7 @@
                                 {{participantGroups[1].name}}</td>
                             <td class="text-center"> {{participant.name}}</td>
                             <td class="text-center"> {{participant.slash}}</td>
-                            <td class="text-center">
+                            <td class="text-center" *ngIf="userRole == 'admin'">
                                 <a class="text-black text ml-2" data-popup="tooltip" title="Sửa"><i class="far fa-edit"
                                         [routerLink]="['update/', participant.id]"></i></a>
                                 <a class="text-danger ml-2" data-popup="tooltip" title="Xóa" data-toggle="modal"
@@ -56,7 +56,7 @@
                                 {{participantGroups[2].name}}</td>
                             <td class="text-center"> {{participant.name}}</td>
                             <td class="text-center"> {{participant.slash}}</td>
-                            <td class="text-center">
+                            <td class="text-center" *ngIf="userRole == 'admin'">
                                 <a class="text-black text ml-2" data-popup="tooltip" title="Sửa"><i class="far fa-edit"
                                         [routerLink]="['update/', participant.id]"></i></a>
                                 <a class="text-danger ml-2" data-popup="tooltip" title="Xóa" data-toggle="modal"

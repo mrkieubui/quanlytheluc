@@ -27,9 +27,9 @@
                                                 <a [routerLink]="['update/', unit.id]" class="text-black text ml-2">
                                                     <i class="far fa-edit" data-popup="tooltip" title="Sửa"></i>
                                                 </a>
-                                                <a data-toggle="modal" data-target="#confirmModal"
-                                                    (click)="getDeleteId(unit.id)" class="text-danger text ml-2">
-                                                    <i class="far fa-trash-alt sweet_delete" data-popup="tooltip"
+                                                <a data-toggle="modal" data-target="#confirmModal" *ngIf="unit.id !== '1'"
+                                                    (click)="getDeleteId(unit.id)" class="text-danger  text ml-2">
+                                                    <i class="far fa-trash-alt" data-popup="tooltip"
                                                         title="Xóa"></i>
                                                 </a>
                                             </div>

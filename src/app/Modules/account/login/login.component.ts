@@ -20,10 +20,10 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(loginForm: any) {
-    if (loginForm.value.username == 'admin' && loginForm.value.password == '123456') {
+    // if (loginForm.value.username == 'admin' && loginForm.value.password == '123456') {
       this.AuthenticationService.login(loginForm.value.username, loginForm.value.password)
-    } else {
-      this.userError = true;
-    }
+    // } else {
+      // this.userError = true;
+    // }
   }
 }

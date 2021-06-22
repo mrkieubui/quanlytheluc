@@ -37,10 +37,10 @@
                     <li class="nav-item dropdown dropdown-user">
                         <a class="navbar-nav-link d-flex align-items-center dropdown-toggle legitRipple"
                             data-toggle="dropdown" aria-expanded="false">
-                            <span><strong>Admin</strong></span>
+                            <span><strong>{{user.name}}</strong></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a routerLink="dashboard" class="dropdown-item">Thông tin tài khoản</a>
+                            <a [routerLink]="['/account-manager/details/', user.id]" class="dropdown-item">Thông tin tài khoản</a>
                             <div class="dropdown-divider opacity-75"></div>
                             <a routerLink="login" (click)="logOut()"
                                 class="dropdown-item text-danger">Đăng xuất</a>

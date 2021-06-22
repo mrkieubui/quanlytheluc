@@ -10,6 +10,7 @@ import { ParticipantListComponent } from './participant-manager/participant-list
 import { ParticipantManagerComponent } from './participant-manager/participant-manager.component';
 import { ParticipantUpdateComponent } from './participant-manager/participant-update/participant-update.component';
 import { SoldierCreateComponent } from './soldier-manager/soldier-create/soldier-create.component';
+import { SoldierDetailsComponent } from './soldier-manager/soldier-details/soldier-details.component';
 import { SoldierListComponent } from './soldier-manager/soldier-list/soldier-list.component';
 import { SoldierManagerComponent } from './soldier-manager/soldier-manager.component';
 import { SoldierUpdateComponent } from './soldier-manager/soldier-update/soldier-update.component';
@@ -21,7 +22,8 @@ const routes: Routes = [
     children: [
       { path: '', component: SoldierListComponent },
       { path: 'create', component: SoldierCreateComponent },
-      { path: 'update/:id', component: SoldierUpdateComponent }
+      { path: 'update/:id', component: SoldierUpdateComponent },
+      { path: 'details/:id', component: SoldierDetailsComponent }
     ]
   },
   {

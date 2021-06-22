@@ -16,6 +16,7 @@ export class PlanUpdateComponent implements OnInit {
   expandKeys = ['1'];
   value?: string;
   nodes: any = [];
+  userUnitId: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private AppService: AppService, private NotificationsService: NotificationsService) { }
 
@@ -30,6 +31,8 @@ export class PlanUpdateComponent implements OnInit {
     setTimeout(() => {
       this.nodes = this.AppService.getUnitNodes();
     }, 1000);
+    var tempUser: any = localStorage.getItem('currentUser');
+    this.userUnitId = JSON.parse(tempUser).unitId;
   }
 
   onUpdatePlan(planForm: any) {

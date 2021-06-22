@@ -50,7 +50,7 @@
                             <div class="d-flex justify-content-center align-items-center btn-group-content">
                                 <a routerLink="/plan-manager" type="button" class="btn btn-light">Quay lại</a>
                                 <a type="button" [routerLink]="['/plan-manager/update/', this.id]"
-                                    class="btn bg-primary-color ml-3">
+                                    class="btn bg-primary-color ml-1" *ngIf="userUnitId == kehoach.unitId">
                                     Sửa</a>
                             </div>
                         </form>

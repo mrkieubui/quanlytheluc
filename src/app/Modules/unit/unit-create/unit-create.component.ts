@@ -22,7 +22,7 @@ export class UnitCreateComponent implements OnInit {
   }
   parentunit: string = "1";
   units: any = [];
-
+  disableSunmit: boolean = false;
   // custom tree select 
   expandKeys = ['1'];
   value?: string;
@@ -53,7 +53,13 @@ export class UnitCreateComponent implements OnInit {
   }
 
   onChange(key: any) {
-    this.parentunit = key;
+    if (key == null) {
+      this.disableSunmit = true;
+      this.parentunit = "0";
+    } else {
+      this.disableSunmit = false;
+      this.parentunit = key;
+    }
   }
 
 }

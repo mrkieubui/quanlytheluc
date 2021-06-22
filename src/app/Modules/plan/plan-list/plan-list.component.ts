@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NzTreeNode } from 'ng-zorro-antd/tree';
+import { Observable } from 'rxjs';
 import { AppService } from 'src/app/Services/app.service';
 import { FilterService } from 'src/app/Services/filter.service';
 
@@ -22,6 +24,7 @@ export class PlanListComponent implements OnInit {
   // search text
   searchText: string = "";
   unit: string = "";
+  userUnitId: any;
 
   constructor(private AppService: AppService, private FilterService: FilterService) { }
 
@@ -29,7 +32,12 @@ export class PlanListComponent implements OnInit {
     this.getData();
     setTimeout(() => {
       this.nodes = this.AppService.getUnitNodes();
+      // var tempNodes = this.FilterService.convertUnitNodes();
+      // this.nodes.push(tempNodes);
+      // console.log(this.nodes)
     }, 500);
+    var tempUser: any = localStorage.getItem('currentUser');
+    this.userUnitId = JSON.parse(tempUser).unitId;
   }
 
   getData() {
@@ -61,4 +69,19 @@ export class PlanListComponent implements OnInit {
     this.unitId = "1";
     this.plans = this.originPlans;
   }
+
+}
+
+function searchTree(element: any, unitId: any): any {
+  if (element.id == unitId) {
+    return element;
+  } else if (element.children != null) {
+    var i;
+    var result = null;
+    for (i = 0; result == null && i < element.children.length; i++) {
+      result = searchTree(element.children[i], unitId);
+    }
+    return result;
+  }
+  return null;
 }
