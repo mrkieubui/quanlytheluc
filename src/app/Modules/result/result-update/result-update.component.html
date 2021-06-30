@@ -1,0 +1,74 @@
+<div class="content-wrapper">
+    <div class="content">
+        <div class="card">
+            <div class="card-header card-header-content text-center">
+                <h5 class="big-title mb-0">CẬP NHẬT THÔNG TIN CHUNG</h5>
+            </div>
+            <div class="card-body card-body-content add-unit" id="add-unit">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <form #resultUpdateForm="ngForm" (ngSubmit)="onUpdateResult(resultUpdateForm)">
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Tên kết quả <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="text" required name="name" #rnamne="ngModel" [(ngModel)]="ketqua.name"
+                                        class="form-control mb-2" placeholder="Nhập tên kết quả" pattern="^(?!\s*$).+">
+                                    <div *ngIf="rnamne.invalid && resultUpdateForm.submitted" [ngClass]="'error'"
+                                        class="ml-2 text-danger">
+                                        Chưa nhập tên kết quả!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Kế hoạch <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="text" required name="planNumber" #rplanNumber="ngModel"
+                                        [(ngModel)]="ketqua.planNumber" class="form-control mb-2"
+                                        placeholder="Nhập kế hoạch" pattern="^(?!\s*$).+">
+                                    <div *ngIf="rplanNumber.invalid && resultUpdateForm.submitted" class="ml-2 text-danger">
+                                        Chưa nhập kế hoạch!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Ngày thực hiện <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="date" required name="startDate" #rstartDate="ngModel"
+                                        [(ngModel)]="ketqua.startDate" class="form-control mb-2"
+                                        placeholder="Nhập ngày ban hành" pattern="^(?!\s*$).+">
+                                    <div *ngIf="rstartDate.invalid && resultUpdateForm.submitted" class="ml-2 text-danger">
+                                        Chưa nhập ngày thực hiện!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3 text-500">Chọn đơn vị <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-9">
+                                    <nz-tree-select style="width: 100%" nzPlaceHolder="Chọn đơn vị"
+                                        [nzExpandedKeys]="expandKeys" [nzNodes]="nodes" [(ngModel)]="ketqua.unitId"
+                                        #runitId="ngModel" name="unitId" (ngModelChange)="onChange($event)">
+                                    </nz-tree-select>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-center align-items-center btn-group-content">
+                                <a routerLink="/result-manager" type="button" class="btn btn-light">Hủy</a>
+                                <button type="submit" class="btn bg-primary-color ml-1">
+                                    Cập nhật</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,17 +12,19 @@ export class JobUpdateComponent implements OnInit {
 
   id: any = 0;
   chucvu: any = {};
+  userRole: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private AppService: AppService, private NotificationsService: NotificationsService) { }
 
   ngOnInit(): void {
     // get participant id to edit
     this.id = this.route.snapshot.paramMap.get('id');
-
     // get one participant by id
     this.AppService.getItem('jobs', this.id).subscribe((res) => {
       this.chucvu = res;
     });
+    var tempUser: any = localStorage.getItem('currentUser');
+		this.userRole = JSON.parse(tempUser).role;
   }
 
   onEditJob(jobEditForm: any){

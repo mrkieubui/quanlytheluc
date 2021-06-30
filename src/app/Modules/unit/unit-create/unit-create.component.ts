@@ -13,7 +13,7 @@ import { NotificationsService } from 'src/app/Services/notifications.service';
 export class UnitCreateComponent implements OnInit {
 
   unit: any = {
-    id: "",
+    _id: "",
     title: "",
     key: "",
     value: "",
@@ -27,6 +27,7 @@ export class UnitCreateComponent implements OnInit {
   expandKeys = ['1'];
   value?: string;
   nodes: any = [];
+  userRole: any;
 
   constructor(private AppService: AppService, private router: Router, private NotificationsService: NotificationsService) { }
 
@@ -37,11 +38,13 @@ export class UnitCreateComponent implements OnInit {
         this.nodes = arrayToTree(res, { customID: "id", parentProperty: "parentId", childrenProperty: "children" });
       }
     );
+    var tempUser: any = localStorage.getItem('currentUser');
+    this.userRole = JSON.parse(tempUser).role;
   }
 
   onCreateUnit(unitCreateForm: any) {
     if (unitCreateForm.value.title !== "" && unitCreateForm.value.title.trim() !== "" && unitCreateForm.value.slash !== "" && unitCreateForm.value.slash.trim() !== "") {
-      this.unit.id = this.unit.key = this.unit.value = uuid.UUID()
+      this.unit._id = this.unit.key = this.unit.value = uuid.UUID()
       this.unit.title = unitCreateForm.value.title;
       this.unit.slash = unitCreateForm.value.slash;
       this.unit.parentId = this.parentunit;

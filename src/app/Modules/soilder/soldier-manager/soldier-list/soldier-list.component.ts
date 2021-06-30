@@ -25,6 +25,7 @@ export class SoldierListComponent implements OnInit {
   searchText: string = "";
   unit: string = "";
   rank: string = "";
+  userRole: any;
 
   constructor(private AppService: AppService, private FilterService: FilterService) { }
 
@@ -34,7 +35,8 @@ export class SoldierListComponent implements OnInit {
       this.nodes = this.AppService.getUnitNodes();
       this.ranks = this.AppService.getDataByModule('ranks');
     }, 500);
-    
+    var tempUser: any = localStorage.getItem('currentUser');
+    this.userRole = JSON.parse(tempUser).role;
   }
 
   fetchData() {

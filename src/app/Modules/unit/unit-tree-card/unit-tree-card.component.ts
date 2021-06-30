@@ -9,6 +9,7 @@ import { AppService } from 'src/app/Services/app.service';
 export class UnitTreeCardComponent implements OnInit {
 
   @Input() child: any;
+  @Input() userRole: any;
   @Output() passDeleteIdToParent = new EventEmitter<number>();
 
   id: any;

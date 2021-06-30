@@ -31,6 +31,7 @@ export class AccountCreateComponent implements OnInit {
   expandKeys = ['1'];
   nodes: any = [];
   unitId: any = "1";
+  userRole: any;
 
   constructor(private AppService: AppService, private router: Router, private NotificationsService: NotificationsService) { }
 
@@ -41,6 +42,8 @@ export class AccountCreateComponent implements OnInit {
     this.ranks = this.AppService.getDataByModule('ranks');
     this.jobs = this.AppService.getDataByModule('jobs');
     this.roles = this.AppService.getDataByModule('roles');
+    var tempUser: any = localStorage.getItem('currentUser');
+    this.userRole = JSON.parse(tempUser).role;
   }
 
   // Remove disabled and available to change password

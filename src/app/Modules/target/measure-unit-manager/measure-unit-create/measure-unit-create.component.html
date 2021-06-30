@@ -40,7 +40,7 @@
                             <div class="d-flex justify-content-center align-items-center btn-group-content">
                                 <a routerLink="/measure-unit-manager" type="button"
                                     class="btn btn-light legitRipple">Hủy</a>
-                                <button type="submit" class="btn bg-primary-color ml-3 legitRipple">
+                                <button type="submit" class="btn bg-primary-color ml-3 legitRipple" *ngIf="userRole == 'admin'">
                                     Tạo mới</button>
                             </div>
                         </form>

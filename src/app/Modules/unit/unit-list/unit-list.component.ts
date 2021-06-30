@@ -13,11 +13,14 @@ export class UnitListComponent implements OnInit {
   id: any;
   collapseId: any;
   collapseStatus: boolean = false;
-  
+  userRole: any;
+
   constructor(private AppService: AppService) { }
 
   ngOnInit(): void {
     this.getData();
+    var tempUser: any = localStorage.getItem('currentUser');
+    this.userRole = JSON.parse(tempUser).role;
   }
 
   fetchData() {

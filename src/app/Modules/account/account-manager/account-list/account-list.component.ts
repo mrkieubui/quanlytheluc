@@ -22,6 +22,7 @@ export class AccountListComponent implements OnInit {
   // search text
   searchText: string = "";
   unit: string = "";
+  userRole: any;
 
   constructor(private AppService: AppService, private FilterService: FilterService) { }
 
@@ -30,6 +31,8 @@ export class AccountListComponent implements OnInit {
     setTimeout(() => {
       this.nodes = this.AppService.getUnitNodes();
     }, 500);
+    var tempUser: any = localStorage.getItem('currentUser');
+    this.userRole = JSON.parse(tempUser).role;
   }
 
   fetchData() {

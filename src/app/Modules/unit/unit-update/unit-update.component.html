@@ -50,7 +50,7 @@
 
                             <div class="d-flex justify-content-center align-items-center btn-group-content">
                                 <a routerLink="/unit-manager" type="button" class="btn btn-light">Hủy</a>
-                                <button type="submit" class="btn bg-primary-color ml-1" [disabled]="disableSubmit == true">
+                                <button type="submit" class="btn bg-primary-color ml-1" [disabled]="disableSubmit == true" *ngIf="userRole == 'admin' || userRole == 'assistant'">
                                     Cập nhật</button>
                             </div>
                         </form>

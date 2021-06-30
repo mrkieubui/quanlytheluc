@@ -15,10 +15,13 @@ export class JobCreateComponent implements OnInit {
     slash: "",
     order: "" 
   };
+	userRole: any;
 
   constructor(private AppService: AppService, private NotificationsService: NotificationsService, private router: Router) { }
 
   ngOnInit(): void {
+    var tempUser: any = localStorage.getItem('currentUser');
+		this.userRole = JSON.parse(tempUser).role;
   }
 
   // Tao moi chuc vu

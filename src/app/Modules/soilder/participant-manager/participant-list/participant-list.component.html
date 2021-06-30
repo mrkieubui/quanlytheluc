@@ -4,7 +4,7 @@
         <div class="card" style="height: 100%;">
             <div class="card-header bg-white header-elements-inline">
                 <h5 class="big-title mb-0 text-uppercase">Danh sách đối tượng</h5>
-                <a routerLink="create"
+                <a routerLink="create" *ngIf="userRole == 'admin'"
                     class="btn btn-link btn bg-primary-color font-size-sm font-weight-semibold text-default">
                     <i class="icon-plus3"></i>
                     <span> Tạo mới</span>
@@ -24,43 +24,43 @@
                     <tbody>
                         <tr *ngFor="let participant of participantGroup1;let index1=index;">
                             <td class="text-center"> {{index1 +1}} </td>
-                            <td class="text-center" [attr.rowspan]="group1Length" *ngIf="index1 === 0">
+                            <td class="text-center" [attr.rowspan]="participantGroup1.length" *ngIf="index1 === 0">
                                 {{participantGroups[0].name}}</td>
                             <td class="text-center"> {{participant.name}}</td>
                             <td class="text-center"> {{participant.slash}}</td>
                             <td class="text-center" *ngIf="userRole == 'admin'">
                                 <a class="text-black text ml-2" data-popup="tooltip" title="Sửa"
-                                    [routerLink]="['update/', participant.id]"><i class="far fa-edit"></i></a>
+                                    [routerLink]="['update/', participant._id]"><i class="far fa-edit"></i></a>
                                 <a class="text-danger ml-2" data-popup="tooltip" title="Xóa" data-toggle="modal"
-                                    data-target="#confirmModal" (click)="getDeleteId(participant.id)"><i
+                                    data-target="#confirmModal" (click)="getDeleteId(participant._id)"><i
                                         class="far fa-trash-alt"></i></a>
                             </td>
                         </tr>
                         <tr *ngFor="let participant of participantGroup2;let index2=index;">
-                            <td class="text-center">{{index2 + group1Length + 1}} </td>
-                            <td class="text-center" [attr.rowspan]="group2Length" *ngIf="index2 === 0">
+                            <td class="text-center">{{index2 + participantGroup1.length + 1}} </td>
+                            <td class="text-center" [attr.rowspan]="participantGroup2.length" *ngIf="index2 === 0">
                                 {{participantGroups[1].name}}</td>
                             <td class="text-center"> {{participant.name}}</td>
                             <td class="text-center"> {{participant.slash}}</td>
                             <td class="text-center" *ngIf="userRole == 'admin'">
                                 <a class="text-black text ml-2" data-popup="tooltip" title="Sửa"><i class="far fa-edit"
-                                        [routerLink]="['update/', participant.id]"></i></a>
+                                        [routerLink]="['update/', participant._id]"></i></a>
                                 <a class="text-danger ml-2" data-popup="tooltip" title="Xóa" data-toggle="modal"
-                                    data-target="#confirmModal" (click)="getDeleteId(participant.id)"><i
+                                    data-target="#confirmModal" (click)="getDeleteId(participant._id)"><i
                                         class="far fa-trash-alt"></i></a>
                             </td>
                         </tr>
                         <tr *ngFor="let participant of participantGroup3;let index3=index;">
-                            <td class="text-center">{{index3 + group1Length + group2Length + 1}} </td>
-                            <td class="text-center" [attr.rowspan]="group3Length" *ngIf="index3 === 0">
+                            <td class="text-center">{{index3 + participantGroup1.length + participantGroup2.length + 1}} </td>
+                            <td class="text-center" [attr.rowspan]="participantGroup3.length" *ngIf="index3 === 0">
                                 {{participantGroups[2].name}}</td>
                             <td class="text-center"> {{participant.name}}</td>
                             <td class="text-center"> {{participant.slash}}</td>
                             <td class="text-center" *ngIf="userRole == 'admin'">
                                 <a class="text-black text ml-2" data-popup="tooltip" title="Sửa"><i class="far fa-edit"
-                                        [routerLink]="['update/', participant.id]"></i></a>
+                                        [routerLink]="['update/', participant._id]"></i></a>
                                 <a class="text-danger ml-2" data-popup="tooltip" title="Xóa" data-toggle="modal"
-                                    data-target="#confirmModal" (click)="getDeleteId(participant.id)"><i
+                                    data-target="#confirmModal" (click)="getDeleteId(participant._id)"><i
                                         class="far fa-trash-alt"></i></a>
                             </td>
                         </tr>

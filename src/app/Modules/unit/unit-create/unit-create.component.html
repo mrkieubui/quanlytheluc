@@ -7,7 +7,7 @@
             </div>
             <div class="card-body card-body-content add-unit" id="add-unit">
                 <div class="row">
-                    <div class="col-xl-8 m-auto p-3">
+                    <div class="col-xl-12">
                         <form #unitCreateForm="ngForm" (ngSubmit)="onCreateUnit(unitCreateForm)">
                             <div class="form-group row">
                                 <label class="col-form-label col-lg-3 text-500">Đơn vị cấp trên <span
@@ -50,7 +50,7 @@
                             <div class="d-flex justify-content-center align-items-center btn-group-content">
                                 <a routerLink="/unit-manager" type="button"
                                     class="btn btn-light legitRipple">Hủy</a>
-                                <button type="submit" class="btn bg-primary-color ml-1" [disabled]="disableSunmit == true">
+                                <button type="submit" class="btn bg-primary-color ml-1" [disabled]="disableSunmit == true" *ngIf="userRole == 'admin' || userRole == 'assistant'">
                                     Tạo mới</button>
                             </div>
                         </form>

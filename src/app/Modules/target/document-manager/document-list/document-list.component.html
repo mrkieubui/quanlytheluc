@@ -65,14 +65,14 @@
                             <td class="date">{{item.startDate}}</td>
                             <td class="text text-center">
                                 <div class="list-icons">
-                                    <a [routerLink]="['details/', item.id]" class="text-black text ml-2">
+                                    <a [routerLink]="['details/', item._id]" class="text-black text ml-2">
                                         <i class="icon-calendar" data-popup="tooltip" title="Chi tiết"></i>
                                     </a>
-                                    <a [routerLink]="['update/', item.id]" class="text-black text ml-2">
+                                    <a [routerLink]="['update/', item._id]" class="text-black text ml-2">
                                         <i class="far fa-edit" data-popup="tooltip" title="Sửa"></i>
                                     </a>
                                     <a class="text-danger text ml-2" data-toggle="modal" data-target="#confirmModal"
-                                        (click)="getDeleteId(item.id)">
+                                        (click)="getDeleteId(item._id)">
                                         <i class="far fa-trash-alt sweet_delete" data-popup="tooltip" title="Xóa"></i>
                                     </a>
                                     <app-confirm-modal [id]="id" [path]="'documents'" (fetchData)="fetchData()">

@@ -8,7 +8,8 @@ import * as arrayToTree from 'array-to-tree';
 })
 export class AppService implements OnInit {
 
-  baseURL: string = "http://localhost:3000/";
+  // baseURL: string = "http://localhost:3000/";
+  baseURL: string = "http://localhost:8080/api/";
   idStored: any;
   loginStatus: boolean = false;
   unitIdStored: any;
@@ -24,6 +25,7 @@ export class AppService implements OnInit {
   constructor(public http: HttpClient) { }
 
   ngOnInit(): void {
+    
   }
 
   // get all item dung chung cho cac module
@@ -35,8 +37,9 @@ export class AppService implements OnInit {
     return this.http.get(this.baseURL + path + '/' + id);
   }
   // Tao moi 1 item dung chung cho cac module
-  public createItem(path: string, doituong: any): Observable<any> {
-    return this.http.post(this.baseURL + path, doituong);
+  public createItem(path: string, data: any): Observable<any> {
+    console.log()
+    return this.http.post(this.baseURL + path, data);
   }
   // Cap nhat 1 item dung chung cho cac module
   public updateItem(path: string, id: any, body: any): Observable<any> {
@@ -65,12 +68,15 @@ export class AppService implements OnInit {
     // Convert unit to 3 slash format 
     this.getItem("units", id).subscribe(res => {
       this.unitStored = res.slash;
+      // console.log(this.unitStored)
       if (res.parentId && res.parentId !== "0") {
         this.getItem("units", res.parentId).subscribe(res => {
           this.unitStored += " - " + res.slash;
+          // console.log(this.unitStored)
           if (res.parentId && res.parentId !== "0") {
             this.getItem("units", res.parentId).subscribe(res => {
               this.unitStored += " - " + res.slash;
+              // console.log(this.unitStored)
             })
           }
         })
@@ -84,11 +90,13 @@ export class AppService implements OnInit {
 
   // convert to nodes select tree
   public convertUnitNodes(units: any) {
-    this.unitNodes = arrayToTree(units, { customID: "id", parentProperty: "parentId", childrenProperty: "children" });
+    this.unitNodes = arrayToTree(units, { customID: "_id", parentProperty: "parentId", childrenProperty: "children" });
+    // console.log(this.unitNodes)
   }
 
   // get unit nodes
   public getUnitNodes(): Observable<any> {
+    // console.log(this.unitNodes)
     return this.unitNodes;
   }
 

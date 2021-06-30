@@ -46,6 +46,6 @@ export class DocumentUpdateComponent implements OnInit {
     // get unit with 3 slash format
     setTimeout(() => {
       this.thongtu.unit = this.AppService.getStoredUnit();
-    }, 500);
+    }, 1000);
   }
 }

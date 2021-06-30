@@ -11,6 +11,7 @@ export class SoldierDetailsComponent implements OnInit {
 
   id: any = 0;
   soldier: any = {};
+  userRole: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private AppService: AppService) { }
 
@@ -21,6 +22,8 @@ export class SoldierDetailsComponent implements OnInit {
     this.AppService.getItem('soldiers', this.id).subscribe((res) => {
       this.soldier = res;
     });
+    var tempUser: any = localStorage.getItem('currentUser');
+    this.userRole = JSON.parse(tempUser).role;
   }
 
 }

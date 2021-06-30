@@ -17,7 +17,7 @@ export class PlanUpdateComponent implements OnInit {
   value?: string;
   nodes: any = [];
   userUnitId: any;
-
+  userRole: any;
   constructor(private route: ActivatedRoute, private router: Router, private AppService: AppService, private NotificationsService: NotificationsService) { }
 
   ngOnInit(): void {
@@ -33,6 +33,7 @@ export class PlanUpdateComponent implements OnInit {
     }, 1000);
     var tempUser: any = localStorage.getItem('currentUser');
     this.userUnitId = JSON.parse(tempUser).unitId;
+    this.userRole = JSON.parse(tempUser).role;
   }
 
   onUpdatePlan(planForm: any) {
@@ -52,7 +53,7 @@ export class PlanUpdateComponent implements OnInit {
     // get unit with 3 slash format
     setTimeout(() => {
       this.kehoach.unit = this.AppService.getStoredUnit();
-    }, 500);
+    }, 1000);
   }
 
 }

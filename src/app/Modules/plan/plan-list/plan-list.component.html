@@ -16,7 +16,7 @@
                     <div class="col-lg-6">
                         <div class="input-group">
                             <input type="text" class="form-control" [(ngModel)]="searchText"
-                                placeholder="Tìm kiếm theo số kế hoạch, tên kế hoạch ">
+                                placeholder="Tìm kiếm theo số kế hoạch, tên kế hoạch " (keyup.enter)="fullSearchFunction(searchText, unitId)">
                             <span class=" input-group-prepend icon-picker">
                                 <span class="input-group-text"><i class="icon-search4"></i></span>
                             </span>
@@ -67,14 +67,14 @@
                                 <td class="text text-center">{{plan.startDate}}</td>
                                 <td class="text">
                                     <div class="list-icons">
-                                        <a [routerLink]="['details/', plan.id]" class="text-black text ml-2">
+                                        <a [routerLink]="['details/', plan._id]" class="text-black text ml-2">
                                             <i class="far fa-eye" data-popup="tooltip" title="Xem"></i>
                                         </a>
-                                        <a [routerLink]="['update/', plan.id]" class="text-black text ml-2" *ngIf="plan.unitId == userUnitId">
+                                        <a [routerLink]="['update/', plan._id]" class="text-black text ml-2" *ngIf="plan.unitId == userUnitId || userRole == 'admin'">
                                             <i class="far fa-edit" data-popup="tooltip" title="Sửa"></i>
                                         </a>
                                         <a class="text-danger text ml-2" data-toggle="modal" data-target="#confirmModal"
-                                            (click)="getDeleteId(plan.id)" *ngIf="plan.unitId == userUnitId">
+                                            (click)="getDeleteId(plan._id)" *ngIf="plan.unitId == userUnitId || userRole == 'admin'">
                                             <i class="far fa-trash-alt" data-popup="tooltip" title="Xóa"></i>
                                         </a>
                                         <app-confirm-modal [id]="id" [path]="'plans'" (fetchData)="fetchData()">

@@ -11,6 +11,7 @@ export class AccountDetailsComponent implements OnInit {
 
   id: any;
   account: any = {};
+  userRole: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private AppService: AppService) { }
 
@@ -21,6 +22,9 @@ export class AccountDetailsComponent implements OnInit {
     this.AppService.getItem('accounts', this.id).subscribe((res) => {
       this.account = res;
     });
+    // get user role
+    var tempUser: any = localStorage.getItem('currentUser');
+    this.userRole = JSON.parse(tempUser).role;
   }
 
 }

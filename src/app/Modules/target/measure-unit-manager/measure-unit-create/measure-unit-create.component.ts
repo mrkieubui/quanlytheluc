@@ -14,10 +14,13 @@ export class MeasureUnitCreateComponent implements OnInit {
     name: "",
     slash: ""
   }
+  userRole: any;
 
   constructor(private AppService: AppService, private NotificationsService: NotificationsService, private router: Router) { }
 
   ngOnInit(): void {
+    var tempUser: any = localStorage.getItem('currentUser');
+    this.userRole = JSON.parse(tempUser).role;
   }
 
   onCreateMeasureUnit(measureUnitForm: any) {

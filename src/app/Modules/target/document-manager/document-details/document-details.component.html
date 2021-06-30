@@ -464,7 +464,7 @@
                                                         [(ngModel)]="newContent.contentGroupId">
                                                         <option value="">Chọn nhóm tiêu chuẩn</option>
                                                         <option *ngFor="let group of contentGroups"
-                                                            [ngValue]="group.id">{{group.name}}
+                                                            [ngValue]="group._id">{{group.name}}
                                                         </option>
                                                     </select>
                                                 </div>
@@ -478,7 +478,7 @@
                                                         #dmeasureUnitId="ngModel"
                                                         [(ngModel)]="newContent.measureUnitId">
                                                         <option value="">Chọn đơn vị tính</option>
-                                                        <option *ngFor="let mUnit of measureUnits" [ngValue]="mUnit.id">
+                                                        <option *ngFor="let mUnit of measureUnits" [ngValue]="mUnit._id">
                                                             {{mUnit.name}}
                                                         </option>
                                                     </select>

@@ -15,6 +15,7 @@ export class MeasureUnitUpdateComponent implements OnInit {
     name: "",
     slash: ""
   };
+  userRole: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private AppService: AppService, private NotificationsService: NotificationsService) { }
 
@@ -26,6 +27,8 @@ export class MeasureUnitUpdateComponent implements OnInit {
     this.AppService.getItem('measureUnits', this.id).subscribe((res) => {
       this.donvitinh = res;
     });
+    var tempUser: any = localStorage.getItem('currentUser');
+    this.userRole = JSON.parse(tempUser).role;
   }
 
   onUpdateMeasureUnit(measureUnitForm: any) {

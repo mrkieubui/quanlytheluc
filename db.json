@@ -488,7 +488,7 @@
   ],
   "units": [
     {
-      "id": "1",
+      "_id": "1",
       "key": "1",
       "value": "1",
       "title": "Binh chủng thông tin liên lạc",
@@ -496,7 +496,7 @@
       "parentId": "0"
     },
     {
-      "id": "2",
+      "_id": "2",
       "key": "2",
       "value": "2",
       "title": "Trường sĩ quan thông tin",
@@ -504,7 +504,7 @@
       "parentId": "1"
     },
     {
-      "id": "17",
+      "_id": "17",
       "key": "17",
       "value": "17",
       "title": "Trung tâm CNC",
@@ -512,7 +512,7 @@
       "parentId": "1"
     },
     {
-      "id": "8b710e2d-26cb-c7e3-ce36-b75a760d66fe",
+      "_id": "8b710e2d-26cb-c7e3-ce36-b75a760d66fe",
       "title": "Tiểu đoàn 30",
       "key": "8b710e2d-26cb-c7e3-ce36-b75a760d66fe",
       "value": "8b710e2d-26cb-c7e3-ce36-b75a760d66fe",
@@ -520,7 +520,7 @@
       "parentId": "2"
     },
     {
-      "id": "ec435ce8-0b9e-5967-2ecc-d2eb29da51c7",
+      "_id": "ec435ce8-0b9e-5967-2ecc-d2eb29da51c7",
       "title": "Phòng đào tạo",
       "key": "ec435ce8-0b9e-5967-2ecc-d2eb29da51c7",
       "value": "ec435ce8-0b9e-5967-2ecc-d2eb29da51c7",
@@ -528,7 +528,7 @@
       "parentId": "2"
     },
     {
-      "id": "3b5cedd1-88ae-ce1d-b33a-2822b759bd46",
+      "_id": "3b5cedd1-88ae-ce1d-b33a-2822b759bd46",
       "title": "Ban kế hoạch",
       "key": "3b5cedd1-88ae-ce1d-b33a-2822b759bd46",
       "value": "3b5cedd1-88ae-ce1d-b33a-2822b759bd46",
@@ -536,7 +536,7 @@
       "parentId": "ec435ce8-0b9e-5967-2ecc-d2eb29da51c7"
     },
     {
-      "id": "b42c3768-ffb9-53ec-9ebf-d4eb164162a5",
+      "_id": "b42c3768-ffb9-53ec-9ebf-d4eb164162a5",
       "title": "Trường cao đăng kỹ thuật thông tin",
       "key": "b42c3768-ffb9-53ec-9ebf-d4eb164162a5",
       "value": "b42c3768-ffb9-53ec-9ebf-d4eb164162a5",
@@ -544,7 +544,7 @@
       "parentId": "1"
     },
     {
-      "id": "551e12ce-8109-9fe0-8a38-6ef78d128161",
+      "_id": "551e12ce-8109-9fe0-8a38-6ef78d128161",
       "title": "Phòng truyền dẫn",
       "key": "551e12ce-8109-9fe0-8a38-6ef78d128161",
       "value": "551e12ce-8109-9fe0-8a38-6ef78d128161",
@@ -552,7 +552,7 @@
       "parentId": "17"
     },
     {
-      "id": "f5645f06-e28e-7b08-299d-139f33c3973f",
+      "_id": "f5645f06-e28e-7b08-299d-139f33c3973f",
       "title": "Phòng phần mềm",
       "key": "f5645f06-e28e-7b08-299d-139f33c3973f",
       "value": "f5645f06-e28e-7b08-299d-139f33c3973f",
@@ -560,7 +560,7 @@
       "parentId": "17"
     },
     {
-      "id": "9b4aad40-4c2b-1e58-5f97-c7beaa49659e",
+      "_id": "9b4aad40-4c2b-1e58-5f97-c7beaa49659e",
       "title": "Khoa Viễn thông",
       "key": "9b4aad40-4c2b-1e58-5f97-c7beaa49659e",
       "value": "9b4aad40-4c2b-1e58-5f97-c7beaa49659e",
@@ -568,7 +568,7 @@
       "parentId": "b42c3768-ffb9-53ec-9ebf-d4eb164162a5"
     },
     {
-      "id": "ac0c1417-2dd3-8ed3-58ed-01e0262991d6",
+      "_id": "ac0c1417-2dd3-8ed3-58ed-01e0262991d6",
       "title": "Lữ đoàn 139",
       "key": "ac0c1417-2dd3-8ed3-58ed-01e0262991d6",
       "value": "ac0c1417-2dd3-8ed3-58ed-01e0262991d6",
@@ -576,7 +576,7 @@
       "parentId": "1"
     },
     {
-      "id": "085339a4-9181-aaa5-ec20-cee752e67ad5",
+      "_id": "085339a4-9181-aaa5-ec20-cee752e67ad5",
       "title": "Lữ đoàn 205",
       "key": "085339a4-9181-aaa5-ec20-cee752e67ad5",
       "value": "085339a4-9181-aaa5-ec20-cee752e67ad5",
@@ -584,7 +584,7 @@
       "parentId": "1"
     },
     {
-      "id": "9eb5963b-2a3d-dff8-f9c5-e47b2d78e25f",
+      "_id": "9eb5963b-2a3d-dff8-f9c5-e47b2d78e25f",
       "title": "Tiểu đoàn 45",
       "key": "9eb5963b-2a3d-dff8-f9c5-e47b2d78e25f",
       "value": "9eb5963b-2a3d-dff8-f9c5-e47b2d78e25f",
@@ -592,7 +592,7 @@
       "parentId": "085339a4-9181-aaa5-ec20-cee752e67ad5"
     },
     {
-      "id": "e8e41aa4-9bbb-ea4a-dece-918b54e93d2a",
+      "_id": "e8e41aa4-9bbb-ea4a-dece-918b54e93d2a",
       "title": "Tiểu đoàn 22",
       "key": "e8e41aa4-9bbb-ea4a-dece-918b54e93d2a",
       "value": "e8e41aa4-9bbb-ea4a-dece-918b54e93d2a",
@@ -600,7 +600,7 @@
       "parentId": "ac0c1417-2dd3-8ed3-58ed-01e0262991d6"
     },
     {
-      "id": "8a4e3299-d593-4bac-9977-c37d305e08cb",
+      "_id": "8a4e3299-d593-4bac-9977-c37d305e08cb",
       "title": "Đại đội 1",
       "key": "8a4e3299-d593-4bac-9977-c37d305e08cb",
       "value": "8a4e3299-d593-4bac-9977-c37d305e08cb",
@@ -1010,20 +1010,20 @@
           }
         },
         {
-          "name": "121212",
+          "name": "Co tay xà đơn",
           "contentGroupId": "2",
           "contentGroup": "Tố chất sức mạnh",
-          "measureUnitId": "1",
-          "measureUnit": "mét",
+          "measureUnitId": "3",
+          "measureUnit": "lần/2 phút",
           "csnv": {
-            "gioi": "8",
-            "kha": "8",
-            "dat": "8"
+            "gioi": "20",
+            "kha": "20",
+            "dat": "20"
           },
           "hvsq": {
-            "gioi": "8",
-            "kha": "8",
-            "dat": "8"
+            "gioi": "",
+            "kha": "",
+            "dat": ""
           },
           "namduoi36": {
             "gioi": "",
@@ -1739,6 +1739,190 @@
       "email": "",
       "phone": "",
       "id": 8
+    }
+  ],
+  "results": [
+    {
+      "id": "1",
+      "name": "Ket qua kiem tra the luc d30 - SQTT",
+      "planNumber": "KH-d30",
+      "documentId": "1",
+      "document": "Thong tu the luc-BCTT-2021",
+      "unitId": "2",
+      "unit": "d30 - SQTT - BCTT",
+      "startDate": "2021-03-08",
+      "namduoi45": [
+        {
+          "id": 1,
+          "identitynumber": "TSQ-100101",
+          "name": "Nguyen Van Nam",
+          "old": "30",
+          "unit": "d30 - SQTT - BCTT",
+          "unitId": "085339a4-9181-aaa5-ec20-cee752e67ad5",
+          "rank": "Trung sĩ",
+          "rankId": "4",
+          "totalLevel": "Giỏi",
+          "contents": [
+            {
+              "contentId": "1",
+              "score": "12",
+              "level": "G"
+            },
+            {
+              "contentId": "2",
+              "score": "2.5",
+              "level": "K"
+            },
+            {
+              "contentId": "3",
+              "score": "6",
+              "level": "G"
+            },
+            {
+              "contentId": "4",
+              "score": "12",
+              "level": "Khá"
+            },
+            {
+              "contentId": "5",
+              "score": "100",
+              "level": "G"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "identitynumber": "TSQ-100102",
+          "name": "Lê Trung Dũng",
+          "old": "40",
+          "unit": "d30 - SQTT - BCTT",
+          "unitId": "085339a4-9181-aaa5-ec20-cee752e67ad5",
+          "rank": "Trung sĩ",
+          "rankId": "4",
+          "totalLevel": "Giỏi",
+          "contents": [
+            {
+              "contentId": "1",
+              "score": "12",
+              "level": "G"
+            },
+            {
+              "contentId": "2",
+              "score": "2.5",
+              "level": "K"
+            },
+            {
+              "contentId": "3",
+              "score": "6",
+              "level": "G"
+            },
+            {
+              "contentId": "4",
+              "score": "12",
+              "level": "Khá"
+            },
+            {
+              "contentId": "5",
+              "score": "100",
+              "level": "G"
+            }
+          ]
+        }
+      ],
+      "namtren45": [
+        {
+          "id": 1,
+          "identitynumber": "TSQ-100101",
+          "name": "Nguyen Van Nam",
+          "old": "30",
+          "unit": "d30 - SQTT - BCTT",
+          "unitId": "085339a4-9181-aaa5-ec20-cee752e67ad5",
+          "contents": []
+        }
+      ],
+      "nu": [
+        {
+          "id": 1,
+          "identitynumber": "TSQ-100101",
+          "name": "Nguyen Van Nam",
+          "old": "30",
+          "unit": "d30 - SQTT - BCTT",
+          "unitId": "085339a4-9181-aaa5-ec20-cee752e67ad5",
+          "contents": []
+        }
+      ]
+    },
+    {
+      "name": "Kết quả test",
+      "planNumber": "Kế hoạch Test",
+      "documentId": "1",
+      "document": "Thong tu the luc-BCTT-2021",
+      "unit": "e205 - BCTT",
+      "unitId": "085339a4-9181-aaa5-ec20-cee752e67ad5",
+      "startDate": "2021-08-08",
+      "id": "P7ZASbq",
+      "namduoi45": [
+        {
+          "id": 1,
+          "identitynumber": "TSQ-100101",
+          "name": "Nguyen Van Nam",
+          "old": "30",
+          "unit": "d30 - SQTT - BCTT",
+          "unitId": "085339a4-9181-aaa5-ec20-cee752e67ad5",
+          "rank": "Trung sĩ",
+          "rankId": "4",
+          "totalLevel": "Giỏi",
+          "contents": [
+            {
+              "contentId": "1",
+              "score": "12",
+              "level": "G"
+            },
+            {
+              "contentId": "2",
+              "score": "2.5",
+              "level": "K"
+            },
+            {
+              "contentId": "3",
+              "score": "6",
+              "level": "G"
+            },
+            {
+              "contentId": "4",
+              "score": "12",
+              "level": "Khá"
+            },
+            {
+              "contentId": "5",
+              "score": "100",
+              "level": "G"
+            }
+          ]
+        }
+      ],
+      "namtren45": [
+        {
+          "id": 1,
+          "identitynumber": "TSQ-100101",
+          "name": "Nguyen Van Nam",
+          "old": "30",
+          "unit": "d30 - SQTT - BCTT",
+          "unitId": "085339a4-9181-aaa5-ec20-cee752e67ad5",
+          "contents": []
+        }
+      ],
+      "nu": [
+        {
+          "id": 1,
+          "identitynumber": "TSQ-100101",
+          "name": "Nguyen Van Nam",
+          "old": "30",
+          "unit": "d30 - SQTT - BCTT",
+          "unitId": "085339a4-9181-aaa5-ec20-cee752e67ad5",
+          "contents": []
+        }
+      ]
     }
   ]
 }

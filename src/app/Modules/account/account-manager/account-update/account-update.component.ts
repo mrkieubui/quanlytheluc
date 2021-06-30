@@ -18,6 +18,7 @@ export class AccountUpdateComponent implements OnInit {
   // custom tree select 
   expandKeys = ['1'];
   nodes: any = [];
+  userRole: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private AppService: AppService, private NotificationsService: NotificationsService) { }
 
@@ -35,6 +36,9 @@ export class AccountUpdateComponent implements OnInit {
     this.ranks = this.AppService.getDataByModule('ranks');
     this.jobs = this.AppService.getDataByModule('jobs');
     this.roles = this.AppService.getDataByModule('roles');
+    // get user role
+    var tempUser: any = localStorage.getItem('currentUser');
+    this.userRole = JSON.parse(tempUser).role;
   }
 
   // Update form
@@ -55,6 +59,6 @@ export class AccountUpdateComponent implements OnInit {
     // get unit with 3 slash format
     setTimeout(() => {
       this.account.unit = this.AppService.getStoredUnit();
-    }, 500);
+    }, 1000);
   }
 }

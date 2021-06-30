@@ -1,0 +1,890 @@
+<!-- Main content -->
+<div class="content-wrapper">
+    <div class="content">
+        <div class="card">
+            <div class="card-header card-header-content text-center d-flex justify-content-between align-items-center">
+                <h5 class="big-title mb-0 text-uppercase">{{ketqua.name}} </h5>
+                <div class="list-icons">
+                    <a routerLink="/result-manager" class="btn btn-outline bg-slate-600 text-primary legitRipple">
+                        <i class="icon-circle-left2 mr-1"></i>
+                        <span>Quay lại danh sách</span>
+                    </a>
+                    <a class="btn btn-outline bg-slate-600 text-slate-600 border-slate-600 legitRipple">
+                        <i class="icon-history mr-1"></i>
+                        <span>Lịch sử chỉnh sửa</span>
+                    </a>
+                </div>
+            </div>
+            <div class="card-body card-body-content tab-content">
+                <ul class="nav nav-tabs nav-tabs-bottom">
+                    <li class="nav-item"><a href="#bottom-tab1" class="nav-link active" data-toggle="tab">Nam trên 45
+                            tuổi</a>
+                    </li>
+                    <li class="nav-item"><a href="#bottom-tab2" class="nav-link" data-toggle="tab">Nam dưới 45 tuổi</a>
+                    </li>
+                    <li class="nav-item"><a href="#bottom-tab3" class="nav-link" data-toggle="tab">Nữ</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="bottom-tab1">
+                        <div class="form-group row">
+                            <div class="col-lg-6">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Tìm kiếm theo mã, họ và tên ">
+                                    <span class=" input-group-prepend icon-picker">
+                                        <span class="input-group-text"><i class="icon-search4"></i></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="input-group">
+                                    <nz-tree-select style="width: 100%" nzPlaceHolder="Chọn đơn vị"
+                                        [nzExpandedKeys]="expandKeys" [nzNodes]="nodes" [(ngModel)]="unitId"
+                                        #uunit="ngModel" name="unit">
+                                    </nz-tree-select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <div class="list-icons">
+                                        <button
+                                            class="btn btn-default btn-outline bg-slate-600 text-slate-600 border-slate-600 legitRipple">
+                                            <i class="icon-filter3"></i>
+                                        </button>
+                                        <button
+                                            class="btn btn-default btn-outline bg-slate-600 text-slate-600 border-slate-600 legitRipple">
+                                            <i class="icon-eraser2"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive mb-4">
+                            <table class="table table-bordered table-group-object customTable">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-500 text-center" rowspan="2">Mã QN</td>
+                                        <td class="text-500 text-center" rowspan="2">Họ và tên</td>
+                                        <td class="text-500 text-center" rowspan="2">Đơn vị</td>
+                                        <td class="text-500 text-center" rowspan="2">Cấp bậc</td>
+                                        <td class="text-500 text-center" rowspan="2">Tuổi</td>
+                                        <td *ngFor="let cont of document.namduoi45" class="text-500 text-center" colspan="2">{{cont.name}} <br> ({{cont.measureUnit}})</td>
+                                        <td class="text-500 text-center" rowspan="2">XL chung</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-500 text-center">TT </td>
+                                        <td class="text-500 text-center">XL</td>
+                                        <td class="text-500 text-center">TT</td>
+                                        <td class="text-500 text-center">XL</td>
+                                        <td class="text-500 text-center">TT</td>
+                                        <td class="text-500 text-center">XL</td>
+                                        <td class="text-500 text-center">TT</td>
+                                        <td class="text-500 text-center">XL</td>
+                                        <td class="text-500 text-center">TT</td>
+                                        <td class="text-500 text-center">XL</td>
+                                    </tr>
+                                    <tr *ngFor="let soldier of ketqua.namduoi45">
+                                        <td class="text text-center">{{soldier.identitynumber}}</td>
+                                        <td class="text">{{soldier.name}}</td>
+                                        <td class="text">{{soldier.unit}}</td>
+                                        <td class="text text-center">{{soldier.rank}}</td>
+                                        <td class="text text-center">{{soldier.old}}</td>
+                                        <td *ngIf="soldier.contents[0]" class="text text-center">
+                                            {{soldier.contents[0].score}}</td>
+                                        <td *ngIf="soldier.contents[0]" class="text text-center">
+                                            {{soldier.contents[0].level}}</td>
+                                        <td *ngIf="soldier.contents[1]" class="text text-center">
+                                            {{soldier.contents[1].score}}</td>
+                                        <td *ngIf="soldier.contents[1]" class="text text-center">
+                                            {{soldier.contents[1].level}}</td>
+                                        <td *ngIf="soldier.contents[2]" class="text text-center">
+                                            {{soldier.contents[2].score}}</td>
+                                        <td *ngIf="soldier.contents[2]" class="text text-center">
+                                            {{soldier.contents[2].level}}</td>
+                                        <td *ngIf="soldier.contents[3]" class="text text-center">
+                                            {{soldier.contents[3].score}}</td>
+                                        <td *ngIf="soldier.contents[3]" class="text text-center">
+                                            {{soldier.contents[3].level}}</td>
+                                        <td *ngIf="soldier.contents[4]" class="text text-center">
+                                            {{soldier.contents[4].score}}</td>
+                                        <td *ngIf="soldier.contents[4]" class="text text-center">
+                                            {{soldier.contents[4].level}}</td>
+                                        <td *ngIf="soldier.contents[5]" class="text text-center">
+                                            {{soldier.contents[5].score}}</td>
+                                        <td *ngIf="soldier.contents[5]" class="text text-center">
+                                            {{soldier.contents[5].level}}</td>
+                                        <td *ngIf="soldier.contents[6]" class="text text-center">
+                                            {{soldier.contents[6].score}}</td>
+                                        <td *ngIf="soldier.contents[6]" class="text text-center">
+                                            {{soldier.contents[6].level}}</td>
+                                        <td *ngIf="soldier.contents[7]" class="text text-center">
+                                            {{soldier.contents[7].level}}</td>
+                                        <td *ngIf="soldier.contents[7]" class="text text-center">
+                                            {{soldier.contents[7].score}}</td>
+                                        <td class="text text-center">{{soldier.totalLevel}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card border-2 border-indigo" style="box-shadow: none;">
+                            <div class="card-header bg-primary-color text-white header-elements-inline">
+                                <h6 class="card-title">Tổng hợp kết quả</h6>
+                            </div>
+                            <div class="card-body px-4">
+                                <ul class="d-flex justify-content-between align-items-center mb-0">
+                                    <li class="text flex-1 mr-4"><b>Giỏi:</b> <span class="total">20</span> đ/c = <span
+                                            class="percen">20</span>%
+                                    </li>
+                                    <li class="text flex-1 mr-4"><b>Khá:</b> <span class="total">20</span> đ/c = <span
+                                            class="percen">20</span>% </li>
+                                    <li class="text flex-1 mr-4"><b>Đạt:</b> <span class="total">20</span> đ/c = <span
+                                            class="percen">20</span>% </li>
+                                    <li class="text flex-1 mr-4"><b>Không Đạt:</b> <span class="total">20</span> đ/c =
+                                        <span class="percen">20</span>%
+                                    </li>
+                                    <li class="text flex-1 mr-0"><b>Đơn vị đạt loại:</b> <span>Khá</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="bottom-tab2">
+                        <div class="form-group row">
+                            <div class="col-lg-3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Tìm kiếm theo mã, họ và tên ">
+                                    <span class=" input-group-prepend icon-picker">
+                                        <span class="input-group-text"><i class="icon-search4"></i></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="input-group">
+                                    <select class="form-control sel_2"></select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <select class="form-control" data-placeholder="Chọn cấp bậc..." data-fouc>
+                                        <option></option>
+                                        <optgroup label="Chọn cấp bậc">
+                                            <option value="AR">Trung Uý</option>
+                                            <option value="KS">Đại Uý</option>
+                                            <option value="KY">Binh Nhất</option>
+                                            <option value="SQTT">Binh nhì</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <select class="form-control" data-placeholder="Chọn xếp loại..." data-fouc>
+                                        <option></option>
+                                        <optgroup label="Chọn xếp loại">
+                                            <option value="AL">Giỏi </option>
+                                            <option value="AR">Đạt</option>
+                                            <option value="AR">Khá</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <div class="list-icons">
+                                        <button
+                                            class="btn btn-default btn-outline bg-slate-600 text-slate-600 border-slate-600 legitRipple">
+                                            <i class="icon-filter3"></i>
+                                        </button>
+                                        <button
+                                            class="btn btn-default btn-outline bg-slate-600 text-slate-600 border-slate-600 legitRipple">
+                                            <i class="icon-eraser2"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive mb-4">
+                            <table class="table table-bordered table-group-object customTable">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-500" rowspan="2">Mã QN</td>
+                                        <td class="text-500 text-center custom-min-width" rowspan="2">Họ và tên</td>
+                                        <td class="text-500 text-center" rowspan="2">Tuổi</td>
+                                        <td class="text-500 text-center custom-min-width" rowspan="2">Đơn vị</td>
+                                        <td class="text-500 text-center custom-min-width" rowspan="2">Cấp bậc</td>
+                                        <td class="text-500 text-center" colspan="2">ND chạy 100m</td>
+                                        <td class="text-500 text-center" colspan="2">ND nhảy xa</td>
+                                        <td class="text-500 text-center" colspan="2">ND chạy 100m</td>
+                                        <td class="text-500 text-center" colspan="2">ND chạy 100m</td>
+                                        <td class="text-500 text-center" colspan="2">ND chạy 100m</td>
+                                        <td class="text-500 text-center" rowspan="2">XL chung</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="text-500">TT (lần)</td>
+                                        <td class="text-500">XL</td>
+
+                                        <td class="text-500">TT (số lần)</td>
+                                        <td class="text-500">XL</td>
+
+                                        <td class="text-500">TT</td>
+                                        <td class="text-500">XL</td>
+
+                                        <td class="text-500">TT</td>
+                                        <td class="text-500">XL</td>
+
+                                        <td class="text-500">TT</td>
+                                        <td class="text-500">XL</td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.001</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.002</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.003</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.004</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.005</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.006</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.007</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.008</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.009</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.010</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card border-2 border-indigo" style="box-shadow: none;">
+                            <div class="card-header bg-primary-color text-white header-elements-inline">
+                                <h6 class="card-title">Tổng hợp kết quả</h6>
+                            </div>
+
+                            <div class="card-body px-4">
+                                <ul class="d-flex justify-content-between align-items-center mb-0">
+                                    <li class="text flex-1 mr-4"><b>Giỏi:</b> <span class="total">20</span> đ/c = <span
+                                            class="percen">20</span>%
+                                    </li>
+                                    <li class="text flex-1 mr-4"><b>Khá:</b> <span class="total">20</span> đ/c = <span
+                                            class="percen">20</span>% </li>
+                                    <li class="text flex-1 mr-4"><b>Đạt:</b> <span class="total">20</span> đ/c = <span
+                                            class="percen">20</span>% </li>
+                                    <li class="text flex-1 mr-4"><b>Không Đạt:</b> <span class="total">20</span> đ/c =
+                                        <span class="percen">20</span>%
+                                    </li>
+                                    <li class="text flex-1 mr-0"><b>Đơn vị đạt loại:</b> <span>Khá</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="bottom-tab3">
+                        <div class="form-group row">
+                            <div class="col-lg-3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Tìm kiếm theo mã, họ và tên ">
+                                    <span class=" input-group-prepend icon-picker">
+                                        <span class="input-group-text"><i class="icon-search4"></i></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="input-group">
+                                    <select class="form-control sel_2"></select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <select class="form-control" data-placeholder="Chọn cấp bậc.." data-fouc>
+                                        <option></option>
+                                        <optgroup label="Chọn cấp bậc">
+                                            <option value="AR">Trung Uý</option>
+                                            <option value="KS">Đại Uý</option>
+                                            <option value="KY">Binh Nhất</option>
+                                            <option value="SQTT">Binh nhì</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <select class="form-control" data-placeholder="Chọn xếp loại..." data-fouc>
+                                        <option></option>
+                                        <optgroup label="Chọn xếp loại">
+                                            <option value="AL">Giỏi </option>
+                                            <option value="AR">Đạt</option>
+                                            <option value="AR">Khá</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <div class="list-icons">
+                                        <button
+                                            class="btn btn-default btn-outline bg-slate-600 text-slate-600 border-slate-600 legitRipple">
+                                            <i class="icon-filter3"></i>
+                                        </button>
+                                        <button
+                                            class="btn btn-default btn-outline bg-slate-600 text-slate-600 border-slate-600 legitRipple">
+                                            <i class="icon-eraser2"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive mb-4">
+                            <table class="table table-bordered table-group-object customTable">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-500" rowspan="2">Mã QN</td>
+                                        <td class="text-500 text-center custom-min-width" rowspan="2">Họ và tên</td>
+                                        <td class="text-500 text-center" rowspan="2">Tuổi</td>
+                                        <td class="text-500 text-center custom-min-width" rowspan="2">Đơn vị</td>
+                                        <td class="text-500 text-center custom-min-width" rowspan="2">Cấp bậc</td>
+                                        <td class="text-500 text-center" colspan="2">ND chạy 100m</td>
+                                        <td class="text-500 text-center" colspan="2">ND nhảy xa</td>
+                                        <td class="text-500 text-center" colspan="2">ND chạy 100m</td>
+                                        <td class="text-500 text-center" colspan="2">ND chạy 100m</td>
+                                        <td class="text-500 text-center" colspan="2">ND chạy 100m</td>
+                                        <td class="text-500 text-center" rowspan="2">XL chung</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="text-500">TT</td>
+                                        <td class="text-500">XL</td>
+
+                                        <td class="text-500">TT</td>
+                                        <td class="text-500">XL</td>
+
+                                        <td class="text-500">TT</td>
+                                        <td class="text-500">XL</td>
+
+                                        <td class="text-500">TT</td>
+                                        <td class="text-500">XL</td>
+
+                                        <td class="text-500">TT</td>
+                                        <td class="text-500">XL</td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.001</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.002</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.003</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.004</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.005</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.006</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.007</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.008</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.009</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text editable">QN.010</td>
+                                        <td class="text editable">Trần Bảo Toàn</td>
+                                        <td class="text editable">46</td>
+                                        <td class="text editable">Đại đội 1</td>
+                                        <td class="text editable">Trung uý</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">15&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text editable">13&quot;</td>
+                                        <td class="text editable">14&quot;</td>
+
+                                        <td class="text text-center">Đạt</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card border-2 border-indigo" style="box-shadow: none;">
+                            <div class="card-header bg-primary-color text-white header-elements-inline">
+                                <h6 class="card-title">Tổng hợp kết quả</h6>
+                            </div>
+                            <div class="card-body px-4">
+                                <ul class="d-flex justify-content-between align-items-center mb-0">
+                                    <li class="text flex-1 mr-4"><b>Giỏi:</b> <span class="total">20</span> đ/c = <span
+                                            class="percen">20</span>%
+                                    </li>
+                                    <li class="text flex-1 mr-4"><b>Khá:</b> <span class="total">20</span> đ/c = <span
+                                            class="percen">20</span>% </li>
+                                    <li class="text flex-1 mr-4"><b>Đạt:</b> <span class="total">20</span> đ/c = <span
+                                            class="percen">20</span>% </li>
+                                    <li class="text flex-1 mr-4"><b>Không Đạt:</b> <span class="total">20</span> đ/c =
+                                        <span class="percen">20</span>%
+                                    </li>
+                                    <li class="text flex-1 mr-0"><b>Đơn vị đạt loại:</b> <span>Khá</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

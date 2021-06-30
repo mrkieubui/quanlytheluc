@@ -29,6 +29,7 @@ import { HeaderComponent } from './Modules/shares/header/header.component';
 import { FooterComponent } from './Modules/shares/footer/footer.component';
 import { AccountModule } from './Modules/account/account.module';
 import { AuthGuard } from './Services/auth.guard';
+import { ResultModule } from './Modules/result/result.module';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { AuthGuard } from './Services/auth.guard';
     TargetModule,
     PlanModule,
     AccountModule,
+    ResultModule,
     AppRoutingModule,
     HttpClientModule,
     SweetAlert2Module.forRoot()

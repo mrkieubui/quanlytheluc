@@ -47,6 +47,6 @@ export class PlanCreateComponent implements OnInit {
     // get unit with 3 slash format
     setTimeout(() => {
       this.kehoach.unit = this.AppService.getStoredUnit();
-    }, 500);
+    }, 1000);
   }
 }

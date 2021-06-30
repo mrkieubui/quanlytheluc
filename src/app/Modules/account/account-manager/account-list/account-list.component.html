@@ -4,7 +4,7 @@
             <div class="card-header card-header-content text-center d-flex justify-content-between align-items-center">
                 <h5 class="big-title mb-0 text-uppercase">Danh sách tài khoản</h5>
                 <div class="list-icons">
-                    <a routerLink="create" class="btn btn-link btn bg-primary-color">
+                    <a routerLink="create" class="btn btn-link btn bg-primary-color" *ngIf="userRole == 'admin' || userRole == 'assistant'">
                         <i class="icon-plus3 mr-1"></i>
                         <span>Tạo mới</span>
                     </a>
@@ -55,7 +55,7 @@
                                 <th class="text-500">Đơn vị</th>
                                 <th class="text-500">Quyền</th>
                                 <th class="text-500">Trạng thái</th>
-                                <th class="text-500 text-center">Thao tác </th>
+                                <th class="text-500 text-center" *ngIf="userRole == 'admin' || userRole == 'assistant'">Thao tác </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,16 +75,16 @@
                                         Tạm khóa
                                     </span>
                                 </td>
-                                <td class="text text-center">
+                                <td class="text text-center" *ngIf="userRole == 'admin' || userRole == 'assistant'">
                                     <div class="list-icons">
-                                        <a [routerLink]="['details/', account.id]" class="text-black text ml-2">
+                                        <a [routerLink]="['details/', account._id]" class="text-black text ml-2">
                                             <i class="far fa-eye" data-popup="tooltip" title="Xem"></i>
                                         </a>
-                                        <a [routerLink]="['update/', account.id]" class="text-black text ml-2">
+                                        <a [routerLink]="['update/', account._id]" class="text-black text ml-2">
                                             <i class=" far fa-edit" data-popup="tooltip" title="Sửa"></i>
                                         </a>
                                         <a class="text-danger text ml-2" data-toggle="modal" data-target="#confirmModal"
-                                            (click)="getDeleteId(account.id)">
+                                            (click)="getDeleteId(account._id)">
                                             <i class="far fa-trash-alt" data-popup="tooltip"
                                                 title="Xóa"></i>
                                         </a>

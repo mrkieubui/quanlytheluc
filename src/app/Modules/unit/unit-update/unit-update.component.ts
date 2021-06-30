@@ -23,6 +23,7 @@ export class UnitUpdateComponent implements OnInit {
   // custom tree select 
   expandKeys = ['1'];
   nodes: any = [];
+  userRole: any;
 
   constructor(private AppService: AppService, private route: ActivatedRoute, private router: Router, private NotificationsService: NotificationsService) { }
 
@@ -44,6 +45,8 @@ export class UnitUpdateComponent implements OnInit {
         this.nodes = arrayToTree(res, { customID: "id", parentProperty: "parentId", childrenProperty: "children" });;
       }
     );
+    var tempUser: any = localStorage.getItem('currentUser');
+    this.userRole = JSON.parse(tempUser).role;
   }
 
   onChange(key: any) {

@@ -10,6 +10,8 @@ export class MeasureUnitListComponent implements OnInit {
 
   measureUnits: any = [];
   id: number = 0;
+  userRole: any;
+
   constructor(private AppService: AppService) { }
 
   ngOnInit(): void {
@@ -23,7 +25,9 @@ export class MeasureUnitListComponent implements OnInit {
   getData() {
     this.AppService.getAllItems("measureUnits").subscribe(res => {
       this.measureUnits = res;
-    })
+    });
+    var tempUser: any = localStorage.getItem('currentUser');
+    this.userRole = JSON.parse(tempUser).role;
   }
 
   // get delete id to send to modal

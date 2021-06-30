@@ -32,6 +32,7 @@ export class SoldierCreateComponent implements OnInit {
   value?: string;
   nodes: any = [];
   unitId: any = "1";
+  userRole: any;
 
   constructor(private AppService: AppService, private router: Router, private NotificationsService: NotificationsService) { }
 
@@ -44,6 +45,8 @@ export class SoldierCreateComponent implements OnInit {
     this.ranks = this.AppService.getDataByModule('ranks');
     this.jobs = this.AppService.getDataByModule('jobs');
     this.genders = this.AppService.getDataByModule('genders');
+    var tempUser: any = localStorage.getItem('currentUser');
+    this.userRole = JSON.parse(tempUser).role;
   }
 
   onCreateSoldier(soldierForm: any) {
@@ -63,6 +66,6 @@ export class SoldierCreateComponent implements OnInit {
     // get unit with 3 slash format
     setTimeout(() => {
       this.soldier.unit = this.AppService.getStoredUnit();
-    }, 500);
+    }, 1000);
   }
 }

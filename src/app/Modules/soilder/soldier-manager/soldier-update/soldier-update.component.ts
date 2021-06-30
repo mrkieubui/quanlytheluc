@@ -19,6 +19,7 @@ export class SoldierUpdateComponent implements OnInit {
   expandKeys = ['1'];
   nodes: any = [];
   url: any = "";
+  userRole: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private AppService: AppService, private NotificationsService: NotificationsService) { }
 
@@ -36,7 +37,8 @@ export class SoldierUpdateComponent implements OnInit {
     this.participants = this.AppService.getDataByModule('participants');
     this.ranks = this.AppService.getDataByModule('ranks');
     this.jobs = this.AppService.getDataByModule('jobs');
-
+    var tempUser: any = localStorage.getItem('currentUser');
+    this.userRole = JSON.parse(tempUser).role;
   }
   // update soldier
   onUpdateSoldier(soldierUpdateForm: any) {
@@ -55,6 +57,6 @@ export class SoldierUpdateComponent implements OnInit {
     // get unit with 3 slash format
     setTimeout(() => {
       this.soldier.unit = this.AppService.getStoredUnit();
-    }, 500);
+    }, 1000);
   }
 }

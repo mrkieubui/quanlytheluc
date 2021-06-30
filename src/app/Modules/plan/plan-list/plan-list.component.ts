@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NzTreeNode } from 'ng-zorro-antd/tree';
 import { Observable } from 'rxjs';
@@ -25,19 +26,19 @@ export class PlanListComponent implements OnInit {
   searchText: string = "";
   unit: string = "";
   userUnitId: any;
+  userRole: any;
 
-  constructor(private AppService: AppService, private FilterService: FilterService) { }
+  constructor(private AppService: AppService, private FilterService: FilterService, public http: HttpClient) { }
 
   ngOnInit(): void {
     this.getData();
     setTimeout(() => {
       this.nodes = this.AppService.getUnitNodes();
-      // var tempNodes = this.FilterService.convertUnitNodes();
-      // this.nodes.push(tempNodes);
       // console.log(this.nodes)
-    }, 500);
+    }, 1000);
     var tempUser: any = localStorage.getItem('currentUser');
     this.userUnitId = JSON.parse(tempUser).unitId;
+    this.userRole = JSON.parse(tempUser).role;
   }
 
   getData() {
@@ -70,18 +71,4 @@ export class PlanListComponent implements OnInit {
     this.plans = this.originPlans;
   }
 
-}
-
-function searchTree(element: any, unitId: any): any {
-  if (element.id == unitId) {
-    return element;
-  } else if (element.children != null) {
-    var i;
-    var result = null;
-    for (i = 0; result == null && i < element.children.length; i++) {
-      result = searchTree(element.children[i], unitId);
-    }
-    return result;
-  }
-  return null;
 }
