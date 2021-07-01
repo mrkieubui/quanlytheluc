@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://quanlytheluc-api.herokuapp.com/api",
+    "target": "https://quanlytheluc-api.herokuapp.com",
     "secure": false
   }
 }
