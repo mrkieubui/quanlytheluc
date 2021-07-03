@@ -27,7 +27,7 @@ export class UnitTreeCardComponent implements OnInit {
   }
 
   changeCollapse(child: any) {
-    this.collapseId = child.id;
+    this.collapseId = child._id;
     if (child.children && child.children.length > 0) {
       this.collapseStatus = !this.collapseStatus;
     }

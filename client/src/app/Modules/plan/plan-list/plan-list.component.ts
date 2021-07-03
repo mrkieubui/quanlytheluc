@@ -42,6 +42,7 @@ export class PlanListComponent implements OnInit {
   getData() {
     this.AppService.getAllItems('plans').subscribe(res => {
       this.plans = this.originPlans = res;
+      console.log(res)
     });
   }
 

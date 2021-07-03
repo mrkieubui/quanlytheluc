@@ -34,6 +34,7 @@ export class UnitListComponent implements OnInit {
         // convert to json multi level
         const tree = arrayToTree(res, { customID: "key", parentProperty: "parentId", childrenProperty: "children" });
         this.units = tree;
+        // console.log(this.units)
       }
     );
   }
@@ -46,7 +47,8 @@ export class UnitListComponent implements OnInit {
 
   // change collapse status show or hidden
   changeCollapse(unit: any) {
-    this.collapseId = unit.id;
+    this.collapseId = unit._id;
+    // console.log(this.collapseId)
     if (unit.children && unit.children.length > 0) {
       this.collapseStatus = !this.collapseStatus;
     }

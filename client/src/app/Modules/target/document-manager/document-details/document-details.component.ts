@@ -80,6 +80,7 @@ export class DocumentDetailsComponent implements OnInit {
       if (this.currentTab == "namduoi45") {
         this.newContent.namduoi45 = this.newContent.namduoi36 = this.newContent.hvsq = this.newContent.csnv = this.thanhtich;
         this.thongtu.namduoi45.push(this.newContent);
+        console.log("duoi 45")
       } else if (this.currentTab == "namtren45") {
         this.newContent.namtren55 = this.newContent.namduoi55 = this.newContent.namduoi50 = this.thanhtich;
         this.thongtu.namtren45.push(this.newContent);
@@ -87,11 +88,14 @@ export class DocumentDetailsComponent implements OnInit {
         this.newContent.nutren50 = this.newContent.nuduoi50 = this.newContent.nuduoi45 = this.newContent.nuduoi40 = this.newContent.nuduoi35 = this.newContent.nuduoi27 = this.thanhtich;
         this.thongtu.nu.push(this.newContent);
       }
+      // console.log(this.newContent)
+
       setTimeout(() => {
-        this.AppService.updateItem('documents', this.id, this.thongtu).subscribe(() => {
-          this.getData()
+        this.AppService.updateItem('documents', this.id, this.thongtu).subscribe((res) => {
+          // this.getData()
+          console.log(res)
           this.NotificationsService.notiCreateSuccess();
-          this.newContent.name = "";
+          // this.newContent.name = "";
         });
       }, 1000);
     }

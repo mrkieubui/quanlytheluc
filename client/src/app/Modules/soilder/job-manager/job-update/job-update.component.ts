@@ -29,6 +29,7 @@ export class JobUpdateComponent implements OnInit {
 
   onEditJob(jobEditForm: any){
     if (jobEditForm.value.name !== "" && jobEditForm.value.name.trim() !== "" && jobEditForm.value.slash !== "" && jobEditForm.value.slash.trim() !== "") {
+      // console.log(this.chucvu)
       this.AppService.updateItem('jobs', this.id, this.chucvu).subscribe((res) => {
         this.router.navigate(['/job-manager']);
         this.NotificationsService.notiUpdateSuccess();

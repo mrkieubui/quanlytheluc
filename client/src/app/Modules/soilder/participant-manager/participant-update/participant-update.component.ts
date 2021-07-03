@@ -31,6 +31,7 @@ export class ParticipantUpdateComponent implements OnInit {
     // get one participant by id
     this.AppService.getItem('participants', this.id).subscribe((res) => {
       this.participant = res;
+      console.log( this.participant)
     });
     var tempUser: any = localStorage.getItem('currentUser');
 		this.userRole = JSON.parse(tempUser).role;
