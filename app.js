@@ -25,7 +25,7 @@ app.use(express.urlencoded({
   extended: true
 }));
 app.use(express.json());
-// Using ng build to create static dist folder 
+// Using ng build to create static dist folder then call it from nodejs app
 app.use(express.static(path.join(__dirname, 'client/dist/quan-ly-the-luc')));
 app.get('/', function (request, response) {
   response.sendFile(path.join(__dirname, '/index.html'));
