@@ -1,1 +1,207 @@
-!function(t){"use strict";var e='[data-toggle="context"]',n=function(e,n){this.$element=t(e),this.before=n.before||this.before,this.onItem=n.onItem||this.onItem,this.scopes=n.scopes||null,n.target&&this.$element.data("target",n.target),this.listen()};n.prototype={constructor:n,show:function(e){var n,o,i={relatedTarget:this};if(!this.isDisabled()&&(this.closemenu(),this.before.call(this,e,t(e.currentTarget))))return(n=this.getMenu()).trigger(t.Event("show.bs.context",i)),o=this.getPosition(e,n),n.attr("style","").css(o).addClass("show").on("click.context.data-api",".dropdown-item",t.proxy(this.onItem,this,t(e.currentTarget))).trigger("shown.bs.context",i),n.children(".dropdown-menu").addClass("show"),t("html").on("click.context.data-api",n.selector,t.proxy(this.closemenu,this)),!1},closemenu:function(e){var n,o;if((n=this.getMenu()).hasClass("show"))return n.trigger(t.Event("hide.bs.context",o={relatedTarget:this})),n.removeClass("show").off("click.context.data-api",".dropdown-item").trigger("hidden.bs.context",o),n.children(".dropdown-menu").removeClass("show"),t("html").off("click.context.data-api",n.selector),!1},keydown:function(t){27==t.which&&this.closemenu(t)},before:function(t){return!0},onItem:function(t){return!0},listen:function(){this.$element.on("contextmenu.context.data-api",this.scopes,t.proxy(this.show,this)),t("html").on("click.context.data-api",t.proxy(this.closemenu,this)),t("html").on("keydown.context.data-api",t.proxy(this.keydown,this))},destroy:function(){this.$element.off(".context.data-api").removeData("context"),t("html").off(".context.data-api")},isDisabled:function(){return this.$element.hasClass("disabled")||this.$element.attr("disabled")},getMenu:function(){var e,n=this.$element.data("target");return n||(n=(n=this.$element.attr("href"))&&n.replace(/.*(?=#[^\s]*$)/,"")),(e=t(n))&&e.length?e:this.$element.find(n)},getPosition:function(e,n){var o,i,s,a=e.clientX,r=e.clientY,c=t(window).width(),h=t(window).height(),l=n.find(".dropdown-menu").outerWidth(),d=n.find(".dropdown-menu").outerHeight();return o=r+d>h?{top:r-d+t(window).scrollTop()}:{top:r+t(window).scrollTop()},i=a+l>c&&a-l>0?{left:a-l+t(window).scrollLeft()}:{left:a+t(window).scrollLeft()},s=n.offsetParent().offset(),i.left=i.left-s.left,o.top=o.top-s.top,t.extend({position:"absolute","z-index":9999},o,i)}},t.fn.contextmenu=function(e,o){return this.each(function(){var i=t(this),s=i.data("context");s||i.data("context",s=new n(i,"object"==typeof e&&e)),"string"==typeof e&&s[e].call(s,o)})},t.fn.contextmenu.Constructor=n,t(document).on("contextmenu.context.data-api",function(){t(e).each(function(){var e=t(this).data("context");e&&e.closemenu()})}).on("contextmenu.context.data-api",e,function(e){t(this).contextmenu("show",e),e.preventDefault(),e.stopPropagation()})}(jQuery);
+/*!
+ * Bootstrap Context Menu
+ * Author: @sydcanem
+ * https://github.com/sydcanem/bootstrap-contextmenu
+ *
+ * Inspired by Bootstrap's dropdown plugin.
+ * Bootstrap (http://getbootstrap.com).
+ *
+ * Licensed under MIT
+ * ========================================================= */
+
+;(function($) {
+
+	'use strict';
+
+	/* CONTEXTMENU CLASS DEFINITION
+	 * ============================ */
+	var toggle = '[data-toggle="context"]';
+
+	var ContextMenu = function (element, options) {
+		this.$element = $(element);
+
+		this.before = options.before || this.before;
+		this.onItem = options.onItem || this.onItem;
+		this.scopes = options.scopes || null;
+
+		if (options.target) {
+			this.$element.data('target', options.target);
+		}
+
+		this.listen();
+	};
+
+	ContextMenu.prototype = {
+
+		constructor: ContextMenu
+		,show: function(e) {
+
+			var $menu
+				, evt
+				, tp
+				, items
+				, relatedTarget = { relatedTarget: this };
+
+			if (this.isDisabled()) return;
+
+			this.closemenu();
+
+			if (!this.before.call(this,e,$(e.currentTarget))) return;
+
+			$menu = this.getMenu();
+			$menu.trigger(evt = $.Event('show.bs.context', relatedTarget));
+
+			tp = this.getPosition(e, $menu);
+			items = '.dropdown-item';
+			$menu.attr('style', '')
+				.css(tp)
+				.addClass('show')
+				.on('click.context.data-api', items, $.proxy(this.onItem, this, $(e.currentTarget)))
+				.trigger('shown.bs.context', relatedTarget);
+			$menu.children('.dropdown-menu').addClass('show');
+
+			// Delegating the `closemenu` only on the currently showed menu.
+			// This prevents other showed menus from closing.
+			$('html')
+				.on('click.context.data-api', $menu.selector, $.proxy(this.closemenu, this));
+
+			return false;
+		}
+
+		,closemenu: function(e) {
+			var $menu
+				, evt
+				, items
+				, relatedTarget;
+
+			$menu = this.getMenu();
+
+			if(!$menu.hasClass('show')) return;
+
+			relatedTarget = { relatedTarget: this };
+			$menu.trigger(evt = $.Event('hide.bs.context', relatedTarget));
+
+			items = '.dropdown-item';
+			$menu.removeClass('show')
+				.off('click.context.data-api', items)
+				.trigger('hidden.bs.context', relatedTarget);
+			$menu.children('.dropdown-menu').removeClass('show');
+
+			$('html')
+				.off('click.context.data-api', $menu.selector);
+			// Don't propagate click event so other currently
+			// showed menus won't close.
+			return false;
+		}
+
+		,keydown: function(e) {
+			if (e.which == 27) this.closemenu(e);
+		}
+
+		,before: function(e) {
+			return true;
+		}
+
+		,onItem: function(e) {
+			return true;
+		}
+
+		,listen: function () {
+			this.$element.on('contextmenu.context.data-api', this.scopes, $.proxy(this.show, this));
+			$('html').on('click.context.data-api', $.proxy(this.closemenu, this));
+			$('html').on('keydown.context.data-api', $.proxy(this.keydown, this));
+		}
+
+		,destroy: function() {
+			this.$element.off('.context.data-api').removeData('context');
+			$('html').off('.context.data-api');
+		}
+
+		,isDisabled: function() {
+			return this.$element.hasClass('disabled') || 
+					this.$element.attr('disabled');
+		}
+
+		,getMenu: function () {
+			var selector = this.$element.data('target')
+				, $menu;
+
+			if (!selector) {
+				selector = this.$element.attr('href');
+				selector = selector && selector.replace(/.*(?=#[^\s]*$)/, ''); //strip for ie7
+			}
+
+			$menu = $(selector);
+
+			return $menu && $menu.length ? $menu : this.$element.find(selector);
+		}
+
+		,getPosition: function(e, $menu) {
+			var mouseX = e.clientX
+				, mouseY = e.clientY
+				, boundsX = $(window).width()
+				, boundsY = $(window).height()
+				, menuWidth = $menu.find('.dropdown-menu').outerWidth()
+				, menuHeight = $menu.find('.dropdown-menu').outerHeight()
+				, tp = {"position":"absolute","z-index":9999}
+				, Y, X, parentOffset;
+
+			if (mouseY + menuHeight > boundsY) {
+				Y = {"top": mouseY - menuHeight + $(window).scrollTop()};
+			} else {
+				Y = {"top": mouseY + $(window).scrollTop()};
+			}
+
+			if ((mouseX + menuWidth > boundsX) && ((mouseX - menuWidth) > 0)) {
+				X = {"left": mouseX - menuWidth + $(window).scrollLeft()};
+			} else {
+				X = {"left": mouseX + $(window).scrollLeft()};
+			}
+
+			// If context-menu's parent is positioned using absolute or relative positioning,
+			// the calculated mouse position will be incorrect.
+			// Adjust the position of the menu by its offset parent position.
+			parentOffset = $menu.offsetParent().offset();
+			X.left = X.left - parentOffset.left;
+			Y.top = Y.top - parentOffset.top;
+ 
+			return $.extend(tp, Y, X);
+		}
+
+	};
+
+	/* CONTEXT MENU PLUGIN DEFINITION
+	 * ========================== */
+
+	$.fn.contextmenu = function (option,e) {
+		return this.each(function () {
+			var $this = $(this)
+				, data = $this.data('context')
+				, options = (typeof option == 'object') && option;
+
+			if (!data) $this.data('context', (data = new ContextMenu($this, options)));
+			if (typeof option == 'string') data[option].call(data, e);
+		});
+	};
+
+	$.fn.contextmenu.Constructor = ContextMenu;
+
+	/* APPLY TO STANDARD CONTEXT MENU ELEMENTS
+	 * =================================== */
+
+	$(document)
+	   .on('contextmenu.context.data-api', function() {
+			$(toggle).each(function () {
+				var data = $(this).data('context');
+				if (!data) return;
+				data.closemenu();
+			});
+		})
+		.on('contextmenu.context.data-api', toggle, function(e) {
+			$(this).contextmenu('show', e);
+
+			e.preventDefault();
+			e.stopPropagation();
+		});
+		
+}(jQuery));

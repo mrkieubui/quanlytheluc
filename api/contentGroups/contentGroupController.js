@@ -16,11 +16,7 @@ exports.index = function (req, res) {
 // Handle create contact actions
 exports.new = function (req, res) {
     var contentGroup = new ContentGroup();
-    contentGroup.key = req.body.key;
-    contentGroup.value = req.body.value;
-    contentGroup.title = req.body.title;
-    contentGroup.slash = req.body.slash;
-    contentGroup.parentId = req.body.parentId;
+    contentGroup.name = req.body.name;
     // save the contentGroup and check for errors
     contentGroup.save(function (err) {
         // if (err)
@@ -41,11 +37,7 @@ exports.update = function (req, res) {
     ContentGroup.findById(req.params.contentGroup_id, function (err, contentGroup) {
         if (err)
             res.send(err);
-        contentGroup.key = req.body.key;
-        contentGroup.value = req.body.value;
-        contentGroup.title = req.body.title;
-        contentGroup.slash = req.body.slash;
-        contentGroup.parentId = req.body.parentId;
+        contentGroup.name = req.body.name;
         // save the contentGroup and check for errors
         contentGroup.save(function (err) {
             if (err)

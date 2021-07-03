@@ -1,1 +1,365 @@
-var D3TreeBracket=function(){var t=function(){if("undefined"!=typeof d3){var t=document.getElementById("d3-tree-bracket"),e=600;if(t){var n,r=d3.select(t),i={top:0,right:0,bottom:0,left:0},a=r.node().getBoundingClientRect().width-i.left-i.right,l=a/2,o=(e=e-i.top-i.bottom-5,0),c=500,s="#2196F3",d=r.append("svg"),u=d.attr("width",a+i.left+i.right).attr("height",e+i.top+i.bottom).append("g").attr("transform","translate("+i.left+","+i.top+")"),f=d3.behavior.zoom().scaleExtent([1,2]).on("zoom",function(){u.attr("transform","translate("+d3.event.translate+") scale("+d3.event.scale+")")});d.call(f);var h=d3.layout.tree().size([e,a]),g=(d3.svg.diagonal().projection(function(t){return[t.y,t.x]}),function(t,e){var n=y(t.source),r=y(t.target),i=(r.y-n.y)/2;return t.isRight&&(i=-i),"M"+n.y+","+n.x+"H"+(n.y+i)+"V"+r.x+"H"+r.y}),y=function(t){var e=t.y;return t.isRight||(e=l-(e=t.y-l)),{x:t.x,y:e}},v=function(t,e){var n=0,r=t.children?t.children.length:0;for((e=e||[]).push(t);n<r;n++)v(t.children[n],e);return e};function x(t){var e=v(t);e.forEach(function(t){t.y=180*t.depth+l});var n=u.selectAll("g.node").data(e,function(t){return t.id||(t.id=++o)});e.forEach(function(t){var e=y(t);t.x0=e.x,t.y0=e.y});var f=n.enter().append("g").attr("class","node").attr("transform",function(e){return"translate("+t.y0+","+t.x0+")"}).on("click",function(e){e.children?(e._children=e.children,e.children=null):(e.children=e._children,e._children=null),x(t)});f.append("circle").attr("r",1e-6).attr("class","d3-line-circle").style("stroke",s).style("stroke-width",1.5).style("cursor","pointer").style("fill",function(t){return t._children&&s}),f.append("text").attr("class","d3-text").attr("dy",function(t){return t.isRight?18:-12}).attr("text-anchor","middle").text(function(t){return t.name}).style("font-size",12).style("fill-opacity",1e-6);var m=n.transition().duration(c).attr("transform",function(t){return p=y(t),"translate("+p.y+","+p.x+")"});m.select("circle").attr("r",4.5).style("fill",function(t){return t._children&&s}),m.select("text").style("fill-opacity",1);var w=n.exit().transition().duration(c).attr("transform",function(e){return p=y(e.parent||t),"translate("+p.y+","+p.x+")"}).remove();w.select("circle").attr("r",1e-6),w.select("text").style("fill-opacity",1e-6);var k=u.selectAll("path.link").data(h.links(e),function(t){return t.target.id});k.enter().insert("path","g").attr("class","link d3-line-connect").style("stroke-width",1.5).attr("d",function(e){var n={x:t.x0,y:t.y0};return g({source:n,target:n})}),k.transition().duration(c).attr("d",g),k.exit().transition().duration(c).attr("d",function(e){var n=y(e.source||t);return e.source.isRight?n.y-=l-(e.target.y-e.source.y):n.y+=l-(e.target.y-e.source.y),g({source:n,target:n})}).remove(),window.addEventListener("resize",b);var R=document.querySelector(".sidebar-control");function b(){a=r.node().getBoundingClientRect().width-i.left-i.right,d.attr("width",a+i.left+i.right),u.attr("width",a+i.left+i.right)}R&&R.addEventListener("click",b)}d3.json("../../../../global_assets/demo_data/d3/tree/tree_bracket.json",function(t){(n=t).x0=e/2,n.y0=a/2;var r=d3.layout.tree().size([e,l]).children(function(t){return t.winners}),i=d3.layout.tree().size([e,l]).children(function(t){return t.challengers});r.nodes(n),i.nodes(n);var o=function(t){t.children=function(t){var e=[];if(t.winners)for(var n=0;n<t.winners.length;n++)t.winners[n].isRight=!1,t.winners[n].parent=t,e.push(t.winners[n]);if(t.challengers)for(n=0;n<t.challengers.length;n++)t.challengers[n].isRight=!0,t.challengers[n].parent=t,e.push(t.challengers[n]);return e.length?e:null}(t),t.children&&t.children.forEach(o)};o(n),n.isRight=!1,x(n)})}}else console.warn("Warning - d3.min.js is not loaded.")};return{init:function(){t()}}}();document.addEventListener("DOMContentLoaded",function(){D3TreeBracket.init()});
+/* ------------------------------------------------------------------------------
+ *
+ *  # D3.js - bracket tree layout
+ *
+ *  Demo of double sided bracket layout setup with pan and zoom
+ *
+ * ---------------------------------------------------------------------------- */
+
+
+// Setup module
+// ------------------------------
+
+var D3TreeBracket = function() {
+
+
+    //
+    // Setup module components
+    //
+
+    // Chart
+    var _treeBracket = function() {
+        if (typeof d3 == 'undefined') {
+            console.warn('Warning - d3.min.js is not loaded.');
+            return;
+        }
+
+        // Main variables
+        var element = document.getElementById('d3-tree-bracket'),
+            height = 600;
+
+
+        // Initialize chart only if element exsists in the DOM
+        if(element) {
+
+            // Basic setup
+            // ------------------------------
+
+            // Define main variables
+            var d3Container = d3.select(element),
+                margin = {top: 0, right: 0, bottom: 0, left: 0},
+                width = d3Container.node().getBoundingClientRect().width - margin.left - margin.right,
+                halfWidth = width / 2,
+                height = height - margin.top - margin.bottom - 5,
+                i = 0,
+                duration = 500,
+                root;
+
+            // Colors
+            var color = '#2196F3';
+
+
+
+            // Create chart
+            // ------------------------------
+
+            // Add SVG element
+            var container = d3Container.append("svg");
+
+            // Add SVG group
+            var svg = container
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+            // Get children
+            var getChildren = function(d) {
+                var a = [];
+                if(d.winners) for(var i = 0; i < d.winners.length; i++){
+                    d.winners[i].isRight = false;
+                    d.winners[i].parent = d;
+                    a.push(d.winners[i]);
+                }
+                if(d.challengers) for(var i = 0; i < d.challengers.length; i++){
+                    d.challengers[i].isRight = true;
+                    d.challengers[i].parent = d;
+                    a.push(d.challengers[i]);
+                }
+                return a.length?a:null;
+            };
+
+
+
+            // Add zoom behavior
+            // ------------------------------
+
+            // Add zoom with scale
+            var zoom = d3.behavior.zoom()
+                .scaleExtent([1,2])
+                .on('zoom', function(){
+                    svg.attr("transform", "translate(" + d3.event.translate + ") scale(" + d3.event.scale + ")");
+                });
+
+            // Initialize zoom
+            container.call(zoom);
+
+
+
+            // Construct chart layout
+            // ------------------------------
+
+            // Tree
+            var tree = d3.layout.tree()
+                .size([height, width]);
+
+            // Diagonal projection
+            var diagonal = d3.svg.diagonal()
+                .projection(function(d) { return [d.y, d.x]; });
+
+
+
+            // Helper functions
+            // ------------------------------
+
+            // Connector
+            var elbow = function (d, i){
+                var source = calcLeft(d.source),
+                    target = calcLeft(d.target),
+                    hy = (target.y-source.y) / 2;
+
+                    if(d.isRight) hy = -hy;
+                    return "M" + source.y + "," + source.x + "H" + (source.y + hy) + "V" + target.x + "H" + target.y;
+            };
+            var connector = elbow;
+
+            // Calculate horizontal position
+            var calcLeft = function(d) {
+                var l = d.y;
+                if(!d.isRight) {
+                    l = d.y-halfWidth;
+                    l = halfWidth - l;
+                }
+                return {x : d.x, y : l};
+            };
+
+            var toArray = function(item, arr){
+                arr = arr || [];
+                var i = 0,
+                l = item.children?item.children.length : 0;
+                
+                arr.push(item);
+                for(; i < l; i++) {
+                    toArray(item.children[i], arr);
+                }
+                return arr;
+            };
+
+
+
+            // Load data
+            // ------------------------------
+
+            d3.json("../../../../global_assets/demo_data/d3/tree/tree_bracket.json", function(json) {
+                root = json;
+                root.x0 = height / 2;
+                root.y0 = width / 2;
+                
+                // Add tree layout
+                var t1 = d3.layout.tree().size([height, halfWidth]).children(function(d){return d.winners;}),
+                    t2 = d3.layout.tree().size([height, halfWidth]).children(function(d){return d.challengers;});
+                    t1.nodes(root);
+                    t2.nodes(root);
+      
+                // Rebuild children nodes
+                var rebuildChildren = function(node){
+                    node.children = getChildren(node);
+                    if(node.children) node.children.forEach(rebuildChildren);
+                }
+                rebuildChildren(root);
+                root.isRight = false;
+                update(root);
+            });
+
+
+
+            // Layout setup
+            // ------------------------------
+
+            // Update nodes
+            function update(source) {
+
+                // Compute the new tree layout.
+                var nodes = toArray(source);
+
+                // Normalize for fixed-depth.
+                nodes.forEach(function(d) { d.y = d.depth * 180 + halfWidth; });
+
+                // Update the nodes…
+                var node = svg.selectAll("g.node")
+                    .data(nodes, function(d) { return d.id || (d.id = ++i); });
+
+                // Stash the old positions for transition.
+                nodes.forEach(function(d) {
+                    var p = calcLeft(d);
+                    d.x0 = p.x;
+                    d.y0 = p.y;
+                });
+
+
+                // Enter nodes
+                // ------------------------------
+
+                // Enter any new nodes at the parent's previous position.
+                var nodeEnter = node.enter().append("g")
+                    .attr("class", "node")
+                    .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+                    .on("click", click);    
+
+                // Add node circles
+                nodeEnter.append("circle")
+                    .attr("r", 1e-6)
+                    .attr("class", "d3-line-circle")
+                    .style("stroke", color)
+                    .style("stroke-width", 1.5)
+                    .style("cursor", "pointer")
+                    .style("fill", function(d) { return d._children && color; });
+
+                // Add node text
+                nodeEnter.append("text")
+                    .attr("class", "d3-text")
+                    .attr("dy", function(d) { return d.isRight?18:-12;})
+                    .attr("text-anchor", "middle")
+                    .text(function(d) { return d.name; })
+                    .style("font-size", 12)
+                    .style("fill-opacity", 1e-6);
+
+
+                // Update nodes
+                // ------------------------------
+
+                // Transition nodes to their new position.
+                var nodeUpdate = node.transition()
+                    .duration(duration)
+                    .attr("transform", function(d) { p = calcLeft(d); return "translate(" + p.y + "," + p.x + ")"; });
+
+                // Update circle
+                nodeUpdate.select("circle")
+                    .attr("r", 4.5)
+                    .style("fill", function(d) { return d._children && color; });
+
+                // Update text
+                nodeUpdate.select("text")
+                    .style("fill-opacity", 1);
+
+
+                // Exit nodes
+                // ------------------------------
+
+                // Transition exiting nodes to the parent's new position.
+                var nodeExit = node.exit().transition()
+                    .duration(duration)
+                    .attr("transform", function(d) { p = calcLeft(d.parent||source); return "translate(" + p.y + "," + p.x + ")"; })
+                    .remove();
+
+                // Update circles
+                nodeExit.select("circle")
+                    .attr("r", 1e-6);
+
+                // Update text
+                nodeExit.select("text")
+                    .style("fill-opacity", 1e-6);
+
+
+
+                // Links
+                // ------------------------------
+
+                // Update the links
+                var link = svg.selectAll("path.link")
+                    .data(tree.links(nodes), function(d) { return d.target.id; });
+
+                // Enter any new links at the parent's previous position
+                link.enter().insert("path", "g")
+                    .attr("class", "link d3-line-connect")
+                    .style("stroke-width", 1.5)
+                    .attr("d", function(d) {
+                        var o = {x: source.x0, y: source.y0};
+                        return connector({source: o, target: o});
+                    });
+
+                // Transition links to their new position
+                link.transition()
+                    .duration(duration)
+                    .attr("d", connector);
+
+                // Transition exiting nodes to the parent's new position
+                link.exit().transition()
+                    .duration(duration)
+                    .attr("d", function(d) {
+                        var o = calcLeft(d.source||source);
+                        if(d.source.isRight) o.y -= halfWidth - (d.target.y - d.source.y);
+                        else o.y += halfWidth - (d.target.y - d.source.y);
+                        return connector({source: o, target: o});
+                    })
+                    .remove();
+
+
+
+                // Toggle children on click.
+                function click(d) {
+                    if (d.children) {
+                        d._children = d.children;
+                        d.children = null;
+                    } else {
+                        d.children = d._children;
+                        d._children = null;
+                    }
+                    update(source);
+                }
+
+
+                // Resize chart
+                // ------------------------------
+
+                // Call function on window resize
+                window.addEventListener('resize', resize);
+
+                // Call function on sidebar width change
+                var sidebarToggle = document.querySelector('.sidebar-control');
+                sidebarToggle && sidebarToggle.addEventListener('click', resize);
+
+
+                // Resize function
+                // 
+                // Since D3 doesn't support SVG resize by default,
+                // we need to manually specify parts of the graph that need to 
+                // be updated on window resize
+                function resize() {
+
+                    // Layout variables
+                    width = d3Container.node().getBoundingClientRect().width - margin.left - margin.right,
+
+                    // Layout
+                    // -------------------------
+
+                    // Main svg width
+                    container.attr("width", width + margin.left + margin.right);
+
+                    // Width of appended group
+                    svg.attr("width", width + margin.left + margin.right);
+                }
+            }
+        }
+    };
+
+
+    //
+    // Return objects assigned to module
+    //
+
+    return {
+        init: function() {
+            _treeBracket();
+        }
+    }
+}();
+
+
+// Initialize module
+// ------------------------------
+
+document.addEventListener('DOMContentLoaded', function() {
+    D3TreeBracket.init();
+});

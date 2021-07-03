@@ -1,1 +1,371 @@
-var D3BarHierarchy={init:function(){!function(){if("undefined"!=typeof d3){var t=document.getElementById("d3-hierarchical-bars"),e=400;if(t){var n=d3.select(t),r={top:25,right:40,bottom:20,left:130},a=n.node().getBoundingClientRect().width-r.left-r.right,i=(e=e-r.top-r.bottom-5,750),l=d3.scale.linear().range([0,a]),o=d3.scale.ordinal().range(["#31a354","#c7e9bf"]),c=d3.svg.axis().scale(l).orient("top"),s=n.append("svg"),d=s.attr("width",a+r.left+r.right).attr("height",e+r.top+r.bottom).append("g").attr("transform","translate("+r.left+","+r.top+")"),u=d3.layout.partition().value(function(t){return t.size});function f(t,e){if(t.children&&!this.__transition__){var n=i+25*t.children.length,r=d.selectAll(".enter").attr("class","exit");r.selectAll("rect").filter(function(e){return e===t}).style("fill-opacity",1e-6);var a=h(t).attr("transform",p(e)).style("opacity",1);a.select("text").style("fill-opacity",1e-6),a.select("rect").style("fill",o(!0)),l.domain([0,d3.max(t.children,function(t){return t.value})]).nice(),d.selectAll(".d3-axis-horizontal").transition().duration(i).call(c);var s=a.transition().duration(i).delay(function(t,e){return 25*e}).attr("transform",function(t,e){return"translate(0,"+30*e*1.2+")"});s.select("text").style("fill-opacity",1),s.select("rect").attr("width",function(t){return l(t.value)}).style("fill",function(t){return o(!!t.children)}),r.transition().duration(i).style("opacity",1e-6).remove().selectAll("rect").attr("width",function(t){return l(t.value)}),d.select(".d3-bars-background").datum(t).transition().duration(n),t.index=e}}function h(t){var e=d.insert("g",".d3-axis-vertical").attr("class","enter").attr("transform","translate(0,5)").selectAll("g").data(t.children).enter().append("g").style("cursor",function(t){return t.children?"pointer":null}).on("click",f);return e.append("text").attr("class","d3-text").attr("x",-6).attr("y",15).attr("dy",".35em").style("text-anchor","end").text(function(t){return t.name}),e.append("rect").attr("width",function(t){return l(t.value)}).attr("height",30),e}function p(t){var e=0;return function(n){var r="translate("+e+","+30*t*1.2+")";return e+=l(n.value),r}}d3.json("../../../../global_assets/demo_data/d3/bars/bars_hierarchical.json",function(t,e){u.nodes(e),l.domain([0,e.value]).nice(),f(e,0)}),d.append("rect").attr("class","d3-bars-background").attr("width",a).attr("height",e).style("fill","transparent").on("click",function(t){if(t.parent&&!this.__transition__){var e=i+25*t.children.length,n=d.selectAll(".enter").attr("class","exit"),r=h(t.parent).attr("transform",function(t,e){return"translate(0,"+30*e*1.2+")"}).style("opacity",1e-6);r.select("rect").style("fill",function(t){return o(!!t.children)}).filter(function(e){return e===t}).style("fill-opacity",1e-6),l.domain([0,d3.max(t.parent.children,function(t){return t.value})]).nice(),d.selectAll(".d3-axis-horizontal").transition().duration(i).call(c),r.transition().duration(e).style("opacity",1).select("rect").attr("width",function(t){return l(t.value)}).each("end",function(e){e===t&&d3.select(this).style("fill-opacity",null)});var a=n.selectAll("g").transition().duration(i).delay(function(t,e){return 25*e}).attr("transform",p(t.index));a.select("text").style("fill-opacity",1e-6),a.select("rect").attr("width",function(t){return l(t.value)}).style("fill",o(!0)),n.transition().duration(e).remove(),d.select(".d3-bars-background").datum(t.parent).transition().duration(e)}}),d.append("g").attr("class","d3-axis d3-axis-horizontal"),window.addEventListener("resize",g);var y=document.querySelector(".sidebar-control");function g(){a=n.node().getBoundingClientRect().width-r.left-r.right,s.attr("width",a+r.left+r.right),d.attr("width",a+r.left+r.right),l.range([0,a]),d.selectAll(".d3-axis-horizontal").call(c),d.selectAll(".enter rect").attr("width",function(t){return l(t.value)})}y&&y.addEventListener("click",g)}}else console.warn("Warning - d3.min.js is not loaded.")}()}};document.addEventListener("DOMContentLoaded",function(){D3BarHierarchy.init()});
+/* ------------------------------------------------------------------------------
+ *
+ *  # D3.js - hierarchical bar chart
+ *
+ *  Demo d3.js hierarchical bar chart setup with .json data
+ *
+ * ---------------------------------------------------------------------------- */
+
+
+// Setup module
+// ------------------------------
+
+var D3BarHierarchy = function() {
+
+
+    //
+    // Setup module components
+    //
+
+    // Chart
+    var _barHierarchy = function() {
+        if (typeof d3 == 'undefined') {
+            console.warn('Warning - d3.min.js is not loaded.');
+            return;
+        }
+
+        // Main variables
+        var element = document.getElementById('d3-hierarchical-bars'),
+            height = 400;
+
+
+        // Initialize chart only if element exsists in the DOM
+        if(element) {
+
+            // Basic setup
+            // ------------------------------
+
+            // Define main variables
+            var d3Container = d3.select(element),
+                margin = {top: 25, right: 40, bottom: 20, left: 130},
+                width = d3Container.node().getBoundingClientRect().width - margin.left - margin.right,
+                height = height - margin.top - margin.bottom - 5,
+                barHeight = 30,
+                duration = 750,
+                delay = 25;
+
+            // Colors
+            var color_range = ["#31a354", "#c7e9bf"];
+
+
+            // Construct scales
+            // ------------------------------
+
+            // Horizontal
+            var x = d3.scale.linear()
+                .range([0, width]);
+
+            // Colors
+            var color = d3.scale.ordinal()
+                .range(color_range);
+
+
+
+            // Create axes
+            // ------------------------------
+
+            // Horizontal
+            var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("top");
+
+
+
+            // Create chart
+            // ------------------------------
+
+            // Add SVG element
+            var container = d3Container.append("svg");
+
+            // Add SVG group
+            var svg = container
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+            // Construct chart layout
+            // ------------------------------
+
+            // Partition
+            var partition = d3.layout.partition()
+                .value(function(d) { return d.size; });
+
+
+
+            // Load data
+            // ------------------------------
+
+            d3.json("../../../../global_assets/demo_data/d3/bars/bars_hierarchical.json", function(error, root) {
+                partition.nodes(root);
+                x.domain([0, root.value]).nice();
+                down(root, 0);
+            });
+
+
+            //
+            // Append chart elements
+            //
+
+            // Add background bars
+            svg.append("rect")
+                .attr("class", "d3-bars-background")
+                .attr("width", width)
+                .attr("height", height)
+                .style("fill", "transparent")
+                .on("click", up);
+
+
+            // Append axes
+            // ------------------------------
+
+            // Horizontal
+            svg.append("g")
+                .attr("class", "d3-axis d3-axis-horizontal");
+
+
+            // Append bars
+            // ------------------------------
+
+            // Create hierarchical structure
+            function down(d, i) {
+                if (!d.children || this.__transition__) return;
+                var end = duration + d.children.length * delay;
+
+                // Mark any currently-displayed bars as exiting.
+                var exit = svg.selectAll(".enter")
+                    .attr("class", "exit");
+
+                // Entering nodes immediately obscure the clicked-on bar, so hide it.
+                exit.selectAll("rect").filter(function(p) { return p === d; })
+                    .style("fill-opacity", 1e-6);
+
+                // Enter the new bars for the clicked-on data.
+                // Per above, entering bars are immediately visible.
+                var enter = bar(d)
+                    .attr("transform", stack(i))
+                    .style("opacity", 1);
+
+                // Have the text fade-in, even though the bars are visible.
+                // Color the bars as parents; they will fade to children if appropriate.
+                enter.select("text").style("fill-opacity", 1e-6);
+                enter.select("rect").style("fill", color(true));
+
+                // Update the x-scale domain.
+                x.domain([0, d3.max(d.children, function(d) { return d.value; })]).nice();
+
+                // Update the x-axis.
+                svg.selectAll(".d3-axis-horizontal").transition()
+                    .duration(duration)
+                    .call(xAxis);
+
+                // Transition entering bars to their new position.
+                var enterTransition = enter.transition()
+                    .duration(duration)
+                    .delay(function(d, i) { return i * delay; })
+                    .attr("transform", function(d, i) { return "translate(0," + barHeight * i * 1.2 + ")"; });
+
+                // Transition entering text.
+                enterTransition.select("text")
+                    .style("fill-opacity", 1);
+
+                // Transition entering rects to the new x-scale.
+                enterTransition.select("rect")
+                    .attr("width", function(d) { return x(d.value); })
+                    .style("fill", function(d) { return color(!!d.children); });
+
+                // Transition exiting bars to fade out.
+                var exitTransition = exit.transition()
+                    .duration(duration)
+                    .style("opacity", 1e-6)
+                    .remove();
+
+                // Transition exiting bars to the new x-scale.
+                exitTransition.selectAll("rect")
+                    .attr("width", function(d) { return x(d.value); });
+
+                // Rebind the current node to the background.
+                svg.select(".d3-bars-background")
+                    .datum(d)
+                    .transition()
+                    .duration(end);
+
+                d.index = i;
+            }
+
+            // Return to parent level
+            function up(d) {
+                if (!d.parent || this.__transition__) return;
+                var end = duration + d.children.length * delay;
+
+                // Mark any currently-displayed bars as exiting.
+                var exit = svg.selectAll(".enter")
+                    .attr("class", "exit");
+
+                // Enter the new bars for the clicked-on data's parent.
+                var enter = bar(d.parent)
+                    .attr("transform", function(d, i) { return "translate(0," + barHeight * i * 1.2 + ")"; })
+                    .style("opacity", 1e-6);
+
+                // Color the bars as appropriate.
+                // Exiting nodes will obscure the parent bar, so hide it.
+                enter.select("rect")
+                    .style("fill", function(d) { return color(!!d.children); })
+                    .filter(function(p) { return p === d; })
+                    .style("fill-opacity", 1e-6);
+
+                // Update the x-scale domain.
+                x.domain([0, d3.max(d.parent.children, function(d) { return d.value; })]).nice();
+
+                // Update the x-axis.
+                svg.selectAll(".d3-axis-horizontal").transition()
+                    .duration(duration)
+                    .call(xAxis);
+
+                // Transition entering bars to fade in over the full duration.
+                var enterTransition = enter.transition()
+                    .duration(end)
+                    .style("opacity", 1);
+
+                // Transition entering rects to the new x-scale.
+                // When the entering parent rect is done, make it visible!
+                enterTransition.select("rect")
+                    .attr("width", function(d) { return x(d.value); })
+                    .each("end", function(p) { if (p === d) d3.select(this).style("fill-opacity", null); });
+
+                // Transition exiting bars to the parent's position.
+                var exitTransition = exit.selectAll("g").transition()
+                    .duration(duration)
+                    .delay(function(d, i) { return i * delay; })
+                    .attr("transform", stack(d.index));
+
+                // Transition exiting text to fade out.
+                exitTransition.select("text")
+                    .style("fill-opacity", 1e-6);
+
+                // Transition exiting rects to the new scale and fade to parent color.
+                exitTransition.select("rect")
+                    .attr("width", function(d) { return x(d.value); })
+                    .style("fill", color(true));
+
+                // Remove exiting nodes when the last child has finished transitioning.
+                exit.transition()
+                    .duration(end)
+                    .remove();
+
+                // Rebind the current parent to the background.
+                svg.select(".d3-bars-background")
+                    .datum(d.parent)
+                    .transition()
+                    .duration(end);
+            }
+
+            // Creates a set of bars for the given data node, at the specified index.
+            function bar(d) {
+                var bar = svg.insert("g", ".d3-axis-vertical")
+                    .attr("class", "enter")
+                    .attr("transform", "translate(0,5)")
+                    .selectAll("g")
+                    .data(d.children)
+                    .enter()
+                    .append("g")
+                        .style("cursor", function(d) { return !d.children ? null : "pointer"; })
+                        .on("click", down);
+
+                bar.append("text")
+                    .attr("class", "d3-text")
+                    .attr("x", -6)
+                    .attr("y", barHeight / 2)
+                    .attr("dy", ".35em")
+                    .style("text-anchor", "end")
+                    .text(function(d) { return d.name; });
+
+                bar.append("rect")
+                    .attr("width", function(d) { return x(d.value); })
+                    .attr("height", barHeight);
+
+                return bar;
+            }
+
+            // A stateful closure for stacking bars horizontally.
+            function stack(i) {
+                var x0 = 0;
+                return function(d) {
+                    var tx = "translate(" + x0 + "," + barHeight * i * 1.2 + ")";
+                    x0 += x(d.value);
+                    return tx;
+                };
+            }
+
+
+
+            // Resize chart
+            // ------------------------------
+
+            // Call function on window resize
+            window.addEventListener('resize', resize);
+
+            // Call function on sidebar width change
+            var sidebarToggle = document.querySelector('.sidebar-control');
+            sidebarToggle && sidebarToggle.addEventListener('click', resize);
+
+            // Resize function
+            // 
+            // Since D3 doesn't support SVG resize by default,
+            // we need to manually specify parts of the graph that need to 
+            // be updated on window resize
+            function resize() {
+
+                // Layout variables
+                width = d3Container.node().getBoundingClientRect().width - margin.left - margin.right;
+
+
+                // Layout
+                // -------------------------
+
+                // Main svg width
+                container.attr("width", width + margin.left + margin.right);
+
+                // Width of appended group
+                svg.attr("width", width + margin.left + margin.right);
+
+
+                // Axes
+                // -------------------------
+
+                // Horizontal range
+                x.range([0, width]);
+
+                // Horizontal axis
+                svg.selectAll('.d3-axis-horizontal').call(xAxis);
+
+
+                // Chart elements
+                // -------------------------
+
+                // Bars
+                svg.selectAll('.enter rect').attr("width", function(d) { return x(d.value); });
+            }
+        }
+    };
+
+
+    //
+    // Return objects assigned to module
+    //
+
+    return {
+        init: function() {
+            _barHierarchy();
+        }
+    }
+}();
+
+
+// Initialize module
+// ------------------------------
+
+document.addEventListener('DOMContentLoaded', function() {
+    D3BarHierarchy.init();
+});

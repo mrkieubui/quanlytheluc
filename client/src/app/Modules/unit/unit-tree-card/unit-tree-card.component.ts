@@ -9,7 +9,7 @@ import { AppService } from 'src/app/Services/app.service';
 export class UnitTreeCardComponent implements OnInit {
 
   @Input() child: any;
-  @Input() userRole: any;
+  userRole: any;
   @Output() passDeleteIdToParent = new EventEmitter<number>();
 
   id: any;
@@ -19,6 +19,8 @@ export class UnitTreeCardComponent implements OnInit {
   constructor(private AppService: AppService) { }
 
   ngOnInit(): void {
+    var tempUser: any = localStorage.getItem('currentUser');
+    this.userRole = JSON.parse(tempUser).role;
   }
 
   getDeleteId(id: any) {

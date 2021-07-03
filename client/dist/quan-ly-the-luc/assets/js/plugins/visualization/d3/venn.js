@@ -1,1 +1,848 @@
-!function(t){"use strict";function r(){for(var t,r=d3.select(this),n=r.datum(),e=n.radius,a=n.label.split(/\s+/).reverse(),i=(n.label.length+a.length)/3,s=a.pop(),o=[s],u=0,c=r.text(null).append("tspan").text(s);s=a.pop();)o.push(s),t=o.join(" "),c.text(t),t.length>i&&c.node().getComputedTextLength()>e&&(o.pop(),c.text(o.join(" ")),o=[s],c=r.append("tspan").text(s),u++);var l=.35-1.1*u/2,f=Math.floor(n.textCenter.x),h=Math.floor(n.textCenter.y);r.selectAll("tspan").attr("x",f).attr("y",h).attr("dy",function(t,r){return l+1.1*r+"em"})}function n(t,r){for(var n=new Array(t[1].length||0),e=0;e<n.length;++e)n[e]=t[0]*t[1][e]+r[0]*r[1][e];return n}function e(r,n,e,a){for(var i=[],s=0;s<r.length;++s)i.push({x:0,y:0,count:0});for(s=0;s<32;++s)for(var o=s*n/32,u=0;u<32;++u){for(var c={x:o,y:u*e/32},l=[],f=0;f<r.length;++f)t.distance(c,r[f])<=r[f].radius&&l.push(f);1==l.length&&((h=i[l[0]]).x+=c.x,h.y+=c.y,h.count+=1)}for(s=0;s<r.length;++s){var h;r[s].textCenter=(h=i[s]).count?{x:h.x/h.count,y:h.y/h.count}:{x:r[s].x,y:r[s].y}}}t.venn=function(r,n,e){(e=e||{}).maxIterations=e.maxIterations||500;var a=e.lossFunction||t.lossFunction;r=(e.layoutFunction||t.greedyLayout)(r,n);for(var i=new Array(2*r.length),s=0;s<r.length;++s)i[2*s]=r[s].x,i[2*s+1]=r[s].y;var o=t.fmin(function(t){for(var e=new Array(r.length),i=0;i<r.length;++i)e[i]={x:t[2*i],y:t[2*i+1],radius:r[i].radius,size:r[i].size};return a(e,n)},i,e).solution;for(s=0;s<r.length;++s)r[s].x=o[2*s],r[s].y=o[2*s+1];return r},t.distanceFromIntersectArea=function(r,n,e){return Math.min(r,n)*Math.min(r,n)*Math.PI<=e?Math.abs(r-n):t.bisect(function(a){return t.circleOverlap(r,n,a)-e},0,r+n)},t.getDistanceMatrix=function(r,n){for(var e=[],a=0;a<r.length;++a){e.push([]);for(var i=0;i<r.length;++i)e[a].push(0)}for(a=0;a<n.length;++a){var s=n[a];if(2===s.sets.length){var o=s.sets[0],u=s.sets[1],c=Math.sqrt(r[o].size/Math.PI),l=Math.sqrt(r[u].size/Math.PI),f=t.distanceFromIntersectArea(c,l,s.size);e[o][u]=e[u][o]=f}}return e},t.greedyLayout=function(r,n){for(var e={},a=0;a<r.length;++a)e[a]=[],r[a].radius=Math.sqrt(r[a].size/Math.PI),r[a].x=r[a].y=0;for(a=0;a<n.length;++a){var i=n[a];if(2===i.sets.length){var s=null==i.weight?1:i.weight,o=i.sets[0],u=i.sets[1];e[o].push({set:u,size:i.size,weight:s}),e[u].push({set:o,size:i.size,weight:s})}}var c=[];for(var l in e)if(e.hasOwnProperty(l)){var f=0;for(a=0;a<e[l].length;++a)f+=e[l][a].size*e[l][a].weight;c.push({set:l,size:f})}function h(t,r){return r.size-t.size}c.sort(h);var x={};function y(t){return t.set in x}function d(t,n){r[n].x=t.x,r[n].y=t.y,x[n]=!0}d({x:0,y:0},c[0].set);var g=t.getDistanceMatrix(r,n);for(a=1;a<c.length;++a){var v=c[a].set,p=e[v].filter(y);if(l=r[v],p.sort(h),0===p.length)throw"Need overlap information for set "+JSON.stringify(l);for(var M=[],m=0;m<p.length;++m){var I=r[p[m].set],w=g[v][p[m].set];M.push({x:I.x+w,y:I.y}),M.push({x:I.x-w,y:I.y}),M.push({y:I.y+w,x:I.x}),M.push({y:I.y-w,x:I.x});for(var A=m+1;A<p.length;++A)for(var z=r[p[A].set],C=t.circleCircleIntersection({x:I.x,y:I.y,radius:w},{x:z.x,y:z.y,radius:g[v][p[A].set]}),b=0;b<C.length;++b)M.push(C[b])}var P=1e50,D=M[0];for(m=0;m<M.length;++m){r[v].x=M[m].x,r[v].y=M[m].y;var q=t.lossFunction(r,n);q<P&&(P=q,D=M[m])}d(D,v)}return r},t.classicMDSLayout=function(r,n){for(var e=t.getDistanceMatrix(r,n),a=mds.classic(e),i=0;i<r.length;++i)r[i].x=a[i][0],r[i].y=a[i][1],r[i].radius=Math.sqrt(r[i].size/Math.PI);return r},t.lossFunction=function(r,n){for(var e=0,a=0;a<n.length;++a){var i,s=n[a];if(2==s.sets.length){var o=r[s.sets[0]],u=r[s.sets[1]];i=t.circleOverlap(o.radius,u.radius,t.distance(o,u))}else i=t.intersectionArea(s.sets.map(function(t){return r[t]}));e+=(null==s.weight?1:s.weight)*(i-s.size)*(i-s.size)}return e},t.scaleSolution=function(t,r,n,e){var a=function(r){return{max:Math.max.apply(null,t.map(function(t){return t[r]+t.radius})),min:Math.min.apply(null,t.map(function(t){return t[r]-t.radius}))}};r-=2*e,n-=2*e;for(var i=a("x"),s=a("y"),o=Math.min(n/(s.max-s.min),r/(i.max-i.min)),u=(r-(i.max-i.min)*o)/2,c=(n-(s.max-s.min)*o)/2,l=0;l<t.length;++l){var f=t[l];f.radius=o*f.radius,f.x=e+u+(f.x-i.min)*o,f.y=e+c+(f.y-s.min)*o}return t},t.bisect=function(t,r,n,e){var a=(e=e||{}).maxIterations||100,i=e.tolerance||1e-10,s=t(r),o=t(n),u=n-r;if(s*o>0)throw"Initial bisect points must have opposite signs";if(0===s)return r;if(0===o)return n;for(var c=0;c<a;++c){var l=r+(u/=2),f=t(l);if(f*s>=0&&(r=l),Math.abs(u)<i||0===f)return l}return r+u},t.fmin=function(t,r,e){var a=(e=e||{}).maxIterations||200*r.length,i=e.nonZeroDelta||1.1,s=e.zeroDelta||.001,o=e.minErrorDelta||1e-5,u=e.rho||1,c=e.chi||2,l=e.psi||-.5,f=e.sigma||.5,h=e.callback,x=r.length,y=new Array(x+1);y[0]=r,y[0].fx=t(r);for(var d=0;d<x;++d){var g=r.slice();g[d]=g[d]?g[d]*i:s,y[d+1]=g,y[d+1].fx=t(g)}for(var v=function(t,r){return t.fx-r.fx},p=0;p<a&&(y.sort(v),h&&h(y),!(Math.abs(y[0].fx-y[x].fx)<o));++p){var M=new Array(x);for(d=0;d<x;++d){M[d]=0;for(var m=0;m<x;++m)M[d]+=y[m][d];M[d]/=x}var I=y[x],w=n([1+u,M],[-u,I]);w.fx=t(w);var A=w;if(w.fx<=y[0].fx){var z=n([1+c,M],[-c,I]);z.fx=t(z),z.fx<w.fx&&(A=z)}else if(w.fx>=y[x-1].fx){var C,b=!1;if(w.fx<=I.fx?((C=n([1+l,M],[-l,I])).fx=t(C),C.fx<I.fx?A=C:b=!0):((C=n([1-l*u,M],[l*u,I])).fx=t(C),C.fx<=w.fx?A=C:b=!0),b)for(d=1;d<y.length;++d)y[d]=n([1-f,y[0]],[f-1,y[d]]),y[d].fx=t(y[d])}y[x]=A}return y.sort(v),{f:y[0].fx,solution:y[0]}},t.intersectionAreaPath=function(r){var n={};t.intersectionArea(r,n);var e=n.arcs;if(0===e.length)return"M 0 0";for(var a=["\nM",e[0].p2.x,e[0].p2.y],i=0;i<e.length;++i){var s=e[i],o=s.circle.radius;a.push("\nA",o,o,0,s.width>o?1:0,1,s.p1.x,s.p1.y)}return a.join(" ")},t.drawD3Diagram=function(n,a,i,s,o){o=o||{};var u=d3.scale.category10();e(a=t.scaleSolution(a,i,s,"padding"in o?o.padding:6),i,s);var c=n.append("svg").attr("width",i).attr("height",s),l=c.append("g").append("g").selectAll("circle").data(a).enter().append("g"),f=l.append("circle").attr("r",function(t){return t.radius}).style("fill-opacity",.3).attr("cx",function(t){return t.x}).attr("cy",function(t){return t.y}).style("fill",function(t,r){return u(r)}),h=l.append("text").attr("dy",".35em").attr("x",function(t){return Math.floor(t.textCenter.x)}).attr("y",function(t){return Math.floor(t.textCenter.y)}).attr("text-anchor","middle").style("fill",function(t,r){return u(r)}).call(function(t){t.each(r)});return{svg:c,nodes:l,circles:f,text:h}},t.updateD3Diagram=function(n,a,i){var s="padding"in(i=i||{})?i.padding:6,o="duration"in i?i.duration:400,u=n.svg,c=parseInt(u.attr("width"),10),l=parseInt(u.attr("height"),10);e(a=t.scaleSolution(a,c,l,s),c,l);var f=n.nodes.data(a).transition().duration(o);f.select("circle").attr("cx",function(t){return t.x}).attr("cy",function(t){return t.y}).attr("r",function(t){return t.radius}),f.select("text").text(function(t){return t.label}).each("end",r).attr("x",function(t){return Math.floor(t.textCenter.x)}).attr("y",function(t){return Math.floor(t.textCenter.y)})},t.intersectionArea=function(r,n){var e,a=function(r){for(var n=[],e=0;e<r.length;++e)for(var a=e+1;a<r.length;++a)for(var i=t.circleCircleIntersection(r[e],r[a]),s=0;s<i.length;++s){var o=i[s];o.parentIndex=[e,a],n.push(o)}return n}(r),i=a.filter(function(n){return t.containedInCircles(n,r)}),s=0,o=0,u=[];if(i.length>1){var c=t.getCenter(i);for(e=0;e<i.length;++e){var l=i[e];l.angle=Math.atan2(l.x-c.x,l.y-c.y)}i.sort(function(t,r){return r.angle-t.angle});var f=i[i.length-1];for(e=0;e<i.length;++e){var h=i[e];o+=(f.x+h.x)*(h.y-f.y);for(var x={x:(h.x+f.x)/2,y:(h.y+f.y)/2},y=null,d=0;d<h.parentIndex.length;++d)if(f.parentIndex.indexOf(h.parentIndex[d])>-1){var g=r[h.parentIndex[d]],v=Math.atan2(h.x-g.x,h.y-g.y),p=Math.atan2(f.x-g.x,f.y-g.y),M=p-v;M<0&&(M+=2*Math.PI);var m=p-M/2,I=t.distance(x,{x:g.x+g.radius*Math.sin(m),y:g.y+g.radius*Math.cos(m)});(null===y||y.width>I)&&(y={circle:g,width:I,p1:h,p2:f})}u.push(y),s+=t.circleArea(y.circle.radius,y.width),f=h}}else{var w=r[0];for(e=1;e<r.length;++e)r[e].radius<w.radius&&(w=r[e]);var A=!1;for(e=0;e<r.length;++e)if(t.distance(r[e],w)>Math.abs(w.radius-r[e].radius)){A=!0;break}A?s=o=0:(s=w.radius*w.radius*Math.PI,u.push({circle:w,p1:{x:w.x,y:w.y+w.radius},p2:{x:w.x-1e-10,y:w.y+w.radius},width:2*w.radius}))}return o/=2,n&&(n.area=s+o,n.arcArea=s,n.polygonArea=o,n.arcs=u,n.innerPoints=i,n.intersectionPoints=a),s+o},t.containedInCircles=function(r,n){for(var e=0;e<n.length;++e)if(t.distance(r,n[e])>n[e].radius+1e-10)return!1;return!0},t.circleIntegral=function(t,r){var n=Math.sqrt(t*t-r*r);return r*n+t*t*Math.atan2(r,n)},t.circleArea=function(r,n){return t.circleIntegral(r,n-r)-t.circleIntegral(r,-r)},t.distance=function(t,r){return Math.sqrt((t.x-r.x)*(t.x-r.x)+(t.y-r.y)*(t.y-r.y))},t.circleOverlap=function(r,n,e){if(e>=r+n)return 0;if(e<=Math.abs(r-n))return Math.PI*Math.min(r,n)*Math.min(r,n);var a=n-(e*e-r*r+n*n)/(2*e);return t.circleArea(r,r-(e*e-n*n+r*r)/(2*e))+t.circleArea(n,a)},t.circleCircleIntersection=function(r,n){var e=t.distance(r,n),a=r.radius,i=n.radius;if(e>=a+i||e<=Math.abs(a-i))return[];var s=(a*a-i*i+e*e)/(2*e),o=Math.sqrt(a*a-s*s),u=r.x+s*(n.x-r.x)/e,c=r.y+s*(n.y-r.y)/e,l=o/e*-(n.y-r.y),f=o/e*-(n.x-r.x);return[{x:u+l,y:c-f},{x:u-l,y:c+f}]},t.getCenter=function(t){for(var r={x:0,y:0},n=0;n<t.length;++n)r.x+=t[n].x,r.y+=t[n].y;return r.x/=t.length,r.y/=t.length,r}}(window.venn=window.venn||{});
+(function(venn) {
+    "use strict";
+    /** given a list of set objects, and their corresponding overlaps.
+    updates the (x, y, radius) attribute on each set such that their positions
+    roughly correspond to the desired overlaps */
+    venn.venn = function(sets, overlaps, parameters) {
+        parameters = parameters || {};
+        parameters.maxIterations = parameters.maxIterations || 500;
+        var lossFunction = parameters.lossFunction || venn.lossFunction;
+        var initialLayout = parameters.layoutFunction || venn.greedyLayout;
+
+        // initial layout is done greedily
+        sets = initialLayout(sets, overlaps);
+
+        // transform x/y coordinates to a vector to optimize
+        var initial = new Array(2*sets.length);
+        for (var i = 0; i < sets.length; ++i) {
+            initial[2 * i] = sets[i].x;
+            initial[2 * i + 1] = sets[i].y;
+        }
+
+        // optimize initial layout from our loss function
+        var totalFunctionCalls = 0;
+        var solution = venn.fmin(
+            function(values) {
+                totalFunctionCalls += 1;
+                var current = new Array(sets.length);
+                for (var i = 0; i < sets.length; ++i) {
+                    current[i] = {x: values[2 * i],
+                                  y: values[2 * i + 1],
+                                  radius : sets[i].radius,
+                                  size : sets[i].size};
+                }
+                return lossFunction(current, overlaps);
+            },
+            initial,
+            parameters);
+
+        // transform solution vector back to x/y points
+        var positions = solution.solution;
+        for (i = 0; i < sets.length; ++i) {
+            sets[i].x = positions[2 * i];
+            sets[i].y = positions[2 * i + 1];
+        }
+
+        return sets;
+    };
+
+    /** Returns the distance necessary for two circles of radius r1 + r2 to
+    have the overlap area 'overlap' */
+    venn.distanceFromIntersectArea = function(r1, r2, overlap) {
+        // handle complete overlapped circles
+        if (Math.min(r1, r2) * Math.min(r1,r2) * Math.PI <= overlap) {
+            return Math.abs(r1 - r2);
+        }
+
+        return venn.bisect(function(distance) {
+            return venn.circleOverlap(r1, r2, distance) - overlap;
+        }, 0, r1 + r2);
+    };
+
+    /// gets a matrix of euclidean distances between all sets in venn diagram
+    venn.getDistanceMatrix = function(sets, overlaps) {
+        // initialize an empty distance matrix between all the points
+        var distances = [];
+        for (var i = 0; i < sets.length; ++i) {
+            distances.push([]);
+            for (var j = 0; j < sets.length; ++j) {
+                distances[i].push(0);
+            }
+        }
+
+        // compute distances between all the points
+        for (i = 0; i < overlaps.length; ++i) {
+            var current = overlaps[i];
+            if (current.sets.length !== 2) {
+                continue;
+            }
+
+            var left = current.sets[0],
+                right = current.sets[1],
+                r1 = Math.sqrt(sets[left].size / Math.PI),
+                r2 = Math.sqrt(sets[right].size / Math.PI),
+                distance = venn.distanceFromIntersectArea(r1, r2, current.size);
+            distances[left][right] = distances[right][left] = distance;
+        }
+        return distances;
+    };
+
+    /** Lays out a Venn diagram greedily, going from most overlapped sets to
+    least overlapped, attempting to position each new set such that the
+    overlapping areas to already positioned sets are basically right */
+    venn.greedyLayout = function(sets, overlaps) {
+        // give each set a default position + radius
+        var setOverlaps = {};
+        for (var i = 0; i < sets.length; ++i) {
+            setOverlaps[i] = [];
+            sets[i].radius = Math.sqrt(sets[i].size / Math.PI);
+            sets[i].x = sets[i].y = 0;
+        }
+
+        // map each set to a list of all the other sets that overlap it
+        for (i = 0; i < overlaps.length; ++i) {
+            var current = overlaps[i];
+            if (current.sets.length !== 2) {
+                continue;
+            }
+
+            var weight = (current.weight == null) ? 1.0 : current.weight;
+            var left = current.sets[0], right = current.sets[1];
+            setOverlaps[left].push ({set:right, size:current.size, weight:weight});
+            setOverlaps[right].push({set:left,  size:current.size, weight:weight});
+        }
+
+        // get list of most overlapped sets
+        var mostOverlapped = [];
+        for (var set in setOverlaps) {
+            if (setOverlaps.hasOwnProperty(set)) {
+                var size = 0;
+                for (i = 0; i < setOverlaps[set].length; ++i) {
+                    size += setOverlaps[set][i].size * setOverlaps[set][i].weight;
+                }
+
+                mostOverlapped.push({set: set, size:size});
+            }
+        }
+
+        // sort by size desc
+        function sortOrder(a,b) {
+            return b.size - a.size;
+        }
+        mostOverlapped.sort(sortOrder);
+
+        // keep track of what sets have been laid out
+        var positioned = {};
+        function isPositioned(element) {
+            return element.set in positioned;
+        }
+
+        // adds a point to the output
+        function positionSet(point, index) {
+            sets[index].x = point.x;
+            sets[index].y = point.y;
+            positioned[index] = true;
+        }
+
+        // add most overlapped set at (0,0)
+        positionSet({x: 0, y: 0}, mostOverlapped[0].set);
+
+        // get distances between all points
+        var distances = venn.getDistanceMatrix(sets, overlaps);
+
+        for (i = 1; i < mostOverlapped.length; ++i) {
+            var setIndex = mostOverlapped[i].set,
+                overlap = setOverlaps[setIndex].filter(isPositioned);
+            set = sets[setIndex];
+            overlap.sort(sortOrder);
+
+            if (overlap.length === 0) {
+                throw "Need overlap information for set " + JSON.stringify( set );
+            }
+
+            var points = [];
+            for (var j = 0; j < overlap.length; ++j) {
+                // get appropriate distance from most overlapped already added set
+                var p1 = sets[overlap[j].set],
+                    d1 = distances[setIndex][overlap[j].set];
+
+                // sample positions at 90 degrees for maximum aesthetics
+                points.push({x : p1.x + d1, y : p1.y});
+                points.push({x : p1.x - d1, y : p1.y});
+                points.push({y : p1.y + d1, x : p1.x});
+                points.push({y : p1.y - d1, x : p1.x});
+
+                // if we have at least 2 overlaps, then figure out where the
+                // set should be positioned analytically and try those too
+                for (var k = j + 1; k < overlap.length; ++k) {
+                    var p2 = sets[overlap[k].set],
+                        d2 = distances[setIndex][overlap[k].set];
+
+                    var extraPoints = venn.circleCircleIntersection(
+                        { x: p1.x, y: p1.y, radius: d1},
+                        { x: p2.x, y: p2.y, radius: d2});
+
+                    for (var l = 0; l < extraPoints.length; ++l) {
+                        points.push(extraPoints[l]);
+                    }
+                }
+            }
+
+            // we have some candidate positions for the set, examine loss
+            // at each position to figure out where to put it at
+            var bestLoss = 1e50, bestPoint = points[0];
+            for (j = 0; j < points.length; ++j) {
+                sets[setIndex].x = points[j].x;
+                sets[setIndex].y = points[j].y;
+                var loss = venn.lossFunction(sets, overlaps);
+                if (loss < bestLoss) {
+                    bestLoss = loss;
+                    bestPoint = points[j];
+                }
+            }
+
+            positionSet(bestPoint, setIndex);
+        }
+
+        return sets;
+    };
+
+    /// Uses multidimensional scaling to approximate a first layout here
+    venn.classicMDSLayout = function(sets, overlaps) {
+        // get the distance matrix
+        var distances = venn.getDistanceMatrix(sets, overlaps);
+
+        // get positions for each set
+        var positions = mds.classic(distances);
+
+        // translate back to (x,y,radius) coordinates
+        for (var i = 0; i < sets.length; ++i) {
+            sets[i].x = positions[i][0];
+            sets[i].y = positions[i][1];
+            sets[i].radius = Math.sqrt(sets[i].size / Math.PI);
+        }
+        return sets;
+    };
+
+    /** Given a bunch of sets, and the desired overlaps between these sets - computes
+    the distance from the actual overlaps to the desired overlaps. Note that
+    this method ignores overlaps of more than 2 circles */
+    venn.lossFunction = function(sets, overlaps) {
+        var output = 0;
+
+        function getCircles(indices) {
+            return indices.map(function(i) { return sets[i]; });
+        }
+
+        for (var i = 0; i < overlaps.length; ++i) {
+            var area = overlaps[i], overlap;
+            if (area.sets.length == 2) {
+                var left = sets[area.sets[0]],
+                    right = sets[area.sets[1]];
+                overlap = venn.circleOverlap(left.radius, right.radius,
+                                             venn.distance(left, right));
+            } else {
+                overlap = venn.intersectionArea(getCircles(area.sets));
+            }
+
+            var weight = (area.weight == null) ? 1.0 : area.weight;
+            output += weight * (overlap - area.size) * (overlap - area.size);
+        }
+
+        return output;
+    };
+
+    /** Scales a solution from venn.venn or venn.greedyLayout such that it fits in
+    a rectangle of width/height - with padding around the borders. also
+    centers the diagram in the available space at the same time */
+    venn.scaleSolution = function(solution, width, height, padding) {
+        var minMax = function(d) {
+            var hi = Math.max.apply(null, solution.map(
+                                    function(c) { return c[d] + c.radius; } )),
+                lo = Math.min.apply(null, solution.map(
+                                    function(c) { return c[d] - c.radius;} ));
+            return {max:hi, min:lo};
+        };
+
+        width -= 2*padding;
+        height -= 2*padding;
+
+        var xRange = minMax('x'),
+            yRange = minMax('y'),
+            xScaling = width  / (xRange.max - xRange.min),
+            yScaling = height / (yRange.max - yRange.min),
+            scaling = Math.min(yScaling, xScaling),
+
+            // while we're at it, center the diagram too
+            xOffset = (width -  (xRange.max - xRange.min) * scaling) / 2,
+            yOffset = (height - (yRange.max - yRange.min) * scaling) / 2;
+
+        for (var i = 0; i < solution.length; ++i) {
+            var set = solution[i];
+            set.radius = scaling * set.radius;
+            set.x = padding + xOffset + (set.x - xRange.min) * scaling;
+            set.y = padding + yOffset + (set.y - yRange.min) * scaling;
+        }
+
+        return solution;
+    };
+
+    // sometimes text doesn't fit inside the circle, if thats the case lets wrap
+    // the text here such that it fits
+    // todo: looks like this might be merged into d3 (
+    // https://github.com/mbostock/d3/issues/1642),
+    // also worth checking out is
+    // http://engineering.findthebest.com/wrapping-axis-labels-in-d3-js/
+    // this seems to be one of those things that should be easy but isn't
+    function wrapText() {
+        var text = d3.select(this),
+            data = text.datum(),
+            width = data.radius,
+            words = data.label.split(/\s+/).reverse(),
+            maxLines = 3,
+            minChars = (data.label.length + words.length) / maxLines,
+            word = words.pop(),
+            line = [word],
+            joined,
+            lineNumber = 0,
+            lineHeight = 1.1, // ems
+            tspan = text.text(null).append("tspan").text(word);
+
+        while (word = words.pop()) {
+            line.push(word);
+            joined = line.join(" ");
+            tspan.text(joined);
+            if (joined.length > minChars && tspan.node().getComputedTextLength() > width) {
+                line.pop();
+                tspan.text(line.join(" "));
+                line = [word];
+                tspan = text.append("tspan").text(word);
+                lineNumber++;
+            }
+        }
+
+        var initial = 0.35 - lineNumber * lineHeight / 2,
+            x = Math.floor(data.textCenter.x),
+            y = Math.floor(data.textCenter.y);
+
+        text.selectAll("tspan")
+            .attr("x", x)
+            .attr("y", y)
+            .attr("dy", function(d, i) {
+                 return (initial + i * lineHeight) + "em";
+            });
+    }
+
+    function weightedSum(a, b) {
+        var ret = new Array(a[1].length || 0);
+        for (var j = 0; j < ret.length; ++j) {
+            ret[j] = a[0] * a[1][j] + b[0] * b[1][j];
+        }
+        return ret;
+    }
+
+    /** finds the zeros of a function, given two starting points (which must
+     * have opposite signs */
+    venn.bisect = function(f, a, b, parameters) {
+        parameters = parameters || {};
+        var maxIterations = parameters.maxIterations || 100,
+            tolerance = parameters.tolerance || 1e-10,
+            fA = f(a),
+            fB = f(b),
+            delta = b - a;
+
+        if (fA * fB > 0) {
+            throw "Initial bisect points must have opposite signs";
+        }
+
+        if (fA === 0) return a;
+        if (fB === 0) return b;
+
+        for (var i = 0; i < maxIterations; ++i) {
+            delta /= 2;
+            var mid = a + delta,
+                fMid = f(mid);
+
+            if (fMid * fA >= 0) {
+                a = mid;
+            }
+
+            if ((Math.abs(delta) < tolerance) || (fMid === 0)) {
+                return mid;
+            }
+        }
+        return a + delta;
+    };
+
+    /** minimizes a function using the downhill simplex method */
+    venn.fmin = function(f, x0, parameters) {
+        parameters = parameters || {};
+
+        var maxIterations = parameters.maxIterations || x0.length * 200,
+            nonZeroDelta = parameters.nonZeroDelta || 1.1,
+            zeroDelta = parameters.zeroDelta || 0.001,
+            minErrorDelta = parameters.minErrorDelta || 1e-5,
+            rho = parameters.rho || 1,
+            chi = parameters.chi || 2,
+            psi = parameters.psi || -0.5,
+            sigma = parameters.sigma || 0.5,
+            callback = parameters.callback;
+
+        // initialize simplex.
+        var N = x0.length,
+            simplex = new Array(N + 1);
+        simplex[0] = x0;
+        simplex[0].fx = f(x0);
+        for (var i = 0; i < N; ++i) {
+            var point = x0.slice();
+            point[i] = point[i] ? point[i] * nonZeroDelta : zeroDelta;
+            simplex[i+1] = point;
+            simplex[i+1].fx = f(point);
+        }
+
+        var sortOrder = function(a, b) { return a.fx - b.fx; };
+
+        for (var iteration = 0; iteration < maxIterations; ++iteration) {
+            simplex.sort(sortOrder);
+            if (callback) {
+                callback(simplex);
+            }
+
+            if (Math.abs(simplex[0].fx - simplex[N].fx) < minErrorDelta) {
+                break;
+            }
+
+            // compute the centroid of all but the worst point in the simplex
+            var centroid = new Array(N);
+            for (i = 0; i < N; ++i) {
+                centroid[i] = 0;
+                for (var j = 0; j < N; ++j) {
+                    centroid[i] += simplex[j][i];
+                }
+                centroid[i] /= N;
+            }
+
+            // reflect the worst point past the centroid  and compute loss at reflected
+            // point
+            var worst = simplex[N];
+            var reflected = weightedSum([1+rho, centroid], [-rho, worst]);
+            reflected.fx = f(reflected);
+
+            var replacement = reflected;
+
+            // if the reflected point is the best seen, then possibly expand
+            if (reflected.fx <= simplex[0].fx) {
+                var expanded = weightedSum([1+chi, centroid], [-chi, worst]);
+                expanded.fx = f(expanded);
+                if (expanded.fx < reflected.fx) {
+                    replacement = expanded;
+                }
+            }
+
+            // if the reflected point is worse than the second worst, we need to
+            // contract
+            else if (reflected.fx >= simplex[N-1].fx) {
+                var shouldReduce = false;
+                var contracted;
+
+                if (reflected.fx <= worst.fx) {
+                    // do an inside contraction
+                    contracted = weightedSum([1+psi, centroid], [-psi, worst]);
+                    contracted.fx = f(contracted);
+                    if (contracted.fx < worst.fx) {
+                        replacement = contracted;
+                    } else {
+                        shouldReduce = true;
+                    }
+                } else {
+                    // do an outside contraction
+                    contracted = weightedSum([1-psi * rho, centroid], [psi*rho, worst]);
+                    contracted.fx = f(contracted);
+                    if (contracted.fx <= reflected.fx) {
+                        replacement = contracted;
+                    } else {
+                        shouldReduce = true;
+                    }
+                }
+
+                if (shouldReduce) {
+                    // do reduction. doesn't actually happen that often
+                    for (i = 1; i < simplex.length; ++i) {
+                        simplex[i] = weightedSum([1 - sigma, simplex[0]],
+                                                 [sigma - 1, simplex[i]]);
+                        simplex[i].fx = f(simplex[i]);
+                    }
+                }
+            }
+
+            simplex[N] = replacement;
+        }
+
+        simplex.sort(sortOrder);
+        return {f : simplex[0].fx,
+                solution : simplex[0]};
+    };
+
+    /** returns a svg path of the intersection area of a bunch of circles */
+    venn.intersectionAreaPath = function(circles) {
+        var stats = {};
+        venn.intersectionArea(circles, stats);
+        var arcs = stats.arcs;
+
+        if (arcs.length === 0) {
+            return "M 0 0";
+        }
+
+        var ret = ["\nM", arcs[0].p2.x, arcs[0].p2.y];
+        for (var i = 0; i < arcs.length; ++i) {
+            var arc = arcs[i], r = arc.circle.radius, wide = arc.width > r;
+            ret.push("\nA", r, r, 0, wide ? 1 : 0, 1, arc.p1.x, arc.p1.y);
+        }
+
+        return ret.join(" ");
+    };
+
+    // computes the center for text by sampling perimiter of circle, and taking
+    // the average of points on perimeter that are only in that circle
+    function computeTextCenters(sets, width, height, diagram) {
+        // basically just finding the center point of each region by sampling
+        // points in a grid and taking the average sampled point for each region
+        // There is probably an analytic way of computing this exactly, but
+        // this works well enough for our purposes
+        var sums = [];
+        for (var i = 0; i < sets.length; ++i) {
+            sums.push({'x' : 0, 'y' : 0, 'count' : 0});
+        }
+
+        var samples = 32;
+        for (var i = 0; i < samples; ++i) {
+            var x = i * width / samples;
+            for (var j = 0; j < samples; ++j) {
+                var y = j * height / samples;
+                var point = {'x' : x, 'y' : y};
+
+                var contained = []
+
+                for (var k = 0; k < sets.length; ++k) {
+                    if (venn.distance(point, sets[k]) <= sets[k].radius) {
+                        contained.push(k);
+                    }
+                }
+                if (contained.length == 1) {
+                    var sum = sums[contained[0]];
+                    sum.x += point.x;
+                    sum.y += point.y;
+                    sum.count += 1;
+                }
+            }
+        }
+
+        for (var i = 0; i < sets.length; ++i) {
+            var sum = sums[i];
+            if (sum.count) {
+                sets[i].textCenter = { 'x' : sum.x / sum.count,
+                                       'y' : sum.y / sum.count};
+            } else {
+                // no sampled points, possibly completely overlapped (or tiny)
+                // use circle centre
+                sets[i].textCenter = { 'x' : sets[i].x,
+                                       'y' : sets[i].y};
+            }
+        }
+    }
+
+    venn.drawD3Diagram = function(element, dataset, width, height, parameters) {
+        parameters = parameters || {};
+
+        var colours = d3.scale.category10(),
+            padding = ('padding' in parameters) ? parameters.padding : 6;
+
+        dataset = venn.scaleSolution(dataset, width, height, padding);
+        computeTextCenters(dataset, width, height);
+
+        var svg = element.append("svg")
+                .attr("width", width)
+                .attr("height", height);
+
+        var diagram = svg.append( "g" );
+
+        var nodes = diagram.append("g").selectAll("circle")
+                         .data(dataset)
+                         .enter()
+                         .append("g");
+
+        var circles = nodes.append("circle")
+               .attr("r",  function(d) { return d.radius; })
+               .style("fill-opacity", 0.3)
+               .attr("cx", function(d) { return d.x; })
+               .attr("cy", function(d) { return d.y; })
+               .style("fill", function(d, i) { return colours(i); });
+
+        var text = nodes.append("text")
+               .attr("dy", ".35em")
+               .attr("x", function(d) { return Math.floor(d.textCenter.x); })
+               .attr("y", function(d) { return Math.floor(d.textCenter.y); })
+               .attr("text-anchor", "middle")
+               .style("fill", function(d, i) { return colours(i); })
+               .call(function (text) { text.each(wrapText); });
+
+        return {'svg' : svg,
+                'nodes' : nodes,
+                'circles' : circles,
+                'text' : text };
+    };
+
+    venn.updateD3Diagram = function(diagram, dataset, parameters) {
+        parameters = parameters || {};
+        var padding = ('padding' in parameters) ? parameters.padding : 6,
+            duration = ('duration' in parameters) ? parameters.duration : 400;
+
+        var svg = diagram.svg,
+            width = parseInt(svg.attr('width'), 10),
+            height = parseInt(svg.attr('height'), 10);
+
+        dataset = venn.scaleSolution(dataset, width, height, padding);
+        computeTextCenters(dataset, width, height);
+
+        var transition = diagram.nodes
+            .data(dataset)
+            .transition()
+            .duration(duration);
+
+        transition.select("circle")
+            .attr("cx", function(d) { return d.x; })
+            .attr("cy", function(d) { return d.y; })
+            .attr("r",  function(d) { return d.radius; });
+
+        // transtitioning the text is a little tricky in the case
+        // of wrapping. so lets basically transition unwrapped text
+        // and at the end of the transition we'll wrap it again
+        transition.select("text")
+            .text(function (d) { return d.label; } )
+            .each("end", wrapText)
+            .attr("x", function(d) { return Math.floor(d.textCenter.x); })
+            .attr("y", function(d) { return Math.floor(d.textCenter.y); });
+    };
+
+    var SMALL = 1e-10;
+
+    /** Returns the intersection area of a bunch of circles (where each circle
+     is an object having an x,y and radius property) */
+    venn.intersectionArea = function(circles, stats) {
+        // get all the intersection points of the circles
+        var intersectionPoints = getIntersectionPoints(circles);
+
+        // filter out points that aren't included in all the circles
+        var innerPoints = intersectionPoints.filter(function (p) {
+            return venn.containedInCircles(p, circles);
+        });
+
+        var arcArea = 0, polygonArea = 0, arcs = [], i;
+
+        // if we have intersection points that are within all the circles,
+        // then figure out the area contained by them
+        if (innerPoints.length > 1) {
+            // sort the points by angle from the center of the polygon, which lets
+            // us just iterate over points to get the edges
+            var center = venn.getCenter(innerPoints);
+            for (i = 0; i < innerPoints.length; ++i ) {
+                var p = innerPoints[i];
+                p.angle = Math.atan2(p.x - center.x, p.y - center.y);
+            }
+            innerPoints.sort(function(a,b) { return b.angle - a.angle;});
+
+            // iterate over all points, get arc between the points
+            // and update the areas
+            var p2 = innerPoints[innerPoints.length - 1];
+            for (i = 0; i < innerPoints.length; ++i) {
+                var p1 = innerPoints[i];
+
+                // polygon area updates easily ...
+                polygonArea += (p2.x + p1.x) * (p1.y - p2.y);
+
+                // updating the arc area is a little more involved
+                var midPoint = {x : (p1.x + p2.x) / 2,
+                                y : (p1.y + p2.y) / 2},
+                    arc = null;
+
+                for (var j = 0; j < p1.parentIndex.length; ++j) {
+                    if (p2.parentIndex.indexOf(p1.parentIndex[j]) > -1) {
+                        // figure out the angle halfway between the two points
+                        // on the current circle
+                        var circle = circles[p1.parentIndex[j]],
+                            a1 = Math.atan2(p1.x - circle.x, p1.y - circle.y),
+                            a2 = Math.atan2(p2.x - circle.x, p2.y - circle.y);
+
+                        var angleDiff = (a2 - a1);
+                        if (angleDiff < 0) {
+                            angleDiff += 2*Math.PI;
+                        }
+
+                        // and use that angle to figure out the width of the
+                        // arc
+                        var a = a2 - angleDiff/2,
+                            width = venn.distance(midPoint, {
+                                x : circle.x + circle.radius * Math.sin(a),
+                                y : circle.y + circle.radius * Math.cos(a)
+                            });
+
+                        // pick the circle whose arc has the smallest width
+                        if ((arc === null) || (arc.width > width)) {
+                            arc = { circle : circle,
+                                    width : width,
+                                    p1 : p1,
+                                    p2 : p2};
+                        }
+                    }
+                }
+                arcs.push(arc);
+                arcArea += venn.circleArea(arc.circle.radius, arc.width);
+                p2 = p1;
+            }
+        } else {
+            // no intersection points, is either disjoint - or is completely
+            // overlapped. figure out which by examining the smallest circle
+            var smallest = circles[0];
+            for (i = 1; i < circles.length; ++i) {
+                if (circles[i].radius < smallest.radius) {
+                    smallest = circles[i];
+                }
+            }
+
+            // make sure the smallest circle is completely contained in all
+            // the other circles
+            var disjoint = false;
+            for (i = 0; i < circles.length; ++i) {
+                if (venn.distance(circles[i], smallest) > Math.abs(smallest.radius - circles[i].radius)) {
+                    disjoint = true;
+                    break;
+                }
+            }
+
+            if (disjoint) {
+                arcArea = polygonArea = 0;
+
+            } else {
+                arcArea = smallest.radius * smallest.radius * Math.PI;
+                arcs.push({circle : smallest,
+                           p1: { x: smallest.x,        y : smallest.y + smallest.radius},
+                           p2: { x: smallest.x - SMALL, y : smallest.y + smallest.radius},
+                           width : smallest.radius * 2 });
+            }
+        }
+
+        polygonArea /= 2;
+        if (stats) {
+            stats.area = arcArea + polygonArea;
+            stats.arcArea = arcArea;
+            stats.polygonArea = polygonArea;
+            stats.arcs = arcs;
+            stats.innerPoints = innerPoints;
+            stats.intersectionPoints = intersectionPoints;
+        }
+
+        return arcArea + polygonArea;
+    };
+
+    /** returns whether a point is contained by all of a list of circles */
+    venn.containedInCircles = function(point, circles) {
+        for (var i = 0; i < circles.length; ++i) {
+            if (venn.distance(point, circles[i]) > circles[i].radius + SMALL) {
+                return false;
+            }
+        }
+        return true;
+    };
+
+    /** Gets all intersection points between a bunch of circles */
+    function getIntersectionPoints(circles) {
+        var ret = [];
+        for (var i = 0; i < circles.length; ++i) {
+            for (var j = i + 1; j < circles.length; ++j) {
+                var intersect = venn.circleCircleIntersection(circles[i],
+                                                              circles[j]);
+                for (var k = 0; k < intersect.length; ++k) {
+                    var p = intersect[k];
+                    p.parentIndex = [i,j];
+                    ret.push(p);
+                }
+            }
+        }
+        return ret;
+    }
+
+    venn.circleIntegral = function(r, x) {
+        var y = Math.sqrt(r * r - x * x);
+        return x * y + r * r * Math.atan2(x, y);
+    };
+
+    /** Returns the area of a circle of radius r - up to width */
+    venn.circleArea = function(r, width) {
+        return venn.circleIntegral(r, width - r) - venn.circleIntegral(r, -r);
+    };
+
+
+    /** euclidean distance between two points */
+    venn.distance = function(p1, p2) {
+        return Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) +
+                         (p1.y - p2.y) * (p1.y - p2.y));
+    };
+
+
+    /** Returns the overlap area of two circles of radius r1 and r2 - that
+    have their centers separated by distance d. Simpler faster
+    circle intersection for only two circles */
+    venn.circleOverlap = function(r1, r2, d) {
+        // no overlap
+        if (d >= r1 + r2) {
+            return 0;
+        }
+
+        // completely overlapped
+        if (d <= Math.abs(r1 - r2)) {
+            return Math.PI * Math.min(r1, r2) * Math.min(r1, r2);
+        }
+
+        var w1 = r1 - (d * d - r2 * r2 + r1 * r1) / (2 * d),
+            w2 = r2 - (d * d - r1 * r1 + r2 * r2) / (2 * d);
+        return venn.circleArea(r1, w1) + venn.circleArea(r2, w2);
+    };
+
+
+    /** Given two circles (containing a x/y/radius attributes),
+    returns the intersecting points if possible.
+    note: doesn't handle cases where there are infinitely many
+    intersection points (circles are equivalent):, or only one intersection point*/
+    venn.circleCircleIntersection = function(p1, p2) {
+        var d = venn.distance(p1, p2),
+            r1 = p1.radius,
+            r2 = p2.radius;
+
+        // if to far away, or self contained - can't be done
+        if ((d >= (r1 + r2)) || (d <= Math.abs(r1 - r2))) {
+            return [];
+        }
+
+        var a = (r1 * r1 - r2 * r2 + d * d) / (2 * d),
+            h = Math.sqrt(r1 * r1 - a * a),
+            x0 = p1.x + a * (p2.x - p1.x) / d,
+            y0 = p1.y + a * (p2.y - p1.y) / d,
+            rx = -(p2.y - p1.y) * (h / d),
+            ry = -(p2.x - p1.x) * (h / d);
+
+        return [{ x: x0 + rx, y : y0 - ry },
+                { x: x0 - rx, y : y0 + ry }];
+    };
+
+    /** Returns the center of a bunch of points */
+    venn.getCenter = function(points) {
+        var center = { x: 0, y: 0};
+        for (var i =0; i < points.length; ++i ) {
+            center.x += points[i].x;
+            center.y += points[i].y;
+        }
+        center.x /= points.length;
+        center.y /= points.length;
+        return center;
+    };
+}(window.venn = window.venn || {}));

@@ -15,10 +15,6 @@ export class ParticipantListComponent implements OnInit {
   public participantGroup2: any = [];
   public participantGroup3: any = [];
 
-  // public group1Length: any = 0;
-  // public group2Length: any = 0;
-  // public group3Length: any = 0;
-
   id: number = 0;
   userRole: any;
 
@@ -44,9 +40,6 @@ export class ParticipantListComponent implements OnInit {
         this.participantGroup1 = this.participants.filter((p: { participantGroup: string; }) => p.participantGroup === "1");
         this.participantGroup2 = this.participants.filter((p: { participantGroup: string; }) => p.participantGroup === "2");
         this.participantGroup3 = this.participants.filter((p: { participantGroup: string; }) => p.participantGroup === "3");
-        // this.group1Length = this.participantGroup1.length;
-        // this.group2Length = this.participantGroup2.length;
-        // this.group3Length = this.participantGroup3.length;
       }
     );
   };

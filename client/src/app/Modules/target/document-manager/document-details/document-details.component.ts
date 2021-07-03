@@ -16,10 +16,10 @@ export class DocumentDetailsComponent implements OnInit {
   editable: boolean = false;
   newContent: any = {
     name: "",
-    contentGroupId: "1",
-    contentGroup: "Tố chất sức nhanh",
-    measureUnitId: "6",
-    measureUnit: "giây"
+    contentGroupId: "",
+    contentGroup: "",
+    measureUnitId: "",
+    measureUnit: ""
   }
   thanhtich: any = {
     gioi: "",
@@ -73,29 +73,41 @@ export class DocumentDetailsComponent implements OnInit {
     if (documentForm.value.name !== "" && documentForm.value.name.trim() !== "") {
       this.AppService.getItem('contentGroups', this.newContent.contentGroupId).subscribe((res) => {
         this.newContent.contentGroup = res.name;
+        console.log(this.newContent.contentGroup)
       });
       this.AppService.getItem('measureUnits', this.newContent.measureUnitId).subscribe((res) => {
         this.newContent.measureUnit = res.name;
       });
       if (this.currentTab == "namduoi45") {
-        this.newContent.namduoi45 = this.newContent.namduoi36 = this.newContent.hvsq = this.newContent.csnv = this.thanhtich;
+        this.newContent.namduoi45 = this.thanhtich;
+        this.newContent.namduoi36 = this.thanhtich;
+        this.newContent.hvsq = this.thanhtich;
+        this.newContent.csnv = this.thanhtich;
         this.thongtu.namduoi45.push(this.newContent);
         console.log("duoi 45")
       } else if (this.currentTab == "namtren45") {
-        this.newContent.namtren55 = this.newContent.namduoi55 = this.newContent.namduoi50 = this.thanhtich;
+        this.newContent.namtren55 = this.thanhtich;
+        this.newContent.namduoi55 = this.thanhtich;
+        this.newContent.namduoi50 = this.thanhtich;
         this.thongtu.namtren45.push(this.newContent);
       } else if (this.currentTab == "nu") {
-        this.newContent.nutren50 = this.newContent.nuduoi50 = this.newContent.nuduoi45 = this.newContent.nuduoi40 = this.newContent.nuduoi35 = this.newContent.nuduoi27 = this.thanhtich;
+        this.newContent.nutren50 = this.thanhtich;
+        this.newContent.nuduoi50 = this.thanhtich;
+        this.newContent.nuduoi45 = this.thanhtich;
+        this.newContent.nuduoi40 = this.thanhtich;
+        this.newContent.nuduoi35 = this.thanhtich;
+        this.newContent.nuduoi27 = this.thanhtich;
         this.thongtu.nu.push(this.newContent);
       }
-      // console.log(this.newContent)
-
+      // console.log(this.thongtu)
       setTimeout(() => {
         this.AppService.updateItem('documents', this.id, this.thongtu).subscribe((res) => {
-          // this.getData()
-          console.log(res)
+          this.getData();
+          // console.log(res)
           this.NotificationsService.notiCreateSuccess();
-          // this.newContent.name = "";
+          this.newContent.name = "";
+          this.newContent.contentGroupId = "";
+          this.newContent.measureUnitId = "";
         });
       }, 1000);
     }

@@ -1,1 +1,363 @@
-!function(t){"use strict";var e=void 0!==window.orientation,s=navigator.userAgent.toLowerCase().indexOf("android")>-1,i="Microsoft Internet Explorer"==window.navigator.appName,n=function(e,i){s||(this.$element=t(e),this.options=t.extend({},n.DEFAULTS,i),this.mask=String(this.options.mask),this.init(),this.listen(),this.checkVal())};n.DEFAULTS={mask:"",placeholder:"_",definitions:{9:"[0-9]",a:"[A-Za-z]",w:"[A-Za-z0-9]",h:"[A-Fa-f0-9]","*":"."}},n.prototype.init=function(){var e=this.options.definitions;this.tests=[],this.partialPosition=this.mask.length,this.firstNonMaskPos=null,t.each(this.mask.split(""),t.proxy(function(t,s){"?"==s?this.partialPosition=t:e[s]?(this.tests.push(new RegExp(e[s])),null===this.firstNonMaskPos&&(this.firstNonMaskPos=this.tests.length-1)):this.tests.push(null)},this)),this.buffer=t.map(this.mask.split(""),t.proxy(function(t,s){if("?"!=t)return e[t]?this.options.placeholder:t},this)),this.focusText=this.$element.val(),this.$element.data("rawMaskFn",t.proxy(function(){return t.map(this.buffer,function(t,e){return this.tests[e]&&t!=this.options.placeholder?t:null}).join("")},this))},n.prototype.listen=function(){if(!this.$element.attr("readonly")){var e=(i?"paste":"input")+".bs.inputmask";this.$element.on("unmask.bs.inputmask",t.proxy(this.unmask,this)).on("focus.bs.inputmask",t.proxy(this.focusEvent,this)).on("blur.bs.inputmask",t.proxy(this.blurEvent,this)).on("keydown.bs.inputmask",t.proxy(this.keydownEvent,this)).on("keypress.bs.inputmask",t.proxy(this.keypressEvent,this)).on(e,t.proxy(this.pasteEvent,this))}},n.prototype.caret=function(t,e){if(0!==this.$element.length){if("number"==typeof t)return e="number"==typeof e?e:t,this.$element.each(function(){if(this.setSelectionRange)this.setSelectionRange(t,e);else if(this.createTextRange){var s=this.createTextRange();s.collapse(!0),s.moveEnd("character",e),s.moveStart("character",t),s.select()}});if(this.$element[0].setSelectionRange)t=this.$element[0].selectionStart,e=this.$element[0].selectionEnd;else if(document.selection&&document.selection.createRange){var s=document.selection.createRange();t=0-s.duplicate().moveStart("character",-1e5),e=t+s.text.length}return{begin:t,end:e}}},n.prototype.seekNext=function(t){for(var e=this.mask.length;++t<=e&&!this.tests[t];);return t},n.prototype.seekPrev=function(t){for(;--t>=0&&!this.tests[t];);return t},n.prototype.shiftL=function(t,e){var s=this.mask.length;if(!(t<0)){for(var i=t,n=this.seekNext(e);i<s;i++)if(this.tests[i]){if(!(n<s&&this.tests[i].test(this.buffer[n])))break;this.buffer[i]=this.buffer[n],this.buffer[n]=this.options.placeholder,n=this.seekNext(n)}this.writeBuffer(),this.caret(Math.max(this.firstNonMaskPos,t))}},n.prototype.shiftR=function(t){for(var e=this.mask.length,s=t,i=this.options.placeholder;s<e;s++)if(this.tests[s]){var n=this.seekNext(s),r=this.buffer[s];if(this.buffer[s]=i,!(n<e&&this.tests[n].test(r)))break;i=r}},n.prototype.unmask=function(){this.$element.unbind(".bs.inputmask").removeData("bs.inputmask")},n.prototype.focusEvent=function(){this.focusText=this.$element.val();var t=this.mask.length,e=this.checkVal();this.writeBuffer();var s=this,i=function(){e==t?s.caret(0,e):s.caret(e)};i(),setTimeout(i,50)},n.prototype.blurEvent=function(){this.checkVal(),this.$element.val()!==this.focusText&&(this.$element.trigger("change"),this.$element.trigger("input"))},n.prototype.keydownEvent=function(t){var s=t.which;if(8==s||46==s||e&&127==s){var i=this.caret(),n=i.begin,r=i.end;return r-n==0&&(n=46!=s?this.seekPrev(n):r=this.seekNext(n-1),r=46==s?this.seekNext(r):r),this.clearBuffer(n,r),this.shiftL(n,r-1),!1}if(27==s)return this.$element.val(this.focusText),this.caret(0,this.checkVal()),!1},n.prototype.keypressEvent=function(t){var e=this.mask.length,s=t.which,i=this.caret();if(t.ctrlKey||t.altKey||t.metaKey||s<32)return!0;if(s){i.end-i.begin!=0&&(this.clearBuffer(i.begin,i.end),this.shiftL(i.begin,i.end-1));var n=this.seekNext(i.begin-1);if(n<e){var r=String.fromCharCode(s);if(this.tests[n].test(r)){this.shiftR(n),this.buffer[n]=r,this.writeBuffer();var a=this.seekNext(n);this.caret(a)}}return!1}},n.prototype.pasteEvent=function(){var t=this;setTimeout(function(){t.caret(t.checkVal(!0))},0)},n.prototype.clearBuffer=function(t,e){for(var s=this.mask.length,i=t;i<e&&i<s;i++)this.tests[i]&&(this.buffer[i]=this.options.placeholder)},n.prototype.writeBuffer=function(){return this.$element.val(this.buffer.join("")).val()},n.prototype.checkVal=function(t){for(var e=this.mask.length,s=this.$element.val(),i=-1,n=0,r=0;n<e;n++)if(this.tests[n]){for(this.buffer[n]=this.options.placeholder;r++<s.length;){var a=s.charAt(r-1);if(this.tests[n].test(a)){this.buffer[n]=a,i=n;break}}if(r>s.length)break}else this.buffer[n]==s.charAt(r)&&n!=this.partialPosition&&(r++,i=n);return!t&&i+1<this.partialPosition?(this.$element.val(""),this.clearBuffer(0,e)):(t||i+1>=this.partialPosition)&&(this.writeBuffer(),t||this.$element.val(this.$element.val().substring(0,i+1))),this.partialPosition?n:this.firstNonMaskPos};var r=t.fn.inputmask;t.fn.inputmask=function(e){return this.each(function(){var s=t(this),i=s.data("bs.inputmask");i||s.data("bs.inputmask",i=new n(this,e))})},t.fn.inputmask.Constructor=n,t.fn.inputmask.noConflict=function(){return t.fn.inputmask=r,this},t(document).on("focus.bs.inputmask.data-api","[data-mask]",function(e){var s=t(this);s.data("bs.inputmask")||s.inputmask(s.data())})}(window.jQuery);
+/* ===========================================================
+ * Bootstrap: inputmask.js v3.1.0
+ * http://jasny.github.io/bootstrap/javascript/#inputmask
+ *
+ * Based on Masked Input plugin by Josh Bush (digitalbush.com)
+ * ===========================================================
+ * Copyright 2012-2014 Arnold Daniels
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License")
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ========================================================== */
+
++function ($) { "use strict";
+
+  var isIphone = (window.orientation !== undefined)
+  var isAndroid = navigator.userAgent.toLowerCase().indexOf("android") > -1
+  var isIE = window.navigator.appName == 'Microsoft Internet Explorer'
+
+  // INPUTMASK PUBLIC CLASS DEFINITION
+  // =================================
+
+  var Inputmask = function (element, options) {
+    if (isAndroid) return // No support because caret positioning doesn't work on Android
+
+    this.$element = $(element)
+    this.options = $.extend({}, Inputmask.DEFAULTS, options)
+    this.mask = String(this.options.mask)
+
+    this.init()
+    this.listen()
+
+    this.checkVal() //Perform initial check for existing values
+  }
+
+  Inputmask.DEFAULTS = {
+    mask: "",
+    placeholder: "_",
+    definitions: {
+      '9': "[0-9]",
+      'a': "[A-Za-z]",
+      'w': "[A-Za-z0-9]",
+      'h': "[A-Fa-f0-9]",
+      '*': "."
+    }
+  }
+
+  Inputmask.prototype.init = function() {
+    var defs = this.options.definitions
+    var len = this.mask.length
+
+    this.tests = []
+    this.partialPosition = this.mask.length
+    this.firstNonMaskPos = null
+
+    $.each(this.mask.split(""), $.proxy(function(i, c) {
+      if (c == '?') {
+        len--
+        this.partialPosition = i
+      } else if (defs[c]) {
+        this.tests.push(new RegExp(defs[c]))
+        if (this.firstNonMaskPos === null)
+          this.firstNonMaskPos =  this.tests.length - 1
+      } else {
+        this.tests.push(null)
+      }
+    }, this))
+
+    this.buffer = $.map(this.mask.split(""), $.proxy(function(c, i) {
+      if (c != '?') return defs[c] ? this.options.placeholder : c
+    }, this))
+
+    this.focusText = this.$element.val()
+
+    this.$element.data("rawMaskFn", $.proxy(function() {
+      return $.map(this.buffer, function(c, i) {
+        return this.tests[i] && c != this.options.placeholder ? c : null
+      }).join('')
+    }, this))
+  }
+
+  Inputmask.prototype.listen = function() {
+    if (this.$element.attr("readonly")) return
+
+    var pasteEventName = (isIE ? 'paste' : 'input') + ".bs.inputmask"
+
+    this.$element
+      .on("unmask.bs.inputmask", $.proxy(this.unmask, this))
+
+      .on("focus.bs.inputmask", $.proxy(this.focusEvent, this))
+      .on("blur.bs.inputmask", $.proxy(this.blurEvent, this))
+
+      .on("keydown.bs.inputmask", $.proxy(this.keydownEvent, this))
+      .on("keypress.bs.inputmask", $.proxy(this.keypressEvent, this))
+
+      .on(pasteEventName, $.proxy(this.pasteEvent, this))
+  }
+
+  //Helper Function for Caret positioning
+  Inputmask.prototype.caret = function(begin, end) {
+    if (this.$element.length === 0) return
+    if (typeof begin == 'number') {
+      end = (typeof end == 'number') ? end : begin
+      return this.$element.each(function() {
+        if (this.setSelectionRange) {
+          this.setSelectionRange(begin, end)
+        } else if (this.createTextRange) {
+          var range = this.createTextRange()
+          range.collapse(true)
+          range.moveEnd('character', end)
+          range.moveStart('character', begin)
+          range.select()
+        }
+      })
+    } else {
+      if (this.$element[0].setSelectionRange) {
+        begin = this.$element[0].selectionStart
+        end = this.$element[0].selectionEnd
+      } else if (document.selection && document.selection.createRange) {
+        var range = document.selection.createRange()
+        begin = 0 - range.duplicate().moveStart('character', -100000)
+        end = begin + range.text.length
+      }
+      return {
+        begin: begin,
+        end: end
+      }
+    }
+  }
+
+  Inputmask.prototype.seekNext = function(pos) {
+    var len = this.mask.length
+    while (++pos <= len && !this.tests[pos]);
+
+    return pos
+  }
+
+  Inputmask.prototype.seekPrev = function(pos) {
+    while (--pos >= 0 && !this.tests[pos]);
+
+    return pos
+  }
+
+  Inputmask.prototype.shiftL = function(begin,end) {
+    var len = this.mask.length
+
+    if (begin < 0) return
+
+    for (var i = begin, j = this.seekNext(end); i < len; i++) {
+      if (this.tests[i]) {
+        if (j < len && this.tests[i].test(this.buffer[j])) {
+          this.buffer[i] = this.buffer[j]
+          this.buffer[j] = this.options.placeholder
+        } else
+          break
+        j = this.seekNext(j)
+      }
+    }
+    this.writeBuffer()
+    this.caret(Math.max(this.firstNonMaskPos, begin))
+  }
+
+  Inputmask.prototype.shiftR = function(pos) {
+    var len = this.mask.length
+
+    for (var i = pos, c = this.options.placeholder; i < len; i++) {
+      if (this.tests[i]) {
+        var j = this.seekNext(i)
+        var t = this.buffer[i]
+        this.buffer[i] = c
+        if (j < len && this.tests[j].test(t))
+          c = t
+        else
+          break
+      }
+    }
+  },
+
+  Inputmask.prototype.unmask = function() {
+    this.$element
+      .unbind(".bs.inputmask")
+      .removeData("bs.inputmask")
+  }
+
+  Inputmask.prototype.focusEvent = function() {
+    this.focusText = this.$element.val()
+    var len = this.mask.length
+    var pos = this.checkVal()
+    this.writeBuffer()
+
+    var that = this
+    var moveCaret = function() {
+      if (pos == len)
+        that.caret(0, pos)
+      else
+        that.caret(pos)
+    }
+
+    moveCaret()
+    setTimeout(moveCaret, 50)
+  }
+
+  Inputmask.prototype.blurEvent = function() {
+    this.checkVal()
+    if (this.$element.val() !== this.focusText) {
+      this.$element.trigger('change')
+      this.$element.trigger('input')
+    }
+  }
+
+  Inputmask.prototype.keydownEvent = function(e) {
+    var k = e.which
+
+    //backspace, delete, and escape get special treatment
+    if (k == 8 || k == 46 || (isIphone && k == 127)) {
+      var pos = this.caret(),
+      begin = pos.begin,
+      end = pos.end
+
+      if (end - begin === 0) {
+        begin = k != 46 ? this.seekPrev(begin) : (end = this.seekNext(begin - 1))
+        end = k == 46 ? this.seekNext(end) : end
+      }
+      this.clearBuffer(begin, end)
+      this.shiftL(begin, end - 1)
+
+      return false
+    } else if (k == 27) {//escape
+      this.$element.val(this.focusText)
+      this.caret(0, this.checkVal())
+      return false
+    }
+  }
+
+  Inputmask.prototype.keypressEvent = function(e) {
+    var len = this.mask.length
+
+    var k = e.which,
+    pos = this.caret()
+
+    if (e.ctrlKey || e.altKey || e.metaKey || k < 32)  {//Ignore
+      return true
+    } else if (k) {
+      if (pos.end - pos.begin !== 0) {
+        this.clearBuffer(pos.begin, pos.end)
+        this.shiftL(pos.begin, pos.end - 1)
+      }
+
+      var p = this.seekNext(pos.begin - 1)
+      if (p < len) {
+        var c = String.fromCharCode(k)
+        if (this.tests[p].test(c)) {
+          this.shiftR(p)
+          this.buffer[p] = c
+          this.writeBuffer()
+          var next = this.seekNext(p)
+          this.caret(next)
+        }
+      }
+      return false
+    }
+  }
+
+  Inputmask.prototype.pasteEvent = function() {
+    var that = this
+
+    setTimeout(function() {
+      that.caret(that.checkVal(true))
+    }, 0)
+  }
+
+  Inputmask.prototype.clearBuffer = function(start, end) {
+    var len = this.mask.length
+
+    for (var i = start; i < end && i < len; i++) {
+      if (this.tests[i])
+        this.buffer[i] = this.options.placeholder
+    }
+  }
+
+  Inputmask.prototype.writeBuffer = function() {
+    return this.$element.val(this.buffer.join('')).val()
+  }
+
+  Inputmask.prototype.checkVal = function(allow) {
+    var len = this.mask.length
+    //try to place characters where they belong
+    var test = this.$element.val()
+    var lastMatch = -1
+
+    for (var i = 0, pos = 0; i < len; i++) {
+      if (this.tests[i]) {
+        this.buffer[i] = this.options.placeholder
+        while (pos++ < test.length) {
+          var c = test.charAt(pos - 1)
+          if (this.tests[i].test(c)) {
+            this.buffer[i] = c
+            lastMatch = i
+            break
+          }
+        }
+        if (pos > test.length)
+          break
+      } else if (this.buffer[i] == test.charAt(pos) && i != this.partialPosition) {
+        pos++
+        lastMatch = i
+      }
+    }
+    if (!allow && lastMatch + 1 < this.partialPosition) {
+      this.$element.val("")
+      this.clearBuffer(0, len)
+    } else if (allow || lastMatch + 1 >= this.partialPosition) {
+      this.writeBuffer()
+      if (!allow) this.$element.val(this.$element.val().substring(0, lastMatch + 1))
+    }
+    return (this.partialPosition ? i : this.firstNonMaskPos)
+  }
+
+
+  // INPUTMASK PLUGIN DEFINITION
+  // ===========================
+
+  var old = $.fn.inputmask
+
+  $.fn.inputmask = function (options) {
+    return this.each(function () {
+      var $this = $(this)
+      var data = $this.data('bs.inputmask')
+
+      if (!data) $this.data('bs.inputmask', (data = new Inputmask(this, options)))
+    })
+  }
+
+  $.fn.inputmask.Constructor = Inputmask
+
+
+  // INPUTMASK NO CONFLICT
+  // ====================
+
+  $.fn.inputmask.noConflict = function () {
+    $.fn.inputmask = old
+    return this
+  }
+
+
+  // INPUTMASK DATA-API
+  // ==================
+
+  $(document).on('focus.bs.inputmask.data-api', '[data-mask]', function (e) {
+    var $this = $(this)
+    if ($this.data('bs.inputmask')) return
+    $this.inputmask($this.data())
+  })
+
+}(window.jQuery);

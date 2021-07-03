@@ -1,1 +1,83 @@
-!function(t){t.fn.heavyTable=function(e){e=t.extend({startPosition:{x:1,y:1}},e),this.each(function(){var n=t(this).find("tbody"),i=e.startPosition.x,c=e.startPosition.y,d={y:n.find("tr").length,x:n.parent().find("th").length};function l(){content=n.find(".selected input").val(),n.find(".selected").html(content),n.find(".selected").toggleClass("selected")}function o(){return c>d.y&&(c=d.y),i>d.x&&(i=d.x),c<1&&(c=1),i<1&&(i=1),currentCell=n.find("tr:nth-child("+c+")").find("td:nth-child("+i+")"),content=currentCell.html(),currentCell.toggleClass("selected"),currentCell}function r(e){var n=t("<input>",{type:"text"}).val(e.html());e.html(n),n.focus()}n.find("td").click(function(){l(),i=n.find("td").index(this)%d.x+1,c=n.find("tr").index(t(this).parent())+1,r(o())}),t(document).keydown(function(t){if(13==t.keyCode)l(),r(o());else if(t.keyCode>=37&&t.keyCode<=40){switch(l(),t.keyCode){case 37:i--;break;case 38:c--;break;case 39:i++;break;case 40:c++}return o(),!1}})})}}(jQuery);
+// jQuery function
+(function ($) {
+  $.fn.heavyTable = function (params) {
+
+    params = $.extend({
+      startPosition: {
+        x: 1,
+        y: 1
+      }
+    }, params);
+
+    this.each(function () {
+      var
+        $hTable = $(this).find('tbody'),
+        i = 0,
+        x = params.startPosition.x,
+        y = params.startPosition.y,
+        max = {
+          y: $hTable.find('tr').length,
+          x: $hTable.parent().find('th').length
+        };
+
+      //console.log(xMax + '*' + yMax);
+
+      function clearCell() {
+        content = $hTable.find('.selected input').val();
+        $hTable.find('.selected').html(content);
+        $hTable.find('.selected').toggleClass('selected');
+      }
+
+      function selectCell() {
+        if (y > max.y) y = max.y;
+        if (x > max.x) x = max.x;
+        if (y < 1) y = 1;
+        if (x < 1) x = 1;
+        currentCell =
+          $hTable
+            .find('tr:nth-child(' + (y) + ')')
+            .find('td:nth-child(' + (x) + ')');
+        content = currentCell.html();
+        currentCell
+          .toggleClass('selected')
+        return currentCell;
+      }
+
+      function edit(currentElement) {
+        var input = $('<input>', { type: "text" })
+          .val(currentElement.html())
+        currentElement.html(input)
+        input.focus();
+      }
+
+      $hTable.find('td').click(function () {
+        clearCell();
+        x = ($hTable.find('td').index(this) % (max.x) + 1);
+        y = ($hTable.find('tr').index($(this).parent()) + 1);
+        edit(selectCell());
+      });
+
+      $(document).keydown(function (e) {
+        if (e.keyCode == 13) {
+          clearCell();
+          edit(selectCell());
+        } else if (e.keyCode >= 37 && e.keyCode <= 40) {
+
+          clearCell();
+          switch (e.keyCode) {
+            case 37: x--;
+              break;
+            case 38: y--;
+              break;
+            case 39: x++;
+              break;
+            case 40: y++;
+              break;
+          }
+          selectCell();
+          return false;
+        }
+      });
+    });
+  };
+})(jQuery);

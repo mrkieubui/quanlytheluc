@@ -1,1 +1,276 @@
-var D3LineSeries={init:function(){!function(){if("undefined"!=typeof d3){var t=document.getElementById("d3-line-multi-series"),e=400;if(t){var n=d3.select(t),a={top:5,right:100,bottom:20,left:40},r=n.node().getBoundingClientRect().width-a.left-a.right,i=(e=e-a.top-a.bottom-5,d3.time.format("%Y%m%d").parse),d=d3.scale.category20(),l=d3.time.scale().range([0,r]),s=d3.scale.linear().range([e,0]),o=d3.svg.axis().scale(l).orient("bottom").ticks(5).tickFormat(d3.time.format("%b")),u=d3.svg.axis().scale(s).orient("left"),c=n.append("svg"),m=c.attr("width",r+a.left+a.right).attr("height",e+a.top+a.bottom).append("g").attr("transform","translate("+a.left+","+a.top+")"),f=d3.svg.line().interpolate("basis").x(function(t){return l(t.date)}).y(function(t){return s(t.temperature)});d3.tsv("http://demo.interface.club/limitless/demo/Template/global_assets/demo_data/d3/lines/lines_multi_series.tsv",function(t,n){n.forEach(function(t){t.date=i(t.date)}),d.domain(d3.keys(n[0]).filter(function(t){return"date"!==t}));var a=d.domain().map(function(t){return{name:t,values:n.map(function(e){return{date:e.date,temperature:+e[t]}})}});l.domain(d3.extent(n,function(t){return t.date})),s.domain([d3.min(a,function(t){return d3.min(t.values,function(t){return t.temperature})}),d3.max(a,function(t){return d3.max(t.values,function(t){return t.temperature})})]);var r=m.selectAll(".multiline-city").data(a).enter().append("g").attr("class","multiline-city");r.append("path").attr("class","d3-line d3-line-medium").attr("d",function(t){return f(t.values)}).style("stroke",function(t){return d(t.name)}),r.append("text").datum(function(t){return{name:t.name,value:t.values[t.values.length-1]}}).attr("transform",function(t){return"translate("+l(t.value.date)+","+s(t.value.temperature)+")"}).attr("class","d3-cities d3-text").attr("x",10).attr("dy",".35em").text(function(t){return t.name}),m.append("g").attr("class","d3-axis d3-axis-horizontal").attr("transform","translate(0,"+e+")").call(o),m.append("g").attr("class","d3-axis d3-axis-vertical").call(u).append("text").attr("class","d3-axis-title").attr("transform","rotate(-90)").attr("y",10).attr("dy",".71em").style("text-anchor","end").text("Temperature (\xbaF)")}),window.addEventListener("resize",v);var p=document.querySelector(".sidebar-control");function v(){r=n.node().getBoundingClientRect().width-a.left-a.right,c.attr("width",r+a.left+a.right),m.attr("width",r+a.left+a.right),l.range([0,r]),m.selectAll(".d3-axis-horizontal").call(o),m.selectAll(".d3-line").attr("d",function(t){return f(t.values)}),m.selectAll(".d3-cities").attr("transform",function(t){return"translate("+l(t.value.date)+","+s(t.value.temperature)+")"})}p&&p.addEventListener("click",v)}}else console.warn("Warning - d3.min.js is not loaded.")}()}};document.addEventListener("DOMContentLoaded",function(){D3LineSeries.init()});
+/* ------------------------------------------------------------------------------
+ *
+ *  # D3.js - multi series line chart
+ *
+ *  Demo d3.js multi series line chart setup with .tsv data source
+ *
+ * ---------------------------------------------------------------------------- */
+
+
+// Setup module
+// ------------------------------
+
+var D3LineSeries = function() {
+
+
+    //
+    // Setup module components
+    //
+
+    // Chart
+    var _lineSeries = function() {
+        if (typeof d3 == 'undefined') {
+            console.warn('Warning - d3.min.js is not loaded.');
+            return;
+        }
+
+        // Main variables
+        var element = document.getElementById('d3-line-multi-series'),
+            height = 400;
+
+
+        // Initialize chart only if element exsists in the DOM
+        if(element) {
+
+            // Basic setup
+            // ------------------------------
+
+            // Define main variables
+            var d3Container = d3.select(element),
+                margin = {top: 5, right: 100, bottom: 20, left: 40},
+                width = d3Container.node().getBoundingClientRect().width - margin.left - margin.right,
+                height = height - margin.top - margin.bottom - 5;
+
+            // Format data
+            var parseDate = d3.time.format("%Y%m%d").parse;
+
+            // Colors
+            var color = d3.scale.category20();
+
+
+
+            // Construct scales
+            // ------------------------------
+
+            // Horizontal
+            var x = d3.time.scale()
+                .range([0, width]);
+
+            // Vertical
+            var y = d3.scale.linear()
+                .range([height, 0]);
+
+
+
+            // Create axes
+            // ------------------------------
+
+            // Horizontal
+            var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom")
+                .ticks(5)
+                .tickFormat(d3.time.format("%b"));
+
+            // Vertical
+            var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left");
+
+
+
+            // Create chart
+            // ------------------------------
+
+            // Add SVG element
+            var container = d3Container.append("svg");
+
+            // Add SVG group
+            var svg = container
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+
+            // Construct chart layout
+            // ------------------------------
+
+            // Line
+            var line = d3.svg.line()
+                .interpolate("basis")
+                .x(function(d) { return x(d.date); })
+                .y(function(d) { return y(d.temperature); });
+
+
+
+            // Load data
+            // ------------------------------
+
+            d3.tsv("http://demo.interface.club/limitless/demo/Template/global_assets/demo_data/d3/lines/lines_multi_series.tsv", function(error, data) {
+
+                // Pull out values
+                data.forEach(function(d) {
+                    d.date = parseDate(d.date);
+                });
+
+
+                // Set color domains
+                // ------------------------------
+
+                // Filter by date
+                color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
+
+                // Set colors
+                var cities = color.domain().map(function(name) {
+                    return {
+                        name: name,
+                        values: data.map(function(d) {
+                            return {date: d.date, temperature: +d[name]};
+                        })
+                    }
+                });
+
+
+
+                // Set input domains
+                // ------------------------------
+
+                // Horizontal
+                x.domain(d3.extent(data, function(d) { return d.date; }));
+
+                // Vertical
+                y.domain([
+                    d3.min(cities, function(c) { return d3.min(c.values, function(v) { return v.temperature; }); }),
+                    d3.max(cities, function(c) { return d3.max(c.values, function(v) { return v.temperature; }); })
+                ]);
+
+
+
+                //
+                // Append chart elements
+                //
+
+                // Bind data
+                var city = svg.selectAll(".multiline-city")
+                    .data(cities)
+                    .enter()
+                    .append("g")
+                        .attr("class", "multiline-city");
+
+                // Add line
+                city.append("path")
+                    .attr("class", "d3-line d3-line-medium")
+                    .attr("d", function(d) { return line(d.values); })
+                    .style("stroke", function(d) { return color(d.name); });
+
+                // Add text
+                city.append("text")
+                    .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
+                    .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")"; })
+                    .attr("class", "d3-cities d3-text")
+                    .attr("x", 10)
+                    .attr("dy", ".35em")
+                    .text(function(d) { return d.name; });
+            
+
+
+                // Append axes
+                // ------------------------------
+
+                // Horizontal
+                svg.append("g")
+                    .attr("class", "d3-axis d3-axis-horizontal")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(xAxis);
+
+                // Vertical
+                var verticalAxis = svg.append("g")
+                    .attr("class", "d3-axis d3-axis-vertical")
+                    .call(yAxis);
+
+                // Add text label
+                verticalAxis.append("text")
+                    .attr("class", "d3-axis-title")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 10)
+                    .attr("dy", ".71em")
+                    .style("text-anchor", "end")
+                    .text("Temperature (ºF)");
+            })
+
+
+
+            // Resize chart
+            // ------------------------------
+
+            // Call function on window resize
+            window.addEventListener('resize', resize);
+
+            // Call function on sidebar width change
+            var sidebarToggle = document.querySelector('.sidebar-control');
+            sidebarToggle && sidebarToggle.addEventListener('click', resize);
+
+            // Resize function
+            // 
+            // Since D3 doesn't support SVG resize by default,
+            // we need to manually specify parts of the graph that need to 
+            // be updated on window resize
+            function resize() {
+
+                // Layout variables
+                width = d3Container.node().getBoundingClientRect().width - margin.left - margin.right;
+
+
+                // Layout
+                // -------------------------
+
+                // Main svg width
+                container.attr("width", width + margin.left + margin.right);
+
+                // Width of appended group
+                svg.attr("width", width + margin.left + margin.right);
+
+
+                // Axes
+                // -------------------------
+
+                // Horizontal range
+                x.range([0, width]);
+
+                // Horizontal axis
+                svg.selectAll('.d3-axis-horizontal').call(xAxis);
+
+
+                // Chart elements
+                // -------------------------
+
+                // Line path
+                svg.selectAll('.d3-line').attr("d", function(d) { return line(d.values); });
+
+                // Text
+                svg.selectAll('.d3-cities').attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")"; })
+            }
+        }
+    };
+
+
+    //
+    // Return objects assigned to module
+    //
+
+    return {
+        init: function() {
+            _lineSeries();
+        }
+    }
+}();
+
+
+// Initialize module
+// ------------------------------
+
+document.addEventListener('DOMContentLoaded', function() {
+    D3LineSeries.init();
+});

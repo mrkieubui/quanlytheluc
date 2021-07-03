@@ -1,1 +1,2019 @@
-var App=function(){const e=function(){return"_"+Math.random().toString(36).substr(2,9)};return{initPie:function(){!function(){if("undefined"!=typeof echarts){var e=document.getElementById("pie_basic");if(e){var n=echarts.init(e);n.setOption({color:["#2ec7c9","#5ab1ef","#ffb980","#d87a80","#b6a2de","#8d98b3","#e5cf0d","#97b552","#95706d","#dc69aa","#07a2a4","#9a7fd1","#588dd5","#f5994e","#c05050","#59678c","#c9ab00","#7eb00a","#6f5553","#c14089"],textStyle:{fontFamily:"Roboto, Arial, Verdana, sans-serif",fontSize:13},tooltip:{trigger:"item",backgroundColor:"rgba(0,0,0,0.75)",padding:[10,15],textStyle:{fontSize:13,fontFamily:"Roboto, sans-serif"},formatter:"{a} <br/>{b}: {c} ({d}%)"},legend:{orient:"horizontal",left:"center",top:"bottom",data:["Gi\u1ecfi","Kh\xe1","\u0110\u1ea1t","Kh\xf4ng \u0110\u1ea1t"],itemHeight:35,itemWidth:35,borderRadius:35,paddingTop:35},series:[{name:"X\u1ebfp lo\u1ea1i",type:"pie",radius:"70%",center:["50%","45%"],itemStyle:{normal:{borderWidth:1,borderColor:"#fff"}},data:[{value:335,name:"Gi\u1ecfi",label:{show:!0,position:"top",color:"black",fontSize:12,formatter:function(e){return e.name+" "+e.value}}},{value:310,name:"Kh\xe1",label:{show:!0,position:"top",color:"black",fontSize:12,formatter:function(e){return e.name+" "+e.value}}},{value:234,name:"\u0110\u1ea1t",label:{show:!0,position:"top",color:"black",fontSize:12,formatter:function(e){return e.name+" "+e.value}}},{value:135,name:"Kh\xf4ng \u0110\u1ea1t",label:{show:!0,position:"top",color:"black",fontSize:12,formatter:function(e){return e.name+" "+e.value}}}]}]})}var t,a=function(){e&&n.resize()},i=document.querySelector(".sidebar-control");i&&i.addEventListener("click",a),window.addEventListener("resize",function(){clearTimeout(t),t=setTimeout(function(){a()},200)})}else console.warn("Warning - echarts.min.js is not loaded.")}()},initBeforeLoad:function(){$("body").addClass("no-transitions")},initAfterLoad:function(){$("body").removeClass("no-transitions")},initSidebars:function(){var e;e=function(){$(".sidebar-main").find(".nav-sidebar").children(".nav-item-submenu").hover(function(){var e=$(this),n="nav-item-submenu-reversed";e.find(".nav-group-sub").filter(":visible").outerHeight(),e.children(".nav-group-sub").length&&(e.children(".nav-group-sub").offset().top+e.find(".nav-group-sub").filter(":visible").outerHeight()>document.body.clientHeight?e.addClass(n):e.removeClass(n))})},$("body").hasClass("sidebar-xs")&&e(),$(".sidebar-main-toggle").on("click",function(n){n.preventDefault(),$("body").toggleClass("sidebar-xs").removeClass("sidebar-mobile-main"),e()}),$(document).on("click",".sidebar-main-hide",function(e){e.preventDefault(),$("body").toggleClass("sidebar-main-hidden")}),$(document).on("click",".sidebar-secondary-toggle",function(e){e.preventDefault(),$("body").toggleClass("sidebar-secondary-hidden")}),$(document).on("click",".sidebar-right-main-toggle",function(e){e.preventDefault(),$("body").toggleClass("sidebar-right-visible"),$("body").hasClass("sidebar-right-visible")?($("body").addClass("sidebar-xs"),$(".sidebar-main .nav-sidebar").children(".nav-item").children(".nav-group-sub").css("display","")):$("body").removeClass("sidebar-xs")}),$(document).on("click",".sidebar-right-main-hide",function(e){e.preventDefault(),$("body").toggleClass("sidebar-right-visible"),$("body").hasClass("sidebar-right-visible")?$("body").addClass("sidebar-main-hidden"):$("body").removeClass("sidebar-main-hidden")}),$(document).on("click",".sidebar-right-toggle",function(e){e.preventDefault(),$("body").toggleClass("sidebar-right-visible")}),$(document).on("click",".sidebar-right-secondary-toggle",function(e){e.preventDefault(),$("body").toggleClass("sidebar-right-visible"),$("body").hasClass("sidebar-right-visible")?$("body").addClass("sidebar-secondary-hidden"):$("body").removeClass("sidebar-secondary-hidden")}),$(document).on("click",".sidebar-component-toggle",function(e){e.preventDefault(),$("body").toggleClass("sidebar-component-hidden")}),$(".sidebar-mobile-expand").on("click",function(e){e.preventDefault();var n=$(this).parents(".sidebar"),t="sidebar-fullscreen";n.hasClass(t)?n.removeClass(t):n.addClass(t)}),$(".sidebar-mobile-main-toggle").on("click",function(e){e.preventDefault(),$("body").toggleClass("sidebar-mobile-main").removeClass("sidebar-mobile-secondary sidebar-mobile-right"),$(".sidebar-main").hasClass("sidebar-fullscreen")&&$(".sidebar-main").removeClass("sidebar-fullscreen")}),$(".sidebar-mobile-secondary-toggle").on("click",function(e){e.preventDefault(),$("body").toggleClass("sidebar-mobile-secondary").removeClass("sidebar-mobile-main sidebar-mobile-right"),$(".sidebar-secondary").hasClass("sidebar-fullscreen")&&$(".sidebar-secondary").removeClass("sidebar-fullscreen")}),$(".sidebar-mobile-right-toggle").on("click",function(e){e.preventDefault(),$("body").toggleClass("sidebar-mobile-right").removeClass("sidebar-mobile-main sidebar-mobile-secondary"),$(".sidebar-right").hasClass("sidebar-fullscreen")&&$(".sidebar-right").removeClass("sidebar-fullscreen")}),$(".sidebar-mobile-component-toggle").on("click",function(e){e.preventDefault(),$("body").toggleClass("sidebar-mobile-component")})},initNavigations:function(){var e,n;e="nav-sidebar",n="nav-item-open",$("."+e).each(function(){$(this).find(".nav-item").has(".nav-group-sub").children(".nav-item > .nav-link").not(".disabled").on("click",function(t){t.preventDefault();var a=$(this),i=$(".sidebar-xs").not(".sidebar-mobile-main").find(".sidebar-main ."+e).children(".nav-item");a.parent(".nav-item").hasClass(n)?a.parent(".nav-item").not(i).removeClass(n).children(".nav-group-sub").slideUp(250):a.parent(".nav-item").not(i).addClass(n).children(".nav-group-sub").slideDown(250),"accordion"==a.parents("."+e).data("nav-type")&&a.parent(".nav-item").not(i).siblings(":has(.nav-group-sub)").removeClass(n).children(".nav-group-sub").slideUp(250)})}),$(document).on("click",".nav-sidebar .disabled",function(e){e.preventDefault()}),$(".nav-scrollspy").find(".nav-item").has(".nav-group-sub").children(".nav-item > .nav-link").off("click"),$(document).on("click",".dropdown-content",function(e){e.stopPropagation()}),$(".navbar-nav .disabled a, .nav-item-levels .disabled").on("click",function(e){e.preventDefault(),e.stopPropagation()}),$('.dropdown-content a[data-toggle="tab"]').on("click",function(e){$(this).tab("show")})},initComponents:function(){var n;!function(){$('[data-popup="tooltip"]').tooltip();var e='[data-popup="tooltip-demo"]';$(e).is(":visible")&&($(e).tooltip("show"),setTimeout(function(){$(e).tooltip("hide")},2e3))}(),$('[data-popup="popover"]').popover(),n=swal.mixin({buttonsStyling:!1,confirmButtonClass:"btn btn-primary",cancelButtonClass:"btn btn-light"}),$(".sweet_delete").on("click",function(){n.fire({title:"X\xf3a \u0111\u01a1n v\u1ecb?",text:"B\u1ea1n c\xf3 ch\u1eafc mu\u1ed1n x\xf3a \u0111\u01a1n v\u1ecb n\xe0y kh\xf4ng?",type:"warning",showCancelButton:!0,cancelButtonText:"H\u1ee7y",confirmButtonText:"X\xf3a",confirmButtonClass:"btn btn-danger",cancelButtonClass:"btn btn-outline bg-slate-600 text-slate-600 border-slate-600 legitRipple",buttonsStyling:!1}).then(function(e){e.value?n.fire({title:"\u0110\xe3 x\xf3a!",text:"D\u1eef li\u1ec7u \u0111\xe3 b\u1ecb x\xf3a",type:"success",timer:2e3}):e.dismiss===swal.DismissReason.cancel&&n.fire({title:"\u0110\xe3 h\u1ee7y b\u1ecf",type:"error",timer:2e3})})}),$(".sweet_toast_bottom_right_update").on("click",function(){n.fire({text:"C\u1eadp nh\u1eadt th\xe0nh c\xf4ng",type:"success",toast:!0,showConfirmButton:!1,position:"bottom-right"})}),$(".sweet_toast_bottom_right_create").on("click",function(){n.fire({text:"Th\xeam m\u1edbi th\xe0nh c\xf4ng",type:"success",toast:!0,showConfirmButton:!1,position:"bottom-right"})}),$(".sweet_toast_bottom_right_delete").on("click",function(){n.fire({text:"X\xf3a th\xe0nh c\xf4ng",type:"danger",toast:!0,showConfirmButton:!1,position:"bottom-right"})}),$("body").on("click",".animation",function(e){var n=$(this).data("animation");$(this).parents(".card").addClass("animated "+n).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",function(){$(this).removeClass("animated "+n)}),e.preventDefault()}),function(){if($().DataTable){$.extend($.fn.dataTable.defaults,{autoWidth:!1,columnDefs:[{orderable:!1,width:100,targets:[5]}],dom:'<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',language:{search:"<span>Filter:</span> _INPUT_",searchPlaceholder:"Type to filter...",lengthMenu:"<span>Show:</span> _MENU_",paginate:{first:"First",last:"Last",next:"rtl"==$("html").attr("dir")?"&larr;":"&rarr;",previous:"rtl"==$("html").attr("dir")?"&rarr;":"&larr;"}}}),$(".datatable-basic").DataTable({dom:'<"datatable-scroll"t><"datatable-footer"ip>',columnDefs:[{autoWidth:!1,orderable:!1,targets:[0,1,2,3,4,5,6]}],language:{processing:"\u0110ang x\u1eed l\xfd...",lengthMenu:"Xem _MENU_ m\u1ee5c",zeroRecords:"Kh\xf4ng t\xecm th\u1ea5y d\xf2ng n\xe0o ph\xf9 h\u1ee3p",info:"\u0110ang xem _START_ \u0111\u1ebfn _END_ trong t\u1ed5ng s\u1ed1 _TOTAL_ m\u1ee5c",infoEmpty:"\u0110ang xem 0 \u0111\u1ebfn 0 trong t\u1ed5ng s\u1ed1 0 m\u1ee5c",infoFiltered:"(\u0111\u01b0\u1ee3c l\u1ecdc t\u1eeb _MAX_ m\u1ee5c)",search:"T\xecm:",paginate:{first:"\u0110\u1ea7u",previous:"Tr\u01b0\u1edbc",next:"Ti\u1ebfp",last:"Cu\u1ed1i"},aria:{sortAscending:": S\u1eafp x\u1ebfp th\u1ee9 t\u1ef1 t\u0103ng d\u1ea7n",sortDescending:": S\u1eafp x\u1ebfp th\u1ee9 t\u1ef1 gi\u1ea3m d\u1ea7n"},autoFill:{cancel:"H\u1ee7y",fill:"\u0110i\u1ec1n t\u1ea5t c\u1ea3 \xf4 v\u1edbi <i>%d</i>",fillHorizontal:"\u0110i\u1ec1n theo h\xe0ng ngang",fillVertical:"\u0110i\u1ec1n theo h\xe0ng d\u1ecdc",info:"M\u1eabu th\xf4ng tin t\u1ef1 \u0111\u1ed9ng \u0111i\u1ec1n"},buttons:{collection:'Ch\u1ecdn l\u1ecdc <span class="ui-button-icon-primary ui-icon ui-icon-triangle-1-s"></span>',colvis:"Hi\u1ec3n th\u1ecb theo c\u1ed9t",colvisRestore:"Kh\xf4i ph\u1ee5c hi\u1ec3n th\u1ecb",copy:"Sao ch\xe9p",copyKeys:"Nh\u1ea5n Ctrl ho\u1eb7c u2318 + C \u0111\u1ec3 sao ch\xe9p b\u1ea3ng d\u1eef li\u1ec7u v\xe0o clipboard.<br /><br />\u0110\u1ec3 h\u1ee7y, click v\xe0o th\xf4ng b\xe1o n\xe0y ho\u1eb7c nh\u1ea5n ESC",copySuccess:{1:"\u0110\xe3 sao ch\xe9p 1 d\xf2ng d\u1eef li\u1ec7u v\xe0o clipboard",_:"\u0110\xe3 sao ch\xe9p %d d\xf2ng v\xe0o clipboard"},copyTitle:"Sao ch\xe9p v\xe0o clipboard",csv:"File CSV",excel:"File Excel",pageLength:{"-1":"Xem t\u1ea5t c\u1ea3 c\xe1c d\xf2ng",1:"Hi\u1ec3n th\u1ecb 1 d\xf2ng",_:"Hi\u1ec3n th\u1ecb %d d\xf2ng"},pdf:"File PDF",print:"In \u1ea5n"},emptyTable:"Kh\xf4ng c\xf3 d\u1eef li\u1ec7u n\xe0o \u0111\u1ec3 hi\u1ec3n th\u1ecb",infoThousands:"`",loadingRecords:"Loading...",select:{1:"%d d\xf2ng \u0111ang \u0111\u01b0\u1ee3c ch\u1ecdn",_:"%d d\xf2ng \u0111ang \u0111\u01b0\u1ee3c ch\u1ecdn",cells:{1:"1 \xf4 \u0111ang \u0111\u01b0\u1ee3c ch\u1ecdn",_:"%d \xf4 \u0111ang \u0111\u01b0\u1ee3c ch\u1ecdn"},columns:{1:"1 c\u1ed9t \u0111ang \u0111\u01b0\u1ee3c ch\u1ecdn",_:"%d c\u1ed9t \u0111ang \u0111\u01b0\u1ee3c \u0111\u01b0\u1ee3c ch\u1ecdn"},rows:{1:"1 d\xf2ng \u0111ang \u0111\u01b0\u1ee3c ch\u1ecdn",_:"%d d\xf2ng \u0111ang \u0111\u01b0\u1ee3c ch\u1ecdn"}},thousands:"`",searchBuilder:{title:{_:"Thi\u1ebft l\u1eadp t\xecm ki\u1ebfm (%d)",0:"Thi\u1ebft l\u1eadp t\xecm ki\u1ebfm"},button:{0:"Thi\u1ebft l\u1eadp t\xecm ki\u1ebfm",_:"Thi\u1ebft l\u1eadp t\xecm ki\u1ebfm (%d)"},value:"Gi\xe1 tr\u1ecb",clearAll:"X\xf3a h\u1ebft",condition:"\u0110i\u1ec1u ki\u1ec7n",conditions:{date:{after:"Sau",before:"Tr\u01b0\u1edbc",between:"N\u1eb1m gi\u1eefa",empty:"R\u1ed7ng",equals:"B\u1eb1ng v\u1edbi",not:"Kh\xf4ng ph\u1ea3i",notBetween:"Kh\xf4ng n\u1eb1m gi\u1eefa",notEmpty:"Kh\xf4ng r\u1ed7ng"},number:{between:"N\u1eb1m gi\u1eefa",empty:"R\u1ed7ng",equals:"B\u1eb1ng v\u1edbi",gt:"L\u1edbn h\u01a1n",gte:"L\u1edbn h\u01a1n ho\u1eb7c b\u1eb1ng",lt:"Nh\u1ecf h\u01a1n",lte:"Nh\u1ecf h\u01a1n ho\u1eb7c b\u1eb1ng",not:"Kh\xf4ng ph\u1ea3i",notBetween:"Kh\xf4ng n\u1eb1m gi\u1eefa",notEmpty:"Kh\xf4ng r\u1ed7ng"},string:{contains:"Ch\u1ee9a",empty:"R\u1ed7ng",endsWith:"K\u1ebft th\xfac b\u1eb1ng",equals:"B\u1eb1ng",not:"Kh\xf4ng ph\u1ea3i",notEmpty:"Kh\xf4ng r\u1ed7ng",startsWith:"B\u1eaft \u0111\u1ea7u v\u1edbi"}},logicAnd:"V\xe0",logicOr:"Ho\u1eb7c",add:"Th\xeam \u0111i\u1ec1u ki\u1ec7n",data:"D\u1eef li\u1ec7u",deleteTitle:"X\xf3a quy t\u1eafc l\u1ecdc"},searchPanes:{countFiltered:"{shown} ({total})",emptyPanes:"Kh\xf4ng c\xf3 ph\u1ea7n t\xecm ki\u1ebfm",clearMessage:"X\xf3a h\u1ebft",loadMessage:"\u0110ang load ph\u1ea7n t\xecm ki\u1ebfm",collapse:{0:"Ph\u1ea7n t\xecm ki\u1ebfm",_:"Ph\u1ea7n t\xecm ki\u1ebfm (%d)"},title:"B\u1ed9 l\u1ecdc \u0111ang ho\u1ea1t \u0111\u1ed9ng - %d",count:"{total}"}}}),$(".datatable-pagination").DataTable({pagingType:"simple",language:{paginate:{next:"rtl"==$("html").attr("dir")?"Next &larr;":"Next &rarr;",previous:"rtl"==$("html").attr("dir")?"&rarr; Prev":"&larr; Prev"}}}),$(".datatable-save-state").DataTable({stateSave:!0,language:{search:!1}});var e=$(".datatable-scroll-y").DataTable({autoWidth:!0,scrollY:300});$(".sidebar-control").on("click",function(){e.columns.adjust().draw()})}else console.warn("Warning - datatables.min.js is not loaded.")}(),$(".date-single").pickadate({format:"dd/mm/yyyy",formatSubmit:"dd/mm/yyyy",selectYears:!0,selectMonths:!0}),function(){if($().fileinput){var e='<div class="modal-dialog modal-lg" role="document">\n  <div class="modal-content">\n    <div class="modal-header align-items-center">\n      <h6 class="modal-title">{heading} <small><span class="kv-zoom-title"></span></small></h6>\n      <div class="kv-zoom-actions btn-group">{toggleheader}{fullscreen}{borderless}{close}</div>\n    </div>\n    <div class="modal-body">\n      <div class="floating-buttons btn-group"></div>\n      <div class="kv-zoom-body file-zoom-content"></div>\n{prev} {next}\n    </div>\n  </div>\n</div>\n',n={toggleheader:"btn btn-light btn-icon btn-header-toggle btn-sm",fullscreen:"btn btn-light btn-icon btn-sm",borderless:"btn btn-light btn-icon btn-sm",close:"btn btn-light btn-icon btn-sm"},t={prev:'<i class="icon-arrow-left32"></i>',next:'<i class="icon-arrow-right32"></i>',toggleheader:'<i class="icon-menu-open"></i>',fullscreen:'<i class="icon-screen-full"></i>',borderless:'<i class="icon-alignment-unalign"></i>',close:'<i class="icon-cross2 font-size-base"></i>'};$(".file-input").fileinput({initialPreview:[],dragLabel:"K\xe9o v\xe0 th\u1ea3 file \u1edf \u0111\xe2y",browseLabel:"Th\xeam",browseIcon:'<i class="icon-file-plus mr-2"></i>',uploadLabel:"T\u1ea3i l\xean",uploadClass:"btn btn-success",uploadIcon:'<i class="icon-file-upload2 mr-2"></i>',removeLabel:"X\xf3a",removeClass:"btn btn-danger",removeIcon:'<i class="icon-cross2 font-size-base mr-2"></i>',layoutTemplates:{icon:'<i class="icon-file-check"></i>',modal:e},initialCaption:"Kh\xf4ng c\xf3 file n\xe0o \u0111\u01b0\u1ee3c ch\u1ecdn",previewZoomButtonClasses:n,previewZoomButtonIcons:t,fileActionSettings:{zoomClass:"",zoomIcon:'<i class="icon-zoomin3"></i>',dragClass:"p-2",dragIcon:'<i class="icon-three-bars"></i>',removeLabel:"X\xf3a",removeClass:"btn btn-danger",uploadIcon:'<i class="icon-upload"></i>',removeErrorClass:"text-danger",removeIcon:'<i class="icon-bin"></i>',indicatorNew:'<i class="icon-file-plus text-success"></i>',indicatorSuccess:'<i class="icon-checkmark3 file-icon-large text-success"></i>',indicatorError:'<i class="icon-cross2 text-danger"></i>',indicatorLoading:'<i class="icon-spinner2 spinner text-muted"></i>'}}),$(".file-input-ajax").fileinput({browseLabel:"Th\xeam",uploadClass:"btn btn-success",removeClass:"btn btn-danger",uploadUrl:"http://localhost:3000",uploadAsync:!0,maxFileCount:5,initialPreview:[],browseIcon:'<i class="icon-file-plus mr-2"></i>',fileActionSettings:{zoomIcon:'<i class="icon-zoomin3"></i>',zoomClass:"",indicatorNew:'<i class="icon-file-plus text-success"></i>',indicatorSuccess:'<i class="icon-checkmark3 file-icon-large text-success"></i>',indicatorError:'<i class="icon-cross2 text-danger"></i>',indicatorLoading:'<i class="icon-spinner2 spinner text-muted"></i>'},layoutTemplates:{icon:'<i class="icon-file-check"></i>',modal:e},initialCaption:"Kh\xf4ng c\xf3 file n\xe0o \u0111\u01b0\u1ee3c ch\u1ecdn",mainClass:"input-group input-group-md",previewZoomButtonClasses:n,previewZoomButtonIcons:t})}else console.warn("Warning - fileinput.min.js is not loaded.")}(),$().uniform?$(".form-input-styled").uniform({fileButtonClass:"action btn bg-warning-400"}):console.warn("Warning - uniform.min.js is not loaded."),$().multiselect?$(".form-control-multiselect").multiselect():console.warn("Warning - bootstrap-multiselect.js is not loaded."),function(){if(document.querySelector("#unitList")){const e=[{item:"Binh ch\u1ee7ng th\xf4ng tin 1",children:[{item:"Th\u1ee7 tr\u01b0\u1edfng B\u1ed9 T\u01b0 L\u1ec7nh",children:[]},{item:"Tr\u01b0\u1eddng S\u0129 quan Th\xf4ng tin",children:[{item:"Ban khoa h\u1ecdc Qu\xe2n s\u1ef1",children:[]},{item:"Ti\u1ec3u \u0111o\xe0n 20",children:[]},{item:"Ti\u1ec3u \u0111o\xe0n 30",children:[{item:"Ban khoa h\u1ecdc Qu\xe2n s\u1ef1",children:[]},{item:"Ti\u1ec3u \u0111o\xe0n 20",children:[]},{item:"Ti\u1ec3u \u0111o\xe0n 30",children:[]}]}]},{item:"Th\u1ee7 tr\u01b0\u1edfng B\u1ed9 T\u01b0 L\u1ec7nh 2",children:[]}]},{item:"Binh ch\u1ee7ng th\xf4ng tin 2",children:[]},{item:"Binh ch\u1ee7ng th\xf4ng tin 3",children:[]}],n=document.getElementById("root"),t=(e,n)=>{let a="";return e.forEach((e,i)=>{a+=`\n                <div class="card-group-control  card-group-control-left ${e.children.length?"":"card-hide"}">\n    \n                <div class="card">\n                <div class="card-header header-elements-inline">\n                <h6 class="card-title">\n                    <a class="text-default ${0===e.children.length?"collapsed":""}" data-toggle="collapse" href="#accordion-control-group-${n}-${i}">${e.item}</a>\n                </h6>\n                <div class="header-elements">\n                    <div class="list-icons">\n                    <a href="./update.html" class="text-black text ml-2">\n                        <i class="far fa-edit" data-popup="tooltip" title="S\u1eeda"></i>\n                    </a>\n                    <a href="#" class="text-danger text ml-2">\n                        <i class="far fa-trash-alt sweet_delete" data-popup="tooltip" title="X\xf3a"></i>\n                    </a>\n                    <a href="#" class="text-black text ml-2">\n                        <i class="icon-users" data-popup="tooltip" title="DS Qu\xe2n Nh\xe2n"></i>\n                    </a>\n                    </div>\n                </div>\n                </div>\n    \n                <div id="accordion-control-group-${n}-${i}" class="collapse show">\n                    ${e.children?t(e.children,n+1):""}\n                </div>\n            </div>\n            </div>\n            `}),`<div class="card-group-control-child">${a}</div>`};((e,a,i)=>{i=n;let o="";e.forEach((e,n)=>{o+=`\n                <div class="card-group-control  card-group-control-left ${e.children.length?"":"card-hide"}">\n                    <div class="card">\n                        <div class="card-header header-elements-inline">\n                        <h6 class="card-title">\n                            <a class=" text-default ${0===e.children.length?"collapsed":""}" data-toggle="collapse"  href="#accordion-control-group-0-${n}">${e.item}</a>\n                        </h6>\n                        <div class="header-elements">\n                            <div class="list-icons">\n                            <a href="./update.html" class="text-black text ml-2">\n                                <i class="far fa-edit" data-popup="tooltip" title="S\u1eeda"></i>\n                            </a>\n                            <a href="#" class="text-danger text ml-2">\n                                <i class="far fa-trash-alt sweet_delete" data-popup="tooltip" title="X\xf3a"></i>\n                            </a>\n                            <a href="#" class="text-black text ml-2">\n                                <i class="icon-users" data-popup="tooltip" title="DS Qu\xe2n Nh\xe2n"></i>\n                            </a>\n                            </div>\n                        </div>\n                        </div>\n    \n                        <div id="accordion-control-group-0-${n}" class="collapse ${e.children.length>0&&"show"}">\n                            ${e.children?t(e.children,1):""}\n                        </div>\n                    </div>\n                </div>\n            `});const l=document.createElement("div");l.insertAdjacentHTML("afterBegin",o),i.appendChild(l)})(e,0,n)}}(),function(){if(document.querySelector("#standardPage")){const a=[{id:e(),title:"T\u1ed1 ch\u1ea5t s\u1ee9c nhanh Male ",children:[]},{id:e(),title:"T\u1ed1 ch\u1ea5t s\u1ee9c m\u1ea1nh Male ",children:[]}],i=[],o=[{id:e(),title:"T\u1ed1 ch\u1ea5t s\u1ee9c nhanh",children:[]},{id:e(),title:"T\u1ed1 ch\u1ea5t s\u1ee9c m\u1ea1nh",children:[]}],l=[{id:1,valueU:"1",nameU:"Gi\u1edd "},{id:2,valueU:"2",nameU:"Ph\xfat "},{id:3,valueU:"3",nameU:"Gi\xe2y "},{id:4,valueU:"4",nameU:"L\u1ea7n "},{id:5,valueU:"5",nameU:"C\xe1i "}],s=document.querySelector("#rootStandardMale"),r=document.querySelector("#rootStandardMaleUp"),c=document.querySelector("#rootStandardFamale");function n(e){switch(e){case"male":return{arrayParent:a,rootGroupStandard:s};case"maleUp":return{arrayParent:i,rootGroupStandard:r};case"famale":return{arrayParent:o,rootGroupStandard:c};default:return{arrayParent:[],rootGroupStandard:""}}}function t(s,r,c){let d="";s.forEach((e,n)=>{d+=`\n                    <div id=${e.id} class="card border-none boxShadow-none mb-0" data-standard=${c}>\n                        <div class="card-header bg-lightblue header-elements-inline border-none py-1 ">\n                            <h5 data-editable class="text-500 text-black mb-0">${e.title}</h5>\n                            <div class="list-icons">\n                            <div class="dropdown">\n                                <a href="#" class="list-icons-item" data-toggle="dropdown">\n                                <i class="icon-menu9 text-black"></i>\n                                </a>\n        \n                                <div class="dropdown-menu dropdown-menu-right">\n                                <a href="#" class="dropdown-item btnUpdate"><i class="icon-pencil7"></i> S\u1eeda</a>\n                                <a href="#" class="dropdown-item btnDelete text-danger" ><i class="icon-trash"></i>\n                                    X\xf3a</a>\n                                </div>\n                            </div>\n                            </div>\n                        </div>\n        \n                        <div class="card-body pt-2 pb-0 px-0">\n                            <div class="form-group row align-items-center mb-2">\n                            <div class="col-lg-8">\n                                <div class="input-group">\n                                <input type="text" class="form-control" name="nStandard" placeholder="Nh\u1eadp t\xean n\u1ed9i dung">\n                                </div>\n                            </div>\n                            <div class="col-lg-4">\n                                <select class="form-control" name="sStandard">\n                                <optgroup label="Ch\u1ecdn \u0111\u01a1n v\u1ecb t\xednh">\n                                ${l.map(e=>`<option value="${e.valueU}">${e.nameU} </option>`)}\n                                </optgroup>\n                                </select>\n                            </div>\n                            <div class="col-lg-1">\n                                <a  href="javascript:void(0)"  class="btn bg-primary-color legitRipple w-100 addElement"\n                                data-popup="tooltip" title="Danh s\xe1ch \u0111\u1ed1i t\u01b0\u1ee3ng">\n                                <i class="icon-plus3"></i>\n                                </a>\n                            </div>\n                            </div>\n                            ${e.children.length>0?function(e){let n="";return e.forEach((e,t)=>{n+=`\n                    <div class="form-group row align-items-center form-group-element mb-2" id=${e.id}>\n                    <div class="col-lg-5">\n                      <div class="input-group">\n                        <input type="text" class="form-control" disabled placeholder="Nh\u1eadp t\xean n\u1ed9i dung" value="${e.name}">\n                      </div>\n                    </div>\n                    <div class="col-lg-4">\n                      <select class="form-control" disabled>\n                        <optgroup label="Ch\u1ecdn \u0111\u01a1n v\u1ecb t\xednh">\n                        ${l.map(n=>`<option value="${n.valueU}" ${n.valueU==e.value?"selected":""} >${n.nameU} </option>`)}\n                        </optgroup>\n                      </select>\n                    </div>\n                    <div class="col-lg-1">\n                      <a href="javascript:void(0)"\n                        class="btn btn-outline bg-slate-600 text-slate-600 border-slate-600 legitRipple w-100 editElement"\n                        data-popup="tooltip" title="S\u1eeda" disabled>\n                        <i class="icon-pencil7"></i>\n                      </a>\n                    </div>\n                    <div class="col-lg-1">\n                      <a href="javascript:void(0)" class="btn btn-outline-danger legitRipple w-100 removeElement"\n                        data-popup="tooltip" title="X\xf3a">\n                        <i class="icon-trash"></i>\n                      </a>\n                    </div>\n                    <div class="col-lg-1">\n                      <a href="javascript:void(0)"\n                        class="btn btn-outline bg-slate-600 text-slate-600 border-slate-600 legitRipple w-100"\n                        data-popup="tooltip" title="Danh s\xe1ch \u0111\u1ed1i t\u01b0\u1ee3ng" data-toggle="modal"\n                        data-target="#modal_standard">\n                        <i class="icon-users4"></i>\n                      </a>\n                    </div>\n                  </div>\n                  `}),n}(e.children):""}\n        \n                        </div>\n                        </div>\n                    `}),r.innerHTML=d;const u=document.querySelectorAll(".btnUpdate");for(let e=0;e<u.length;e++){const t=u[e];t.onclick=function(e){e.preventDefault();var a=this.closest(".card").querySelector("h5"),i=document.createElement("input");i.setAttribute("type","text"),i.classList.add("form-control","bg-white","w-50"),i.value=a.textContent,a.replaceWith(i),i.focus(),i.addEventListener("blur",function(){var e=document.createElement("h5");e.classList.add("text-500","text-black","mb-0"),e.textContent=i.value,i.replaceWith(e);const a=t.closest(".card"),o=a.dataset.standard,l=a.id,{arrayParent:s}=n(o),r=s.findIndex(e=>e.id===l);s[r]={...s[r],title:i.value}})}}const m=document.querySelectorAll(".btnDelete");for(let e=0;e<m.length;e++){const a=m[e];a.onclick=function(e){e.preventDefault();const i=a.closest(".card"),o=i.dataset.standard,l=i.id,{arrayParent:s,rootGroupStandard:r}=n(o),c=s.findIndex(e=>e.id===l);s.splice(c,1),setTimeout(()=>{t(s,r,o)},500)}}const p=document.querySelectorAll(".addElement");for(let a=0;a<p.length;a++){const i=p[a];i.onclick=function(){const a=i.closest(".card"),o=a.dataset.standard,l=a.id,{arrayParent:s,rootGroupStandard:r}=n(o),c=s.findIndex(e=>e.id===l),d=a.querySelector("select[name='sStandard']").value,u=a.querySelector("input[name='nStandard']").value;if(u&&""!==u.trim()){const n={id:e(),name:u.trim(),value:d};s[c].children.unshift(n),t(s,r,o)}else alert("C\u1ea7n nh\u1eadp t\xean nh\xf3m ti\xeau chu\u1ea9n")}}const h=document.querySelectorAll(".removeElement");for(let e=0;e<h.length;e++){const a=h[e];a.onclick=function(e){e.preventDefault();const i=a.closest(".card"),o=i.dataset.standard,l=i.id,s=a.closest(".form-group-element").id,{arrayParent:r,rootGroupStandard:c}=n(o),d=r.findIndex(e=>e.id===l),u=r[d].children.findIndex(e=>e.id===s);r[d].children.splice(u,1),t(r,c,o)}}const g=document.querySelectorAll(".editElement");for(let e=0;e<g.length;e++){const t=g[e];t.onclick=function(e){e.preventDefault(),t.classList.toggle("activeSuccess");const l=t.querySelector("i"),s=t.closest(".form-group-element"),r=s.querySelector("input"),c=s.querySelector("select");if(t.className.includes("activeSuccess"))l.classList.add("icon-checkmark3"),r.removeAttribute("disabled"),c.removeAttribute("disabled"),r.focus();else{const e=t.closest(".card"),d=e.dataset.standard,u=e.id,m=s.id,{arrayParent:p}=n(d),h=p.findIndex(e=>e.id===u),g=p[h].children.findIndex(e=>e.id===m);p[h].children[g]={...p[h].children[g],name:r.value,value:c.value},l.classList.remove("icon-checkmark3"),r.setAttribute("disabled",""),c.setAttribute("disabled",""),console.log(a),console.log(i),console.log(o)}}}}t(a,s,"male"),t(i,r,"maleUp"),t(o,c,"famale");const d=document.querySelector("#modal_group_standard").querySelector("#form_group_standard");$("#modal_group_standard").on("shown.bs.modal",function(){$('input[name="nameStandard"]').trigger("focus")});const u=document.querySelectorAll(".addGroupStandard");for(let m=0;m<u.length;m++){const a=u[m];a.onclick=function(){const i=a.dataset.standard||"male",{arrayParent:o,rootGroupStandard:l}=n(i);d.onsubmit=function(n){n.preventDefault();const a=n.target.nameStandard.value;if(a&&""!==a.trim()){const n={id:e(),title:a,children:[]};o.unshift(n),t(o,l,i),$('input[name="nameStandard"]').val(""),$("#modal_group_standard").modal("hide")}else alert("C\u1ea7n nh\u1eadp t\xean nh\xf3m ti\xeau chu\u1ea9n")}}}}}()},initCardActions:function(){var e;$(".card [data-action=reload]:not(.disabled)").on("click",function(e){e.preventDefault();var n=$(this).closest(".card");$(n).block({message:'<i class="icon-spinner2 spinner"></i>',overlayCSS:{backgroundColor:"#fff",opacity:.8,cursor:"wait","box-shadow":"0 0 0 1px #ddd"},css:{border:0,padding:0,backgroundColor:"none"}}),window.setTimeout(function(){$(n).unblock()},2e3)}),(e=$(".card-collapsed")).children(".card-header").nextAll().hide(),e.find("[data-action=collapse]").addClass("rotate-180"),$(".card [data-action=collapse]:not(.disabled)").on("click",function(e){var n=$(this);e.preventDefault(),n.parents(".card").toggleClass("card-collapsed"),n.toggleClass("rotate-180"),n.closest(".card").children(".card-header").nextAll().slideToggle(150)}),$(".card [data-action=remove]").on("click",function(e){e.preventDefault();var n=$(this);n.hasClass("disabled")||n.closest(".card").slideUp({duration:150,start:function(){n.addClass("d-block")},complete:function(){n.remove()}})}),$(".card [data-action=fullscreen]").on("click",function(e){e.preventDefault();var n=$(this),t=n.closest(".card"),a="overflow-hidden",i="collapsed-in-fullscreen",o="data-fullscreen";t.toggleClass("fixed-top h-100 rounded-0"),t.hasClass("fixed-top")?(n.attr(o,"active"),t.removeAttr("style").children(".collapse:not(.show)").addClass("show "+i),$("body").addClass(a),n.siblings("[data-action=move], [data-action=remove], [data-action=collapse]").addClass("d-none")):(n.removeAttr(o),t.children("."+i).removeClass("show"),$("body").removeClass(a),n.siblings("[data-action=move], [data-action=remove], [data-action=collapse]").removeClass("d-none"))})},initDropdownSubmenu:function(){$(".dropdown-menu").find(".dropdown-submenu").not(".disabled").find(".dropdown-toggle").on("click",function(e){e.stopPropagation(),e.preventDefault(),$(this).parent().siblings().removeClass("show").find(".show").removeClass("show"),$(this).parent().toggleClass("show").children(".dropdown-menu").toggleClass("show"),$(this).parents(".show").on("hidden.bs.dropdown",function(e){$(".dropdown-submenu .show, .dropdown-submenu.show").removeClass("show")})})},initHeaderElementsToggle:function(){$(".header-elements-toggle").on("click",function(e){e.preventDefault(),$(this).parents("[class*=header-elements-]").find(".header-elements").toggleClass("d-none")}),$(".footer-elements-toggle").on("click",function(e){e.preventDefault(),$(this).parents(".card-footer").find(".footer-elements").toggleClass("d-none")})},initCore:function(){App.initSidebars(),App.initNavigations(),App.initComponents(),App.initCardActions(),App.initDropdownSubmenu(),App.initHeaderElementsToggle()}}}();document.addEventListener("DOMContentLoaded",function(){App.initBeforeLoad(),App.initCore(),App.initComponents()}),window.addEventListener("load",function(){App.initAfterLoad(),App.initPie()});
+/* ------------------------------------------------------------------------------
+ *
+ *  # Template JS core
+ *
+ *  Includes minimum required JS code for proper template functioning
+ *
+ * ---------------------------------------------------------------------------- */
+
+
+// Setup module
+// ------------------------------
+
+var App = function () {
+
+
+    //
+    // Setup module components
+    //
+
+    // Transitions
+    // -------------------------
+
+    // Disable all transitions
+    var _transitionsDisabled = function () {
+        $('body').addClass('no-transitions');
+    };
+
+    // Enable all transitions
+    var _transitionsEnabled = function () {
+        $('body').removeClass('no-transitions');
+    };
+
+    const IDRandom = function () {
+        return '_' + Math.random().toString(36).substr(2, 9);
+    };
+
+    // Sidebars
+    // -------------------------
+
+    //
+    // On desktop
+    //
+
+    // Resize main sidebar
+    var _sidebarMainResize = function () {
+
+        // Flip 2nd level if menu overflows
+        // bottom edge of browser window
+        var revertBottomMenus = function () {
+            $('.sidebar-main').find('.nav-sidebar').children('.nav-item-submenu').hover(function () {
+                var totalHeight = 0,
+                    $this = $(this),
+                    navSubmenuClass = 'nav-group-sub',
+                    navSubmenuReversedClass = 'nav-item-submenu-reversed';
+
+                totalHeight += $this.find('.' + navSubmenuClass).filter(':visible').outerHeight();
+                if ($this.children('.' + navSubmenuClass).length) {
+                    if (($this.children('.' + navSubmenuClass).offset().top + $this.find('.' + navSubmenuClass).filter(':visible').outerHeight()) > document.body.clientHeight) {
+                        $this.addClass(navSubmenuReversedClass)
+                    }
+                    else {
+                        $this.removeClass(navSubmenuReversedClass)
+                    }
+                }
+            });
+        }
+
+        // If sidebar is resized by default
+        if ($('body').hasClass('sidebar-xs')) {
+            revertBottomMenus();
+        }
+
+        // Toggle min sidebar class
+        $('.sidebar-main-toggle').on('click', function (e) {
+            e.preventDefault();
+
+            $('body').toggleClass('sidebar-xs').removeClass('sidebar-mobile-main');
+            revertBottomMenus();
+        });
+    };
+
+    // Toggle main sidebar
+    var _sidebarMainToggle = function () {
+        $(document).on('click', '.sidebar-main-hide', function (e) {
+            e.preventDefault();
+            $('body').toggleClass('sidebar-main-hidden');
+        });
+    };
+
+    // Toggle secondary sidebar
+    var _sidebarSecondaryToggle = function () {
+        $(document).on('click', '.sidebar-secondary-toggle', function (e) {
+            e.preventDefault();
+            $('body').toggleClass('sidebar-secondary-hidden');
+        });
+    };
+
+
+    // Show right, resize main
+    var _sidebarRightMainToggle = function () {
+        $(document).on('click', '.sidebar-right-main-toggle', function (e) {
+            e.preventDefault();
+
+            // Right sidebar visibility
+            $('body').toggleClass('sidebar-right-visible');
+
+            // If visible
+            if ($('body').hasClass('sidebar-right-visible')) {
+
+                // Make main sidebar mini
+                $('body').addClass('sidebar-xs');
+
+                // Hide children lists if they are opened, since sliding animation adds inline CSS
+                $('.sidebar-main .nav-sidebar').children('.nav-item').children('.nav-group-sub').css('display', '');
+            }
+            else {
+                $('body').removeClass('sidebar-xs');
+            }
+        });
+    };
+
+    // Show right, hide main
+    var _sidebarRightMainHide = function () {
+        $(document).on('click', '.sidebar-right-main-hide', function (e) {
+            e.preventDefault();
+
+            // Opposite sidebar visibility
+            $('body').toggleClass('sidebar-right-visible');
+
+            // If visible
+            if ($('body').hasClass('sidebar-right-visible')) {
+                $('body').addClass('sidebar-main-hidden');
+            }
+            else {
+                $('body').removeClass('sidebar-main-hidden');
+            }
+        });
+    };
+
+    // Toggle right sidebar
+    var _sidebarRightToggle = function () {
+        $(document).on('click', '.sidebar-right-toggle', function (e) {
+            e.preventDefault();
+
+            $('body').toggleClass('sidebar-right-visible');
+        });
+    };
+
+    // Show right, hide secondary
+    var _sidebarRightSecondaryToggle = function () {
+        $(document).on('click', '.sidebar-right-secondary-toggle', function (e) {
+            e.preventDefault();
+
+            // Opposite sidebar visibility
+            $('body').toggleClass('sidebar-right-visible');
+
+            // If visible
+            if ($('body').hasClass('sidebar-right-visible')) {
+                $('body').addClass('sidebar-secondary-hidden');
+            }
+            else {
+                $('body').removeClass('sidebar-secondary-hidden');
+            }
+        });
+    };
+
+
+    // Toggle content sidebar
+    var _sidebarComponentToggle = function () {
+        $(document).on('click', '.sidebar-component-toggle', function (e) {
+            e.preventDefault();
+            $('body').toggleClass('sidebar-component-hidden');
+        });
+    };
+
+
+    //
+    // On mobile
+    //
+
+    // Expand sidebar to full screen on mobile
+    var _sidebarMobileFullscreen = function () {
+        $('.sidebar-mobile-expand').on('click', function (e) {
+            e.preventDefault();
+            var $sidebar = $(this).parents('.sidebar'),
+                sidebarFullscreenClass = 'sidebar-fullscreen'
+
+            if (!$sidebar.hasClass(sidebarFullscreenClass)) {
+                $sidebar.addClass(sidebarFullscreenClass);
+            }
+            else {
+                $sidebar.removeClass(sidebarFullscreenClass);
+            }
+        });
+    };
+
+    // Toggle main sidebar on mobile
+    var _sidebarMobileMainToggle = function () {
+        $('.sidebar-mobile-main-toggle').on('click', function (e) {
+            e.preventDefault();
+            $('body').toggleClass('sidebar-mobile-main').removeClass('sidebar-mobile-secondary sidebar-mobile-right');
+
+            if ($('.sidebar-main').hasClass('sidebar-fullscreen')) {
+                $('.sidebar-main').removeClass('sidebar-fullscreen');
+            }
+        });
+    };
+
+    // Toggle secondary sidebar on mobile
+    var _sidebarMobileSecondaryToggle = function () {
+        $('.sidebar-mobile-secondary-toggle').on('click', function (e) {
+            e.preventDefault();
+            $('body').toggleClass('sidebar-mobile-secondary').removeClass('sidebar-mobile-main sidebar-mobile-right');
+
+            // Fullscreen mode
+            if ($('.sidebar-secondary').hasClass('sidebar-fullscreen')) {
+                $('.sidebar-secondary').removeClass('sidebar-fullscreen');
+            }
+        });
+    };
+
+    // Toggle right sidebar on mobile
+    var _sidebarMobileRightToggle = function () {
+        $('.sidebar-mobile-right-toggle').on('click', function (e) {
+            e.preventDefault();
+            $('body').toggleClass('sidebar-mobile-right').removeClass('sidebar-mobile-main sidebar-mobile-secondary');
+
+            // Hide sidebar if in fullscreen mode on mobile
+            if ($('.sidebar-right').hasClass('sidebar-fullscreen')) {
+                $('.sidebar-right').removeClass('sidebar-fullscreen');
+            }
+        });
+    };
+
+    // Toggle component sidebar on mobile
+    var _sidebarMobileComponentToggle = function () {
+        $('.sidebar-mobile-component-toggle').on('click', function (e) {
+            e.preventDefault();
+            $('body').toggleClass('sidebar-mobile-component');
+        });
+    };
+
+
+    // Navigations
+    // -------------------------
+
+    // Sidebar navigation
+    var _navigationSidebar = function () {
+
+        // Define default class names and options
+        var navClass = 'nav-sidebar',
+            navItemClass = 'nav-item',
+            navItemOpenClass = 'nav-item-open',
+            navLinkClass = 'nav-link',
+            navSubmenuClass = 'nav-group-sub',
+            navSlidingSpeed = 250;
+
+        // Configure collapsible functionality
+        $('.' + navClass).each(function () {
+            $(this).find('.' + navItemClass).has('.' + navSubmenuClass).children('.' + navItemClass + ' > ' + '.' + navLinkClass).not('.disabled').on('click', function (e) {
+                e.preventDefault();
+
+                // Simplify stuff
+                var $target = $(this),
+                    $navSidebarMini = $('.sidebar-xs').not('.sidebar-mobile-main').find('.sidebar-main .' + navClass).children('.' + navItemClass);
+
+                // Collapsible
+                if ($target.parent('.' + navItemClass).hasClass(navItemOpenClass)) {
+                    $target.parent('.' + navItemClass).not($navSidebarMini).removeClass(navItemOpenClass).children('.' + navSubmenuClass).slideUp(navSlidingSpeed);
+                }
+                else {
+                    $target.parent('.' + navItemClass).not($navSidebarMini).addClass(navItemOpenClass).children('.' + navSubmenuClass).slideDown(navSlidingSpeed);
+                }
+
+                // Accordion
+                if ($target.parents('.' + navClass).data('nav-type') == 'accordion') {
+                    $target.parent('.' + navItemClass).not($navSidebarMini).siblings(':has(.' + navSubmenuClass + ')').removeClass(navItemOpenClass).children('.' + navSubmenuClass).slideUp(navSlidingSpeed);
+                }
+            });
+        });
+
+        // Disable click in disabled navigation items
+        $(document).on('click', '.' + navClass + ' .disabled', function (e) {
+            e.preventDefault();
+        });
+
+        // Scrollspy navigation
+        $('.nav-scrollspy').find('.' + navItemClass).has('.' + navSubmenuClass).children('.' + navItemClass + ' > ' + '.' + navLinkClass).off('click');
+    };
+
+    // Navbar navigation
+    var _navigationNavbar = function () {
+
+        // Prevent dropdown from closing on click
+        $(document).on('click', '.dropdown-content', function (e) {
+            e.stopPropagation();
+        });
+
+        // Disabled links
+        $('.navbar-nav .disabled a, .nav-item-levels .disabled').on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+        // Show tabs inside dropdowns
+        $('.dropdown-content a[data-toggle="tab"]').on('click', function (e) {
+            $(this).tab('show');
+        });
+    };
+
+
+    // Components
+    // -------------------------
+
+    // Tooltip
+    var _componentTooltip = function () {
+
+        // Initialize
+        $('[data-popup="tooltip"]').tooltip();
+
+        // Demo tooltips, remove in production
+        var demoTooltipSelector = '[data-popup="tooltip-demo"]';
+        if ($(demoTooltipSelector).is(':visible')) {
+            $(demoTooltipSelector).tooltip('show');
+            setTimeout(function () {
+                $(demoTooltipSelector).tooltip('hide');
+            }, 2000);
+        }
+    };
+
+    // Popover
+    var _componentPopover = function () {
+        $('[data-popup="popover"]').popover();
+    };
+
+    var _componentSweetAlert = function () {
+        var swalInit = swal.mixin({
+            buttonsStyling: false,
+            confirmButtonClass: 'btn btn-primary',
+            cancelButtonClass: 'btn btn-light'
+        });
+
+        $('.sweet_delete').on('click', function () {
+            swalInit.fire({
+                title: 'Xóa đơn vị?',
+                text: "Bạn có chắc muốn xóa đơn vị này không?",
+                type: 'warning',
+                showCancelButton: true,
+
+                cancelButtonText: 'Hủy',
+                confirmButtonText: 'Xóa',
+
+
+                confirmButtonClass: 'btn btn-danger',
+                cancelButtonClass: 'btn btn-outline bg-slate-600 text-slate-600 border-slate-600 legitRipple',
+                buttonsStyling: false,
+            }).then(function (result) {
+                if (result.value) {
+                    swalInit.fire({
+                        title: 'Đã xóa!',
+                        text: 'Dữ liệu đã bị xóa',
+                        type: 'success',
+                        timer: 2000
+                    }
+                    );
+                }
+                else if (result.dismiss === swal.DismissReason.cancel) {
+                    swalInit.fire(
+                        {
+                            title: 'Đã hủy bỏ',
+                            type: 'error',
+                            timer: 2000
+                        }
+                    );
+                }
+            });
+        });
+
+        // Bottom right
+        $('.sweet_toast_bottom_right_update').on('click', function () {
+            swalInit.fire({
+                text: 'Cập nhật thành công',
+                type: 'success',
+                toast: true,
+                showConfirmButton: false,
+                position: 'bottom-right'
+            });
+        });
+
+        // Bottom right
+        $('.sweet_toast_bottom_right_create').on('click', function () {
+            swalInit.fire({
+                text: 'Thêm mới thành công',
+                type: 'success',
+                toast: true,
+                showConfirmButton: false,
+                position: 'bottom-right'
+            });
+        });
+
+        $('.sweet_toast_bottom_right_delete').on('click', function () {
+            swalInit.fire({
+                text: 'Xóa thành công',
+                type: 'danger',
+                toast: true,
+                showConfirmButton: false,
+                position: 'bottom-right'
+            });
+        });
+    }
+
+    // var _componentSelect2Tree = function () {
+    //     $('select').select2({
+    //         maximumInputLength: 20 // only allow terms up to 20 characters long
+    //     });
+
+    // }
+
+    // CSS3 animations
+    var _componentAnimationCSS = function () {
+
+        // Toggle animations
+        $('body').on('click', '.animation', function (e) {
+
+            // Get animation class from 'data' attribute
+            var animation = $(this).data('animation');
+
+            // Apply animation once per click
+            $(this).parents('.card').addClass('animated ' + animation).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                $(this).removeClass('animated ' + animation);
+            });
+            e.preventDefault();
+        });
+    };
+
+    var _componentPickadate = function () {
+        // Single picker
+        $('.date-single').pickadate({
+            format: 'dd/mm/yyyy',
+            formatSubmit: 'dd/mm/yyyy',
+            selectYears: true,
+            selectMonths: true
+        });
+    }
+
+    var _componentMultiselect = function () {
+        if (!$().multiselect) {
+            console.warn('Warning - bootstrap-multiselect.js is not loaded.');
+            return;
+        }
+
+        // Initialize
+        $('.form-control-multiselect').multiselect();
+    };
+
+    // Uniform
+    var _componentUniform = function () {
+        if (!$().uniform) {
+            console.warn('Warning - uniform.min.js is not loaded.');
+            return;
+        }
+
+        // Styled checkboxes, radios
+        $('.form-input-styled').uniform({
+            fileButtonClass: 'action btn bg-warning-400'
+        });
+    };
+
+    var _componentFileUpload = function () {
+        if (!$().fileinput) {
+            console.warn('Warning - fileinput.min.js is not loaded.');
+            return;
+        }
+
+        //
+        // Define variables
+        //
+
+        // Modal template
+        var modalTemplate = '<div class="modal-dialog modal-lg" role="document">\n' +
+            '  <div class="modal-content">\n' +
+            '    <div class="modal-header align-items-center">\n' +
+            '      <h6 class="modal-title">{heading} <small><span class="kv-zoom-title"></span></small></h6>\n' +
+            '      <div class="kv-zoom-actions btn-group">{toggleheader}{fullscreen}{borderless}{close}</div>\n' +
+            '    </div>\n' +
+            '    <div class="modal-body">\n' +
+            '      <div class="floating-buttons btn-group"></div>\n' +
+            '      <div class="kv-zoom-body file-zoom-content"></div>\n' + '{prev} {next}\n' +
+            '    </div>\n' +
+            '  </div>\n' +
+            '</div>\n';
+
+        // Buttons inside zoom modal
+        var previewZoomButtonClasses = {
+            toggleheader: 'btn btn-light btn-icon btn-header-toggle btn-sm',
+            fullscreen: 'btn btn-light btn-icon btn-sm',
+            borderless: 'btn btn-light btn-icon btn-sm',
+            close: 'btn btn-light btn-icon btn-sm'
+        };
+
+        // Icons inside zoom modal classes
+        var previewZoomButtonIcons = {
+            prev: '<i class="icon-arrow-left32"></i>',
+            next: '<i class="icon-arrow-right32"></i>',
+            toggleheader: '<i class="icon-menu-open"></i>',
+            fullscreen: '<i class="icon-screen-full"></i>',
+            borderless: '<i class="icon-alignment-unalign"></i>',
+            close: '<i class="icon-cross2 font-size-base"></i>'
+        };
+
+        // File actions
+        var fileActionSettings = {
+            zoomClass: '',
+            zoomIcon: '<i class="icon-zoomin3"></i>',
+
+            dragClass: 'p-2',
+            dragIcon: '<i class="icon-three-bars"></i>',
+
+            removeLabel: 'Xóa',
+            removeClass: 'btn btn-danger',
+
+            uploadIcon: '<i class="icon-upload"></i>',
+            removeErrorClass: 'text-danger',
+
+            removeIcon: '<i class="icon-bin"></i>',
+            indicatorNew: '<i class="icon-file-plus text-success"></i>',
+            indicatorSuccess: '<i class="icon-checkmark3 file-icon-large text-success"></i>',
+            indicatorError: '<i class="icon-cross2 text-danger"></i>',
+            indicatorLoading: '<i class="icon-spinner2 spinner text-muted"></i>'
+        };
+
+
+        $('.file-input').fileinput({
+            initialPreview: [],
+
+            dragLabel: 'Kéo và thả file ở đây',
+
+            browseLabel: 'Thêm',
+            browseIcon: '<i class="icon-file-plus mr-2"></i>',
+
+            uploadLabel: 'Tải lên',
+            uploadClass: 'btn btn-success',
+            uploadIcon: '<i class="icon-file-upload2 mr-2"></i>',
+
+            removeLabel: 'Xóa',
+            removeClass: 'btn btn-danger',
+            removeIcon: '<i class="icon-cross2 font-size-base mr-2"></i>',
+            layoutTemplates: {
+                icon: '<i class="icon-file-check"></i>',
+                modal: modalTemplate
+            },
+            initialCaption: "Không có file nào được chọn",
+            previewZoomButtonClasses: previewZoomButtonClasses,
+            previewZoomButtonIcons: previewZoomButtonIcons,
+            fileActionSettings: fileActionSettings
+        });
+
+
+        $('.file-input-ajax').fileinput({
+            browseLabel: 'Thêm',
+            // uploadLabel: 'Tải lên',
+            // removeLabel: 'Xóa',
+
+            uploadClass: 'btn btn-success',
+            removeClass: 'btn btn-danger',
+
+            uploadUrl: "http://localhost:3000", // server upload action
+            uploadAsync: true,
+            maxFileCount: 5,
+            initialPreview: [],
+            browseIcon: '<i class="icon-file-plus mr-2"></i>',
+            // uploadIcon: '<i class="icon-file-upload2 mr-2"></i>',
+            // removeIcon: '<i class="icon-cross2 font-size-base mr-2"></i>',
+
+            // allowedFileExtensions: ["jpg", "gif", "png", "txt"],
+
+            fileActionSettings: {
+                // removeIcon: '<i class="icon-bin"></i>',
+                // removeClass: '',
+                // uploadIcon: '<i class="icon-upload"></i>',
+                // uploadClass: '',
+                zoomIcon: '<i class="icon-zoomin3"></i>',
+                zoomClass: '',
+                indicatorNew: '<i class="icon-file-plus text-success"></i>',
+                indicatorSuccess: '<i class="icon-checkmark3 file-icon-large text-success"></i>',
+                indicatorError: '<i class="icon-cross2 text-danger"></i>',
+                indicatorLoading: '<i class="icon-spinner2 spinner text-muted"></i>',
+            },
+            layoutTemplates: {
+                icon: '<i class="icon-file-check"></i>',
+                modal: modalTemplate,
+            },
+            initialCaption: 'Không có file nào được chọn',
+            mainClass: 'input-group input-group-md',
+            previewZoomButtonClasses: previewZoomButtonClasses,
+            previewZoomButtonIcons: previewZoomButtonIcons
+        });
+    }
+
+    var _componentDatatableBasic = function () {
+        if (!$().DataTable) {
+            console.warn('Warning - datatables.min.js is not loaded.');
+            return;
+        }
+
+        // Setting datatable defaults
+        $.extend($.fn.dataTable.defaults, {
+            autoWidth: false,
+            columnDefs: [{
+                orderable: false,
+                width: 100,
+                targets: [5]
+            }],
+            dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+            language: {
+                search: '<span>Filter:</span> _INPUT_',
+                searchPlaceholder: 'Type to filter...',
+                lengthMenu: '<span>Show:</span> _MENU_',
+                paginate: { 'first': 'First', 'last': 'Last', 'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;', 'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;' }
+            }
+        });
+
+        // Basic datatable
+        $('.datatable-basic').DataTable({
+            dom: '<"datatable-scroll"t><"datatable-footer"ip>',
+            columnDefs: [{
+                autoWidth: false,
+                orderable: false,
+                // width: 150,
+                targets: [0, 1, 2, 3, 4, 5, 6]
+            }],
+            language: {
+                "processing": "Đang xử lý...",
+                "lengthMenu": "Xem _MENU_ mục",
+                "zeroRecords": "Không tìm thấy dòng nào phù hợp",
+                "info": "Đang xem _START_ đến _END_ trong tổng số _TOTAL_ mục",
+                "infoEmpty": "Đang xem 0 đến 0 trong tổng số 0 mục",
+                "infoFiltered": "(được lọc từ _MAX_ mục)",
+                "search": "Tìm:",
+                "paginate": {
+                    "first": "Đầu",
+                    "previous": "Trước",
+                    "next": "Tiếp",
+                    "last": "Cuối"
+                },
+                "aria": {
+                    "sortAscending": ": Sắp xếp thứ tự tăng dần",
+                    "sortDescending": ": Sắp xếp thứ tự giảm dần"
+                },
+                "autoFill": {
+                    "cancel": "Hủy",
+                    "fill": "Điền tất cả ô với <i>%d<\/i>",
+                    "fillHorizontal": "Điền theo hàng ngang",
+                    "fillVertical": "Điền theo hàng dọc",
+                    "info": "Mẫu thông tin tự động điền"
+                },
+                "buttons": {
+                    "collection": "Chọn lọc <span class=\"ui-button-icon-primary ui-icon ui-icon-triangle-1-s\"><\/span>",
+                    "colvis": "Hiển thị theo cột",
+                    "colvisRestore": "Khôi phục hiển thị",
+                    "copy": "Sao chép",
+                    "copyKeys": "Nhấn Ctrl hoặc u2318 + C để sao chép bảng dữ liệu vào clipboard.<br \/><br \/>Để hủy, click vào thông báo này hoặc nhấn ESC",
+                    "copySuccess": {
+                        "1": "Đã sao chép 1 dòng dữ liệu vào clipboard",
+                        "_": "Đã sao chép %d dòng vào clipboard"
+                    },
+                    "copyTitle": "Sao chép vào clipboard",
+                    "csv": "File CSV",
+                    "excel": "File Excel",
+                    "pageLength": {
+                        "-1": "Xem tất cả các dòng",
+                        "1": "Hiển thị 1 dòng",
+                        "_": "Hiển thị %d dòng"
+                    },
+                    "pdf": "File PDF",
+                    "print": "In ấn"
+                },
+                "emptyTable": "Không có dữ liệu nào để hiển thị",
+                // "infoPostFix": "Đang hiển thị dòng _START_ tới dòng _END_ trong tổng số _TOTAL_ mục",
+                "infoThousands": "`",
+                "loadingRecords": "Loading...",
+                "select": {
+                    "1": "%d dòng đang được chọn",
+                    "_": "%d dòng đang được chọn",
+                    "cells": {
+                        "1": "1 ô đang được chọn",
+                        "_": "%d ô đang được chọn"
+                    },
+                    "columns": {
+                        "1": "1 cột đang được chọn",
+                        "_": "%d cột đang được được chọn"
+                    },
+                    "rows": {
+                        "1": "1 dòng đang được chọn",
+                        "_": "%d dòng đang được chọn"
+                    }
+                },
+                "thousands": "`",
+                "searchBuilder": {
+                    "title": {
+                        "_": "Thiết lập tìm kiếm (%d)",
+                        "0": "Thiết lập tìm kiếm"
+                    },
+                    "button": {
+                        "0": "Thiết lập tìm kiếm",
+                        "_": "Thiết lập tìm kiếm (%d)"
+                    },
+                    "value": "Giá trị",
+                    "clearAll": "Xóa hết",
+                    "condition": "Điều kiện",
+                    "conditions": {
+                        "date": {
+                            "after": "Sau",
+                            "before": "Trước",
+                            "between": "Nằm giữa",
+                            "empty": "Rỗng",
+                            "equals": "Bằng với",
+                            "not": "Không phải",
+                            "notBetween": "Không nằm giữa",
+                            "notEmpty": "Không rỗng"
+                        },
+                        "number": {
+                            "between": "Nằm giữa",
+                            "empty": "Rỗng",
+                            "equals": "Bằng với",
+                            "gt": "Lớn hơn",
+                            "gte": "Lớn hơn hoặc bằng",
+                            "lt": "Nhỏ hơn",
+                            "lte": "Nhỏ hơn hoặc bằng",
+                            "not": "Không phải",
+                            "notBetween": "Không nằm giữa",
+                            "notEmpty": "Không rỗng"
+                        },
+                        "string": {
+                            "contains": "Chứa",
+                            "empty": "Rỗng",
+                            "endsWith": "Kết thúc bằng",
+                            "equals": "Bằng",
+                            "not": "Không phải",
+                            "notEmpty": "Không rỗng",
+                            "startsWith": "Bắt đầu với"
+                        }
+                    },
+                    "logicAnd": "Và",
+                    "logicOr": "Hoặc",
+                    "add": "Thêm điều kiện",
+                    "data": "Dữ liệu",
+                    "deleteTitle": "Xóa quy tắc lọc"
+                },
+                "searchPanes": {
+                    "countFiltered": "{shown} ({total})",
+                    "emptyPanes": "Không có phần tìm kiếm",
+                    "clearMessage": "Xóa hết",
+                    "loadMessage": "Đang load phần tìm kiếm",
+                    "collapse": {
+                        "0": "Phần tìm kiếm",
+                        "_": "Phần tìm kiếm (%d)"
+                    },
+                    "title": "Bộ lọc đang hoạt động - %d",
+                    "count": "{total}"
+                }
+            }
+        });
+
+        // Alternative pagination
+        $('.datatable-pagination').DataTable({
+            pagingType: "simple",
+            language: {
+                paginate: { 'next': $('html').attr('dir') == 'rtl' ? 'Next &larr;' : 'Next &rarr;', 'previous': $('html').attr('dir') == 'rtl' ? '&rarr; Prev' : '&larr; Prev' }
+            }
+        });
+
+        // Datatable with saving state
+        $('.datatable-save-state').DataTable({
+            stateSave: true,
+            language: {
+                search: false
+            }
+        });
+
+        // Scrollable datatable
+        var table = $('.datatable-scroll-y').DataTable({
+            autoWidth: true,
+            scrollY: 300
+        });
+
+        // Resize scrollable table when sidebar width changes
+        $('.sidebar-control').on('click', function () {
+            table.columns.adjust().draw();
+        });
+    };
+    // Card actions
+    // -------------------------
+
+    var _componentRenderTable = function () {
+
+    }
+    // Reload card (uses BlockUI extension)
+    var _cardActionReload = function () {
+        $('.card [data-action=reload]:not(.disabled)').on('click', function (e) {
+            e.preventDefault();
+            var $target = $(this),
+                block = $target.closest('.card');
+
+            // Block card
+            $(block).block({
+                message: '<i class="icon-spinner2 spinner"></i>',
+                overlayCSS: {
+                    backgroundColor: '#fff',
+                    opacity: 0.8,
+                    cursor: 'wait',
+                    'box-shadow': '0 0 0 1px #ddd'
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: 'none'
+                }
+            });
+
+            // For demo purposes
+            window.setTimeout(function () {
+                $(block).unblock();
+            }, 2000);
+        });
+    };
+
+    // Collapse card
+    var _cardActionCollapse = function () {
+        var $cardCollapsedClass = $('.card-collapsed');
+
+        // Hide if collapsed by default
+        $cardCollapsedClass.children('.card-header').nextAll().hide();
+
+        // Rotate icon if collapsed by default
+        $cardCollapsedClass.find('[data-action=collapse]').addClass('rotate-180');
+
+        // Collapse on click
+        $('.card [data-action=collapse]:not(.disabled)').on('click', function (e) {
+            var $target = $(this),
+                slidingSpeed = 150;
+
+            e.preventDefault();
+            $target.parents('.card').toggleClass('card-collapsed');
+            $target.toggleClass('rotate-180');
+            $target.closest('.card').children('.card-header').nextAll().slideToggle(slidingSpeed);
+        });
+    };
+
+    // Remove card
+    var _cardActionRemove = function () {
+        $('.card [data-action=remove]').on('click', function (e) {
+            e.preventDefault();
+            var $target = $(this),
+                slidingSpeed = 150;
+
+            // If not disabled
+            if (!$target.hasClass('disabled')) {
+                $target.closest('.card').slideUp({
+                    duration: slidingSpeed,
+                    start: function () {
+                        $target.addClass('d-block');
+                    },
+                    complete: function () {
+                        $target.remove();
+                    }
+                });
+            }
+        });
+    };
+
+    // Card fullscreen mode
+    var _cardActionFullscreen = function () {
+        $('.card [data-action=fullscreen]').on('click', function (e) {
+            e.preventDefault();
+
+            // Define vars
+            var $target = $(this),
+                cardFullscreen = $target.closest('.card'),
+                overflowHiddenClass = 'overflow-hidden',
+                collapsedClass = 'collapsed-in-fullscreen',
+                fullscreenAttr = 'data-fullscreen';
+
+            // Toggle classes on card
+            cardFullscreen.toggleClass('fixed-top h-100 rounded-0');
+
+            // Configure
+            if (!cardFullscreen.hasClass('fixed-top')) {
+                $target.removeAttr(fullscreenAttr);
+                cardFullscreen.children('.' + collapsedClass).removeClass('show');
+                $('body').removeClass(overflowHiddenClass);
+                $target.siblings('[data-action=move], [data-action=remove], [data-action=collapse]').removeClass('d-none');
+            }
+            else {
+                $target.attr(fullscreenAttr, 'active');
+                cardFullscreen.removeAttr('style').children('.collapse:not(.show)').addClass('show ' + collapsedClass);
+                $('body').addClass(overflowHiddenClass);
+                $target.siblings('[data-action=move], [data-action=remove], [data-action=collapse]').addClass('d-none');
+            }
+        });
+    };
+
+
+    // Misc
+    // -------------------------
+
+    // Dropdown submenus. Trigger on click
+    var _dropdownSubmenu = function () {
+
+        // All parent levels require .dropdown-toggle class
+        $('.dropdown-menu').find('.dropdown-submenu').not('.disabled').find('.dropdown-toggle').on('click', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            // Remove "show" class in all siblings
+            $(this).parent().siblings().removeClass('show').find('.show').removeClass('show');
+
+            // Toggle submenu
+            $(this).parent().toggleClass('show').children('.dropdown-menu').toggleClass('show');
+
+            // Hide all levels when parent dropdown is closed
+            $(this).parents('.show').on('hidden.bs.dropdown', function (e) {
+                $('.dropdown-submenu .show, .dropdown-submenu.show').removeClass('show');
+            });
+        });
+    };
+
+    // Header elements toggler
+    var _headerElements = function () {
+
+        // Toggle visible state of header elements
+        $('.header-elements-toggle').on('click', function (e) {
+            e.preventDefault();
+            $(this).parents('[class*=header-elements-]').find('.header-elements').toggleClass('d-none');
+        });
+
+        // Toggle visible state of footer elements
+        $('.footer-elements-toggle').on('click', function (e) {
+            e.preventDefault();
+            $(this).parents('.card-footer').find('.footer-elements').toggleClass('d-none');
+        });
+    };
+
+    // Unit List page QuanLyDonVi/index
+    var _componentRenderUnitList = function () {
+        const unitList = document.querySelector('#unitList');
+        if (unitList) {
+            const DanhSachDonVi = [
+                {
+                    item: 'Binh chủng thông tin 1',
+                    children: [
+                        {
+                            item: 'Thủ trưởng Bộ Tư Lệnh',
+                            children: []
+                        },
+                        {
+                            item: 'Trường Sĩ quan Thông tin',
+                            children: [
+                                {
+                                    item: 'Ban khoa học Quân sự',
+                                    children: []
+                                },
+                                {
+                                    item: 'Tiểu đoàn 20',
+                                    children: []
+                                },
+                                {
+                                    item: 'Tiểu đoàn 30',
+                                    children: [
+                                        {
+                                            item: 'Ban khoa học Quân sự',
+                                            children: []
+                                        },
+                                        {
+                                            item: 'Tiểu đoàn 20',
+                                            children: []
+                                        },
+                                        {
+                                            item: 'Tiểu đoàn 30',
+                                            children: []
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            item: 'Thủ trưởng Bộ Tư Lệnh 2',
+                            children: []
+                        },
+                    ]
+                },
+                {
+                    item: 'Binh chủng thông tin 2',
+                    children: []
+                },
+                {
+                    item: 'Binh chủng thông tin 3',
+                    children: []
+                },
+            ]
+
+            const ROOT = document.getElementById('root')
+
+            const renderChild = (arr, level) => {
+                let result = '';
+                arr.forEach((item, index) => {
+
+                    result += `
+                <div class="card-group-control  card-group-control-left ${item.children.length ? `` : 'card-hide'}">
+    
+                <div class="card">
+                <div class="card-header header-elements-inline">
+                <h6 class="card-title">
+                    <a class="text-default ${item.children.length === 0 ? 'collapsed' : ''}" data-toggle="collapse" href="#accordion-control-group-${level}-${index}">${item.item}</a>
+                </h6>
+                <div class="header-elements">
+                    <div class="list-icons">
+                    <a href="./update.html" class="text-black text ml-2">
+                        <i class="far fa-edit" data-popup="tooltip" title="Sửa"></i>
+                    </a>
+                    <a href="#" class="text-danger text ml-2">
+                        <i class="far fa-trash-alt sweet_delete" data-popup="tooltip" title="Xóa"></i>
+                    </a>
+                    <a href="#" class="text-black text ml-2">
+                        <i class="icon-users" data-popup="tooltip" title="DS Quân Nhân"></i>
+                    </a>
+                    </div>
+                </div>
+                </div>
+    
+                <div id="accordion-control-group-${level}-${index}" class="collapse show">
+                    ${item.children ? renderChild(item.children, level + 1) : ''}
+                </div>
+            </div>
+            </div>
+            `
+                })
+                return `<div class="card-group-control-child">${result}</div>`;
+            }
+
+
+            const renderItem = (arr, level, itemParent) => {
+                itemParent = ROOT;
+
+                let result = '';
+                arr.forEach((item, index) => {
+
+                    result += `
+                <div class="card-group-control  card-group-control-left ${item.children.length ? '' : 'card-hide'}">
+                    <div class="card">
+                        <div class="card-header header-elements-inline">
+                        <h6 class="card-title">
+                            <a class=" text-default ${item.children.length === 0 ? 'collapsed' : ''}" data-toggle="collapse"  href="#accordion-control-group-${level}-${index}">${item.item}</a>
+                        </h6>
+                        <div class="header-elements">
+                            <div class="list-icons">
+                            <a href="./update.html" class="text-black text ml-2">
+                                <i class="far fa-edit" data-popup="tooltip" title="Sửa"></i>
+                            </a>
+                            <a href="#" class="text-danger text ml-2">
+                                <i class="far fa-trash-alt sweet_delete" data-popup="tooltip" title="Xóa"></i>
+                            </a>
+                            <a href="#" class="text-black text ml-2">
+                                <i class="icon-users" data-popup="tooltip" title="DS Quân Nhân"></i>
+                            </a>
+                            </div>
+                        </div>
+                        </div>
+    
+                        <div id="accordion-control-group-${level}-${index}" class="collapse ${item.children.length > 0 && 'show'}">
+                            ${item.children ? renderChild(item.children, level + 1) : ''}
+                        </div>
+                    </div>
+                </div>
+            `
+                })
+
+                const divParent = document.createElement('div')
+                divParent.insertAdjacentHTML('afterBegin', result)
+                itemParent.appendChild(divParent)
+            }
+
+            renderItem(DanhSachDonVi, 0, ROOT)
+        }
+    }
+
+    //Select2ToTree use "select" choose Unit Tree model
+    // var _componentSel2ToTree = function () {
+    //     var mydata = [
+    //         {
+    //             id: 1,
+    //             text: "USA",
+    //             inc: [
+    //                 {
+    //                     id: 111,
+    //                     text: "California",
+    //                     inc: [
+    //                         {
+    //                             id: 1111,
+    //                             text: "Los Angeles",
+    //                             inc: [
+    //                                 { id: 11111, text: "Hollywood" }
+    //                             ]
+    //                         },
+    //                         {
+    //                             id: 1112,
+    //                             text: "San Diego"
+    //                         }
+    //                     ]
+    //                 },
+    //                 { id: 112, text: "Oregon" }
+    //             ]
+    //         },
+    //         { id: 2, text: "India" },
+    //         { id: 3, text: "VietNam" }
+    //     ];
+
+    //     $(".sel_2").select2ToTree({ treeData: { dataArr: mydata }, maximumSelectionLength: 3 });
+    //     $('.sel_2').on('select2:open', function (e) {
+    //         console.log('select event');
+    //         console.log(this)
+    //         if ($(this).hasClass("select2-hidden-accessible")) {
+    //             document.querySelectorAll('.select2-results__option').forEach(item => console.log(item))
+    //             // $(".select2-results__option").addClass("showme");
+    //         }
+    //     });
+    //     // $(".select2-results__option").addClass("opened");
+    //     // $(".select2-results__option").addClass("showme");
+    //     // End Select2
+    // }
+
+    //Render Object Modal Form show in page 'QuanLyThongTu/create" page (file in footer.html ) )
+    // var _componentRenderObjectModal = function () {
+    //     var dataItemsObject = [
+    //         {
+    //             id: IDRandom(),
+    //             title: 'Chiến sĩ nghĩa vụ',
+    //             gender: 'Nam',
+    //             rangeAge: 'Dưới 36 tuổi'
+    //         },
+    //         {
+    //             id: IDRandom(),
+    //             title: 'Sĩ quản',
+    //             gender: 'Nữ',
+    //             rangeAge: 'Từ 36 tuổi đên 45 tuổi'
+    //         }
+    //     ]
+
+    //     const rootListItem = document.querySelector('#listItemObject');
+
+    //     //Convert data option after select value 'sth'
+    //     //Now using mockData with value: '0', '1', '2'
+    //     //BE need update real data
+    //     const convertValueTitle = (value) => {
+    //         switch (value) {
+    //             case '0':
+    //                 return 'Chiến sĩ nghĩa vụ'
+    //             case '1':
+    //                 return 'Học viên sĩ quan'
+    //             case '2':
+    //                 return 'Sĩ quan'
+    //             case '3':
+    //                 return 'QNCN'
+    //             default:
+    //                 return 'Chiến sĩ nghĩa vụ'
+    //         }
+    //     }
+
+    //     //Render a card object with data get from select
+    //     //FE is hardcode value: 'Giỏi', 'Đạt', 'Khá'. BE update help me , <3
+    //     const renderItemObject = (data) => {
+    //         let result = '';
+
+    //         data.forEach((item, index) => {
+    //             result += `
+    //             <div class="card border-none boxShadow-none" >
+    //                                 <div class="card-header bg-lightblue header-elements-inline border-none py-1 ">
+    //                                     <h5 class="text-500 text-black mb-0">${convertValueTitle(item.title)}</h5>
+    //                                     <div class="header-elements">
+    //                                         <div class="list-icons text-black">
+    //                                             <a id="${item.id}" class="text-danger btnDeleteItem sweet_toast_bottom_right_delete animation" data-animation="fadeOutLeft" data-popup="tooltip" title="Xóa"">
+    //                                                 <i class="icon-trash"></i>
+    //                                             </a>
+    //                                         </div>
+    //                                     </div>
+    //                                 </div>
+    
+    //                                 <div class="card-body pt-2 pb-0 px-0">
+    //                                     <div class="form-group row align-items-center">
+    //                                         <div class="col-lg-4">
+    //                                             <div class="form-group row">
+    //                                                 <label class="col-form-label col-lg-4 text-500 text-right py-1"">Giỏi</label>
+    //                                                 <div class="col-lg-8">
+    //                                                     <input type="text" class="form-control" placeholder="Nhập chỉ tiêu">
+    //                                                 </div>
+    //                                             </div>
+    //                                         </div>
+    
+    //                                         <div class="col-lg-4">
+    //                                             <div class="form-group row">
+    //                                                 <label class="col-form-label col-lg-4 text-500 text-right py-1"">Khá</label>
+    //                                                 <div class="col-lg-8">
+    //                                                     <input type="text" class="form-control" placeholder="Nhập chỉ tiêu">
+    //                                                 </div>
+    //                                             </div>
+    //                                         </div>
+    
+    //                                         <div class="col-lg-4">
+    //                                             <div class="form-group row">
+    //                                                 <label class="col-form-label col-lg-4 text-500 text-right py-1"">Đạt</label>
+    //                                                 <div class="col-lg-8">
+    //                                                     <input type="text" class="form-control" placeholder="Nhập chỉ tiêu">
+    //                                                 </div>
+    //                                             </div>
+    //                                         </div>
+    //                                     </div>
+    //                                 </div>
+    //                             </div>
+    //             `;
+    //         })
+
+    //         rootListItem.innerHTML = result;
+    //         const listBtnDelete = document.querySelectorAll('.btnDeleteItem');
+    //         for (let index = 0; index < listBtnDelete.length; index++) {
+    //             const element = listBtnDelete[index];
+    //             element.onclick = function () {
+    //                 const ID = element.id;
+    //                 // element.classList.add('animated', 'fadeIn')
+    //                 setTimeout(() => {
+    //                     let newList = dataItemsObject.filter(item => item.id !== ID)
+    //                     dataItemsObject = [...newList]
+    //                     renderItemObject(dataItemsObject);
+    //                 }, 500);
+
+    //             }
+    //         }
+    //     }
+
+    //     renderItemObject(dataItemsObject);
+
+    //     //Update data and re-render Card Object Modal
+    //     function getModalValue(data) {
+    //         dataItemsObject.unshift(data)
+    //         renderItemObject(dataItemsObject)
+    //     }
+
+    //     //After click "Thêm"  have id "addItem", get value from input, select
+    //     document.getElementById("addItem").onclick = function () {
+    //         const id = IDRandom();
+    //         const title = document.getElementById("selectUnit").value
+    //         const gender = document.getElementById("selectGender").value
+    //         const age = document.getElementById("selectAge").value
+
+    //         const data = { id: id, title: title, gender: gender, age: age }
+    //         getModalValue(data)
+    //     }
+    // }
+
+    //Render Standar Form show in page 'QuanLyThongTu/create"
+    var _componentRenderStandar = function () {
+        const standardPage = document.querySelector('#standardPage')
+
+        if (standardPage) {
+
+            //setup mockdata
+            //BE need update real data here
+            const listStandardMale = [
+                {
+                    id: IDRandom(),
+                    title: 'Tố chất sức nhanh Male ',
+                    children: []
+                },
+                {
+                    id: IDRandom(),
+                    title: 'Tố chất sức mạnh Male ',
+                    children: []
+                },
+            ];
+
+            const listStandardMaleUp = [];
+
+            const listStandardFamale = [
+                {
+                    id: IDRandom(),
+                    title: 'Tố chất sức nhanh',
+                    children: []
+                },
+                {
+                    id: IDRandom(),
+                    title: 'Tố chất sức mạnh',
+                    children: []
+                },
+            ];
+
+            //setup mockdata for unit: giờ, phút, giây
+            //BE need update here
+            const listUnit = [
+                {
+                    id: 1,
+                    valueU: '1',
+                    nameU: 'Giờ '
+                },
+                {
+                    id: 2,
+                    valueU: '2',
+                    nameU: 'Phút '
+                },
+                {
+                    id: 3,
+                    valueU: '3',
+                    nameU: 'Giây '
+                },
+                {
+                    id: 4,
+                    valueU: '4',
+                    nameU: 'Lần '
+                },
+                {
+                    id: 5,
+                    valueU: '5',
+                    nameU: 'Cái '
+                },
+            ]
+
+            const rootStandardMale = document.querySelector('#rootStandardMale')
+            const rootStandardMaleUp = document.querySelector('#rootStandardMaleUp')
+            const rootStandardFamale = document.querySelector('#rootStandardFamale')
+
+            //Check arrayParent, rootGroupStandard from dataStandard (data-standard)
+            function checkDataStandard(dataStandard) {
+                switch (dataStandard) {
+                    case 'male':
+                        return { arrayParent: listStandardMale, rootGroupStandard: rootStandardMale }
+                    case 'maleUp':
+                        return { arrayParent: listStandardMaleUp, rootGroupStandard: rootStandardMaleUp }
+
+                    case 'famale':
+                        return { arrayParent: listStandardFamale, rootGroupStandard: rootStandardFamale }
+                    default:
+                        return { arrayParent: [], rootGroupStandard: '' }
+                }
+            }
+
+            //Function Render Element Standard
+            function renderElementStandard(arr) {
+                let result = '';
+                arr.forEach((item, index) => {
+                    result += `
+                    <div class="form-group row align-items-center form-group-element mb-2" id=${item.id}>
+                    <div class="col-lg-5">
+                      <div class="input-group">
+                        <input type="text" class="form-control" disabled placeholder="Nhập tên nội dung" value="${item.name}">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <select class="form-control" disabled>
+                        <optgroup label="Chọn đơn vị tính">
+                        ${listUnit.map(itemU => {
+                        return `<option value="${itemU.valueU}" ${itemU.valueU == item.value ? 'selected' : ''} >${itemU.nameU} </option>`
+                    })}
+                        </optgroup>
+                      </select>
+                    </div>
+                    <div class="col-lg-1">
+                      <a href="javascript:void(0)"
+                        class="btn btn-outline bg-slate-600 text-slate-600 border-slate-600 legitRipple w-100 editElement"
+                        data-popup="tooltip" title="Sửa" disabled>
+                        <i class="icon-pencil7"></i>
+                      </a>
+                    </div>
+                    <div class="col-lg-1">
+                      <a href="javascript:void(0)" class="btn btn-outline-danger legitRipple w-100 removeElement"
+                        data-popup="tooltip" title="Xóa">
+                        <i class="icon-trash"></i>
+                      </a>
+                    </div>
+                    <div class="col-lg-1">
+                      <a href="javascript:void(0)"
+                        class="btn btn-outline bg-slate-600 text-slate-600 border-slate-600 legitRipple w-100"
+                        data-popup="tooltip" title="Danh sách đối tượng" data-toggle="modal"
+                        data-target="#modal_standard">
+                        <i class="icon-users4"></i>
+                      </a>
+                    </div>
+                  </div>
+                  `
+                })
+
+                return result
+            }
+
+            //Function Render Standard
+            function renderStandard(arr, root, dataStandar) {
+                let result = "";
+                arr.forEach((item, index) => {
+                    result += `
+                    <div id=${item.id} class="card border-none boxShadow-none mb-0" data-standard=${dataStandar}>
+                        <div class="card-header bg-lightblue header-elements-inline border-none py-1 ">
+                            <h5 data-editable class="text-500 text-black mb-0">${item.title}</h5>
+                            <div class="list-icons">
+                            <div class="dropdown">
+                                <a href="#" class="list-icons-item" data-toggle="dropdown">
+                                <i class="icon-menu9 text-black"></i>
+                                </a>
+        
+                                <div class="dropdown-menu dropdown-menu-right">
+                                <a href="#" class="dropdown-item btnUpdate"><i class="icon-pencil7"></i> Sửa</a>
+                                <a href="#" class="dropdown-item btnDelete text-danger" ><i class="icon-trash"></i>
+                                    Xóa</a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+        
+                        <div class="card-body pt-2 pb-0 px-0">
+                            <div class="form-group row align-items-center mb-2">
+                            <div class="col-lg-8">
+                                <div class="input-group">
+                                <input type="text" class="form-control" name="nStandard" placeholder="Nhập tên nội dung">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <select class="form-control" name="sStandard">
+                                <optgroup label="Chọn đơn vị tính">
+                                ${listUnit.map(itemU => {
+                        return `<option value="${itemU.valueU}">${itemU.nameU} </option>`
+                    })}
+                                </optgroup>
+                                </select>
+                            </div>
+                            <div class="col-lg-1">
+                                <a  href="javascript:void(0)"  class="btn bg-primary-color legitRipple w-100 addElement"
+                                data-popup="tooltip" title="Danh sách đối tượng">
+                                <i class="icon-plus3"></i>
+                                </a>
+                            </div>
+                            </div>
+                            ${item.children.length > 0 ? renderElementStandard(item.children) : ''}
+        
+                        </div>
+                        </div>
+                    `
+                });
+
+                root.innerHTML = result;
+
+                //btnUpdate update text after click
+                const listBtnUpdate = document.querySelectorAll('.btnUpdate');
+                for (let index = 0; index < listBtnUpdate.length; index++) {
+                    const element = listBtnUpdate[index];
+                    element.onclick = function (e) {
+                        e.preventDefault();
+                        var $el = this.closest('.card').querySelector('h5');
+
+                        var $input = document.createElement('input');
+                        $input.setAttribute('type', 'text');
+                        $input.classList.add('form-control', 'bg-white', 'w-50');
+                        $input.value = $el.textContent;
+
+                        $el.replaceWith($input);
+                        $input.focus();
+                        var save = function () {
+                            var $h5 = document.createElement('h5');
+                            $h5.classList.add('text-500', 'text-black', 'mb-0');
+                            $h5.textContent = $input.value
+                            $input.replaceWith($h5);
+
+                            const elementCard = element.closest('.card');
+                            const dataStandard = elementCard.dataset.standard;
+                            const ID = elementCard.id
+
+                            const { arrayParent } = checkDataStandard(dataStandard)
+                            const indexItem = arrayParent.findIndex(item => item.id === ID)
+
+                            arrayParent[indexItem] = { ...arrayParent[indexItem], title: $input.value }
+                        };
+
+                        $input.addEventListener('blur', save)
+                    }
+
+                }
+
+                //btnDelete delete text after click
+                const listbtnDelete = document.querySelectorAll('.btnDelete');
+                for (let index = 0; index < listbtnDelete.length; index++) {
+                    const element = listbtnDelete[index];
+                    element.onclick = function (e) {
+                        e.preventDefault();
+                        const elementCard = element.closest('.card');
+                        const dataStandard = elementCard.dataset.standard;
+                        const ID = elementCard.id
+
+                        const { arrayParent, rootGroupStandard } = checkDataStandard(dataStandard)
+                        const indexItem = arrayParent.findIndex(item => item.id === ID)
+
+                        arrayParent.splice(indexItem, 1)
+
+                        setTimeout(() => {
+                            renderStandard(arrayParent, rootGroupStandard, dataStandard);
+                        }, 500);
+
+                    }
+
+                }
+
+                // addElement Standard
+                const elementStandard = document.querySelectorAll('.addElement');
+                for (let index = 0; index < elementStandard.length; index++) {
+                    const element = elementStandard[index];
+                    element.onclick = function () {
+                        const elementCard = element.closest('.card');
+                        const dataStandard = elementCard.dataset.standard;
+                        const ID = elementCard.id
+
+                        const { arrayParent, rootGroupStandard } = checkDataStandard(dataStandard)
+                        const indexItem = arrayParent.findIndex(item => item.id === ID)
+
+                        const selectValue = elementCard.querySelector("select[name='sStandard']").value;
+                        const nameValue = elementCard.querySelector("input[name='nStandard']").value;
+
+                        if (!nameValue || nameValue.trim() === '') {
+                            alert('Cần nhập tên nhóm tiêu chuẩn')
+                        } else {
+                            const childrendValue = {
+                                id: IDRandom(),
+                                name: nameValue.trim(),
+                                value: selectValue,
+                            }
+
+                            arrayParent[indexItem].children.unshift(childrendValue)
+                            renderStandard(arrayParent, rootGroupStandard, dataStandard);
+                        }
+                    }
+                }
+
+                // removeElement Standard
+                const removeElement = document.querySelectorAll('.removeElement');
+                for (let index = 0; index < removeElement.length; index++) {
+                    const element = removeElement[index];
+                    element.onclick = function (e) {
+                        e.preventDefault();
+                        const elementCard = element.closest('.card');
+                        const dataStandard = elementCard.dataset.standard;
+                        const ID = elementCard.id
+                        const IdElement = element.closest('.form-group-element').id
+
+                        const { arrayParent, rootGroupStandard } = checkDataStandard(dataStandard)
+                        const indexItem = arrayParent.findIndex(item => item.id === ID)
+
+                        const indexElementItem = arrayParent[indexItem].children.findIndex(item => item.id === IdElement)
+
+                        arrayParent[indexItem].children.splice(indexElementItem, 1)
+                        renderStandard(arrayParent, rootGroupStandard, dataStandard);
+                    }
+                }
+
+                // EditElement Standard
+                const editElement = document.querySelectorAll('.editElement');
+                for (let index = 0; index < editElement.length; index++) {
+                    const element = editElement[index];
+                    element.onclick = function (e) {
+                        e.preventDefault();
+                        element.classList.toggle('activeSuccess');
+                        const elementIcon = element.querySelector('i');
+
+                        const formGroupElement = element.closest('.form-group-element');
+                        const inputGroupElement = formGroupElement.querySelector("input");
+                        const selectGroupElement = formGroupElement.querySelector("select");
+
+
+                        if (element.className.includes('activeSuccess')) {
+                            elementIcon.classList.add('icon-checkmark3')
+                            inputGroupElement.removeAttribute('disabled')
+                            selectGroupElement.removeAttribute('disabled')
+                            inputGroupElement.focus()
+
+                        } else {
+                            const elementCard = element.closest('.card')
+                            const dataStandard = elementCard.dataset.standard
+                            const ID = elementCard.id
+                            const IdElement = formGroupElement.id
+
+                            const { arrayParent } = checkDataStandard(dataStandard)
+                            const indexItem = arrayParent.findIndex(item => item.id === ID)
+                            const indexElementItem = arrayParent[indexItem].children.findIndex(item => item.id === IdElement)
+
+                            const newData = {
+                                name: inputGroupElement.value,
+                                value: selectGroupElement.value
+                            }
+
+                            arrayParent[indexItem].children[indexElementItem] = {
+                                ...arrayParent[indexItem].children[indexElementItem],
+                                ...newData
+                            }
+
+                            elementIcon.classList.remove('icon-checkmark3')
+                            inputGroupElement.setAttribute('disabled', '')
+                            selectGroupElement.setAttribute('disabled', '')
+
+                            console.log(listStandardMale)
+                            console.log(listStandardMaleUp)
+                            console.log(listStandardFamale)
+                        }
+
+                    }
+                }
+
+
+
+            }
+
+            renderStandard(listStandardMale, rootStandardMale, 'male')
+            renderStandard(listStandardMaleUp, rootStandardMaleUp, 'maleUp')
+            renderStandard(listStandardFamale, rootStandardFamale, 'famale')
+
+            //Trigger focus Modal Group Standard  afeer show
+            const modalGroupStandard = document.querySelector('#modal_group_standard')
+            const formGroupStandard = modalGroupStandard.querySelector('#form_group_standard')
+
+            $('#modal_group_standard').on('shown.bs.modal', function () {
+                $('input[name="nameStandard"]').trigger('focus');
+            })
+
+            //Submit form addGroupStandard
+            const addGroupStandard = document.querySelectorAll('.addGroupStandard')
+            for (let index = 0; index < addGroupStandard.length; index++) {
+                const element = addGroupStandard[index];
+                element.onclick = function () {
+                    const dataStandard = element.dataset.standard || 'male';
+                    const { arrayParent, rootGroupStandard } = checkDataStandard(dataStandard)
+
+                    formGroupStandard.onsubmit = function (e) {
+                        e.preventDefault();
+
+                        const value = e.target.nameStandard.value;
+                        if (!value || value.trim() === '') {
+                            alert('Cần nhập tên nhóm tiêu chuẩn')
+                        } else {
+                            const data = {
+                                id: IDRandom(),
+                                title: value,
+                                children: []
+                            }
+
+                            arrayParent.unshift(data);
+                            renderStandard(arrayParent, rootGroupStandard, dataStandard);
+                            $('input[name="nameStandard"]').val('');
+                            $('#modal_group_standard').modal('hide');
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    //Check edit inside table from page 'QuanLyThongTu/detail'
+    var _componentElementCustomTable = function () {
+
+        const elementCustomTable = document.querySelector('.customTable')
+        if (elementCustomTable) {
+            function editableTable(listEditableActive) {
+                // const listEditableActive = document.querySelectorAll('.editable.active');
+                for (let index = 0; index < listEditableActive.length; index++) {
+                    const element = listEditableActive[index];
+
+                    element.onclick = function () {
+                        listEditableActive.forEach(item => item.classList.remove('selected'))
+                        console.log(element)
+                        this.classList.add('selected')
+
+                        var $input = document.createElement('input');
+                        $input.setAttribute('type', 'text');
+                        $input.value = this.textContent;
+
+                        this.textContent = '';
+                        this.appendChild($input)
+
+                        $input.focus();
+                        var save = function () {
+                            element.innerHTML = $input.value;
+                        };
+
+
+                        $input.addEventListener('blur', save)
+                        $input.addEventListener('keydown', event => {
+                            if (event.keyCode === 13) {
+                                save()
+                            }
+                        })
+                    }
+                }
+            }
+
+            const btnUpdateDetail = document.querySelector('.btnUpdateDetail');
+            var isCheckUpdateDetail = false;
+            btnUpdateDetail.onclick = function (e) {
+                const listEditable = document.querySelectorAll('.editable');
+                this.classList.toggle('bg-success')
+                e.preventDefault();
+                if (isCheckUpdateDetail) {
+                    this.textContent = "Sửa";
+                    listEditable.forEach(item => {
+                        item.classList.remove('active')
+                        item.classList.remove('selected')
+                    })
+
+                    for (let index = 0; index < listEditable.length; index++) {
+                        const element = listEditable[index];
+                        element.onclick = function () {
+                            console.log('Disable')
+                        }
+                    }
+                    isCheckUpdateDetail = !isCheckUpdateDetail
+
+                } else {
+                    this.textContent = "Lưu";
+                    listEditable.forEach(item => item.classList.add('active'))
+                    const listEditableActive = document.querySelectorAll('.editable.active');
+
+                    editableTable(listEditableActive)
+                    isCheckUpdateDetail = !isCheckUpdateDetail
+                }
+            }
+        }
+    }
+
+    // Basic pie chart
+    var _scatterPieBasicLightExample = function () {
+        if (typeof echarts == 'undefined') {
+            console.warn('Warning - echarts.min.js is not loaded.');
+            return;
+        }
+
+        // Define element
+        var pie_basic_element = document.getElementById('pie_basic');
+
+
+        //
+        // Charts configuration
+        //
+
+        if (pie_basic_element) {
+
+            // Initialize chart
+            var pie_basic = echarts.init(pie_basic_element);
+
+
+            //
+            // Chart config
+            //
+
+            // Options
+            pie_basic.setOption({
+
+                // Colors
+                color: [
+                    '#2ec7c9', '#5ab1ef', '#ffb980', '#d87a80', '#b6a2de',
+                    '#8d98b3', '#e5cf0d', '#97b552', '#95706d', '#dc69aa',
+                    '#07a2a4', '#9a7fd1', '#588dd5', '#f5994e', '#c05050',
+                    '#59678c', '#c9ab00', '#7eb00a', '#6f5553', '#c14089'
+                ],
+
+                // Global text styles
+                textStyle: {
+                    fontFamily: 'Roboto, Arial, Verdana, sans-serif',
+                    fontSize: 13
+                },
+
+                // Add title
+                // title: {
+                //     text: 'Browser popularity',
+                //     subtext: 'Open source information',
+                //     left: 'center',
+                //     textStyle: {
+                //         fontSize: 17,
+                //         fontWeight: 500
+                //     },
+                //     subtextStyle: {
+                //         fontSize: 12
+                //     }
+                // },
+
+                // Add tooltip
+                tooltip: {
+                    trigger: 'item',
+                    backgroundColor: 'rgba(0,0,0,0.75)',
+                    padding: [10, 15],
+                    textStyle: {
+                        fontSize: 13,
+                        fontFamily: 'Roboto, sans-serif'
+                    },
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+
+                // Add legend
+                legend: {
+                    orient: 'horizontal',
+                    left: 'center',
+                    top: 'bottom',
+                    data: ['Giỏi', 'Khá', 'Đạt', 'Không Đạt'],
+                    itemHeight: 35,
+                    itemWidth: 35,
+                    borderRadius: 35,
+                    paddingTop: 35
+                },
+
+                // Add series
+                series: [{
+                    name: 'Xếp loại',
+                    type: 'pie',
+                    radius: '70%',
+                    center: ['50%', '45%'],
+                    itemStyle: {
+                        normal: {
+                            borderWidth: 1,
+                            borderColor: '#fff'
+                        }
+                    },
+                    data: [
+                        {
+                            value: 335,
+                            name: 'Giỏi',
+                            label: {
+                                show: true,
+                                position: 'top',
+                                color: "black",
+                                fontSize: 12,
+                                formatter: function (d) {
+                                    return d.name + ' ' + d.value;
+                                }
+                            }
+                        },
+                        {
+                            value: 310,
+                            name: 'Khá',
+                            label: {
+                                show: true,
+                                position: 'top',
+                                color: "black",
+                                fontSize: 12,
+                                formatter: function (d) {
+                                    return d.name + ' ' + d.value;
+                                }
+                            }
+                        },
+                        {
+                            value: 234,
+                            name: 'Đạt',
+                            label: {
+                                show: true,
+                                position: 'top',
+                                color: "black",
+                                fontSize: 12,
+                                formatter: function (d) {
+                                    return d.name + ' ' + d.value;
+                                }
+                            }
+                        },
+                        {
+                            value: 135,
+                            name: 'Không Đạt',
+                            label: {
+                                show: true,
+                                position: 'top',
+                                color: "black",
+                                fontSize: 12,
+                                formatter: function (d) {
+                                    return d.name + ' ' + d.value;
+                                }
+                            }
+                        },
+                    ]
+                }]
+            });
+        }
+
+
+        //
+        // Resize charts
+        //
+
+        // Resize function
+        var triggerChartResize = function () {
+            pie_basic_element && pie_basic.resize();
+        };
+
+        // On sidebar width change
+        var sidebarToggle = document.querySelector('.sidebar-control');
+        sidebarToggle && sidebarToggle.addEventListener('click', triggerChartResize);
+
+        // On window resize
+        var resizeCharts;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeCharts);
+            resizeCharts = setTimeout(function () {
+                triggerChartResize();
+            }, 200);
+        });
+    };
+
+    //
+    // Return objects assigned to module
+    //
+
+    return {
+
+        initPie: function () {
+            _scatterPieBasicLightExample();
+        },
+
+        // Disable transitions before page is fully loaded
+        initBeforeLoad: function () {
+            _transitionsDisabled();
+        },
+
+        // Enable transitions when page is fully loaded
+        initAfterLoad: function () {
+            _transitionsEnabled();
+        },
+
+        // Initialize all sidebars
+        initSidebars: function () {
+
+            // On desktop
+            _sidebarMainResize();
+            _sidebarMainToggle();
+            _sidebarSecondaryToggle();
+            _sidebarRightMainToggle();
+            _sidebarRightMainHide();
+            _sidebarRightToggle();
+            _sidebarRightSecondaryToggle();
+            _sidebarComponentToggle();
+
+            // On mobile
+            _sidebarMobileFullscreen();
+            _sidebarMobileMainToggle();
+            _sidebarMobileSecondaryToggle();
+            _sidebarMobileRightToggle();
+            _sidebarMobileComponentToggle();
+        },
+
+        // Initialize all navigations
+        initNavigations: function () {
+            _navigationSidebar();
+            _navigationNavbar();
+        },
+
+        // Initialize all components
+        initComponents: function () {
+            _componentTooltip();
+            _componentPopover();
+            _componentSweetAlert();
+            // _componentSelect2Tree();
+            _componentAnimationCSS();
+            _componentDatatableBasic();
+            _componentPickadate();
+            _componentRenderTable();
+            _componentFileUpload();
+            _componentUniform();
+            _componentMultiselect();
+            _componentRenderUnitList();
+            // _componentSel2ToTree();
+            // _componentRenderObjectModal();
+            _componentRenderStandar();
+            // _componentElementCustomTable();
+
+
+        },
+
+        // Initialize all card actions
+        initCardActions: function () {
+            _cardActionReload();
+            _cardActionCollapse();
+            _cardActionRemove();
+            _cardActionFullscreen();
+        },
+
+        // Dropdown submenu
+        initDropdownSubmenu: function () {
+            _dropdownSubmenu();
+        },
+
+        initHeaderElementsToggle: function () {
+            _headerElements();
+        },
+
+        // Initialize core
+        initCore: function () {
+            App.initSidebars();
+            App.initNavigations();
+            App.initComponents();
+            App.initCardActions();
+            App.initDropdownSubmenu();
+            App.initHeaderElementsToggle();
+        }
+    }
+}();
+
+
+// Initialize module
+// ------------------------------
+
+// When content is loaded
+document.addEventListener('DOMContentLoaded', function () {
+    App.initBeforeLoad();
+    App.initCore();
+    App.initComponents();
+
+    //Submit form form_group_standard
+});
+
+// When page is fully loaded
+window.addEventListener('load', function () {
+    App.initAfterLoad();
+    App.initPie();
+
+});

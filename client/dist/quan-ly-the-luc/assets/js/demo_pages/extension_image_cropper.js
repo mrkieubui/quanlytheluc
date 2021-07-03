@@ -1,1 +1,344 @@
-var ImageCropper={init:function(){!function(){if($().cropper){$(".crop-basic").cropper(),$(".crop-modal").cropper({modal:!1}),$(".crop-not-movable").cropper({cropBoxMovable:!1,data:{x:75,y:50,width:350,height:250}}),$(".crop-not-resizable").cropper({cropBoxResizable:!1,data:{x:10,y:10,width:300,height:300}}),$(".crop-auto").cropper({autoCrop:!1}),$(".crop-drag").cropper({movable:!1}),$(".crop-16-9").cropper({aspectRatio:16/9}),$(".crop-4-3").cropper({aspectRatio:4/3}),$(".crop-min").cropper({minCropBoxWidth:150,minCropBoxHeight:150}),$(".crop-zoomable").cropper({zoomable:!1});var a=$(".cropper"),e=$("#demo-cropper-image"),o=$("#download"),t=$("#dataX"),r=$("#dataY"),c=$("#dataHeight"),n=$("#dataWidth"),p=$("#dataScaleX"),i=$("#dataScaleY"),d={aspectRatio:1,preview:".preview",crop:function(a){t.val(Math.round(a.detail.x)),r.val(Math.round(a.detail.y)),c.val(Math.round(a.detail.height)),n.val(Math.round(a.detail.width)),p.val(a.detail.scaleX),i.val(a.detail.scaleY)}};a.cropper(d),$(".demo-cropper-toolbar").on("click","[data-method]",function(){var a,t,r=$(this).data();if(e.data("cropper")&&r.method)switch(void 0!==(r=$.extend({},r)).target&&(a=$(r.target),void 0===r.option&&(r.option=JSON.parse(a.val()))),t=e.cropper(r.method,r.option,r.secondOption),r.method){case"scaleX":case"scaleY":$(this).data("option",-r.option);break;case"getCroppedCanvas":t&&($("#getCroppedCanvasModal").modal().find(".modal-body").html(t),o.attr("href",t.toDataURL("image/jpeg")))}}),$(".demo-cropper-ratio").on("change","input[type=radio]",function(){d[$(this).attr("name")]=$(this).val(),e.cropper("destroy").cropper(d)});var l=document.querySelector(".clear-crop-switch"),s=new Switchery(l);l.onchange=function(){l.checked?(a.cropper("crop"),g.enable(),m.enable()):(a.cropper("clear"),g.disable(),m.disable())};var h=document.querySelector(".enable-disable-switch"),g=new Switchery(h);h.onchange=function(){h.checked?(a.cropper("enable"),s.enable(),m.enable()):(a.cropper("disable"),s.disable(),m.disable())};var v=document.querySelector(".destroy-create-switch"),m=new Switchery(v);v.onchange=function(){v.checked?(a.cropper({aspectRatio:1,preview:".preview",data:{x:208,y:22}}),s.enable(),g.enable()):(a.cropper("destroy"),s.disable(),g.disable())},$("#getData").on("click",function(){$("#showData1").val(JSON.stringify(a.cropper("getData")))}),$("#setData").on("click",function(){a.cropper("setData",{x:291,y:86,width:158,height:158}),$("#showData1").val("Image data has been changed")}),$("#getContainerData").on("click",function(){$("#showData2").val(JSON.stringify(a.cropper("getContainerData")))}),$("#getImageData").on("click",function(){$("#showData2").val(JSON.stringify(a.cropper("getImageData")))}),$("#getCanvasData").on("click",function(){$("#showData3").val(JSON.stringify(a.cropper("getCanvasData")))}),$("#setCanvasData").on("click",function(){a.cropper("setCanvasData",{left:-50,top:0,width:750,height:750}),$("#showData3").val("Canvas data has been changed")}),$("#getCropBoxData").on("click",function(){$("#showData4").val(JSON.stringify(a.cropper("getCropBoxData")))}),$("#setCropBoxData").on("click",function(){a.cropper("setCropBoxData",{left:395,top:68,width:183,height:183}),$("#showData4").val("Crop box data has been changed")})}else console.warn("Warning - cropper.min.js is not loaded.")}()}};document.addEventListener("DOMContentLoaded",function(){ImageCropper.init()});
+/* ------------------------------------------------------------------------------
+ *
+ *  # Image Cropper
+ *
+ *  Demo JS code for extension_image_cropper.html page
+ *
+ * ---------------------------------------------------------------------------- */
+
+
+// Setup module
+// ------------------------------
+
+var ImageCropper = function() {
+
+
+    //
+    // Setup module components
+    //
+
+    // Image cropper
+    var _componentImageCropper = function() {
+        if (!$().cropper) {
+            console.warn('Warning - cropper.min.js is not loaded.');
+            return;
+        }
+
+        // Default initialization
+        $('.crop-basic').cropper();
+
+        // Hidden overlay
+        $('.crop-modal').cropper({
+            modal: false
+        });
+
+        // Fixed position
+        $('.crop-not-movable').cropper({
+            cropBoxMovable: false,
+            data: {
+                x: 75,
+                y: 50,
+                width: 350,
+                height: 250
+            }
+        });
+
+        // Fixed size
+        $('.crop-not-resizable').cropper({
+            cropBoxResizable: false,
+            data: {
+                x: 10,
+                y: 10,
+                width: 300,
+                height: 300
+            }
+        });
+
+        // Disabled autocrop
+        $('.crop-auto').cropper({
+            autoCrop: false 
+        });
+
+        // Disabled drag
+        $('.crop-drag').cropper({
+            movable: false 
+        });
+
+        // 16:9 ratio
+        $('.crop-16-9').cropper({
+            aspectRatio: 16/9
+        });
+
+        // 4:3 ratio
+        $('.crop-4-3').cropper({
+            aspectRatio: 4/3
+        });
+
+        // Minimum zone size
+        $('.crop-min').cropper({
+            minCropBoxWidth: 150,
+            minCropBoxHeight: 150
+        });
+
+        // Disabled zoom
+        $('.crop-zoomable').cropper({
+            zoomable: false
+        });
+
+
+        // Demo cropper
+        // ------------------------------
+
+        // Define variables
+        var $cropper = $('.cropper'),
+            $image = $('#demo-cropper-image'),
+            $download = $('#download'),
+            $dataX = $('#dataX'),
+            $dataY = $('#dataY'),
+            $dataHeight = $('#dataHeight'),
+            $dataWidth = $('#dataWidth'),
+            $dataScaleX = $('#dataScaleX'),
+            $dataScaleY = $('#dataScaleY'),
+            options = {
+                aspectRatio: 1,
+                preview: '.preview',
+                crop: function (e) {
+                    $dataX.val(Math.round(e.detail.x));
+                    $dataY.val(Math.round(e.detail.y));
+                    $dataHeight.val(Math.round(e.detail.height));
+                    $dataWidth.val(Math.round(e.detail.width));
+                    $dataScaleX.val(e.detail.scaleX);
+                    $dataScaleY.val(e.detail.scaleY);
+                }
+            };
+
+        // Initialize cropper with options
+        $cropper.cropper(options);
+
+
+        //
+        // Toolbar
+        //
+
+        $('.demo-cropper-toolbar').on('click', '[data-method]', function () {
+            var $this = $(this),
+                data = $this.data(),
+                $target,
+                result;
+
+            if ($image.data('cropper') && data.method) {
+                data = $.extend({}, data);
+
+                if (typeof data.target !== 'undefined') {
+                    $target = $(data.target);
+
+                    if (typeof data.option === 'undefined') {
+                        data.option = JSON.parse($target.val());
+                    }
+                }
+
+                result = $image.cropper(data.method, data.option, data.secondOption);
+
+                switch (data.method) {
+                    case 'scaleX':
+                    case 'scaleY':
+                        $(this).data('option', -data.option);
+                    break;
+
+                    case 'getCroppedCanvas':
+                        if (result) {
+
+                            // Init modal
+                            $('#getCroppedCanvasModal').modal().find('.modal-body').html(result);
+
+                            // Download image
+                            $download.attr('href', result.toDataURL('image/jpeg'));
+                        }
+                    break;
+                }
+            }
+        });
+
+
+        //
+        // Aspect ratio
+        //
+
+        $('.demo-cropper-ratio').on('change', 'input[type=radio]', function () {
+            options[$(this).attr('name')] = $(this).val();
+            $image.cropper('destroy').cropper(options);
+        });
+
+
+        //
+        // Switching modes
+        //
+
+        // Crop and clear
+        var cropClear = document.querySelector('.clear-crop-switch');
+        var cropClearInit = new Switchery(cropClear);
+        cropClear.onchange = function() {
+            if(cropClear.checked) {
+
+                // Crop mode
+                $cropper.cropper('crop');
+
+                // Enable other options
+                enableDisableInit.enable();
+                destroyCreateInit.enable();
+            }
+            else {
+
+                // Clear move
+                $cropper.cropper('clear');
+
+                // Disable other options
+                enableDisableInit.disable();
+                destroyCreateInit.disable();
+            }
+        };
+
+        // Enable and disable
+        var enableDisable = document.querySelector('.enable-disable-switch');
+        var enableDisableInit = new Switchery(enableDisable);
+        enableDisable.onchange = function() {
+            if(enableDisable.checked) {
+
+                // Enable cropper
+                $cropper.cropper('enable');
+
+                // Enable other options
+                cropClearInit.enable();
+                destroyCreateInit.enable();
+            }
+            else {
+
+                // Disable cropper
+                $cropper.cropper('disable');
+
+                // Disable other options
+                cropClearInit.disable();
+                destroyCreateInit.disable();
+            }
+        };
+
+        // Destroy and create
+        var destroyCreate = document.querySelector('.destroy-create-switch');
+        var destroyCreateInit = new Switchery(destroyCreate);
+        destroyCreate.onchange = function() {
+            if(destroyCreate.checked) {
+
+                // Initialize again
+                $cropper.cropper({
+                    aspectRatio: 1,
+                    preview: '.preview',
+                    data: {
+                        x: 208,
+                        y: 22
+                    }
+                });
+
+                // Enable other options
+                cropClearInit.enable();
+                enableDisableInit.enable();
+            }
+            else {
+
+                // Destroy cropper
+                $cropper.cropper('destroy');
+                
+                // Disable other options
+                cropClearInit.disable();
+                enableDisableInit.disable();
+            }
+        };
+
+
+        //
+        // Methods
+        //
+
+        // Get data
+        $('#getData').on('click', function() {
+            $('#showData1').val(JSON.stringify($cropper.cropper('getData')));
+        });
+
+        // Set data
+        $('#setData').on('click', function() {
+            $cropper.cropper('setData', {
+                x: 291,
+                y: 86,
+                width: 158,
+                height: 158
+            });
+
+            $('#showData1').val('Image data has been changed');
+        });
+
+
+        // Get container data
+        $('#getContainerData').on('click', function() {
+            $('#showData2').val(JSON.stringify($cropper.cropper('getContainerData')));
+        });
+
+        // Get image data
+        $('#getImageData').on('click', function() {
+            $('#showData2').val(JSON.stringify($cropper.cropper('getImageData')));
+        });
+
+
+        // Get canvas data
+        $('#getCanvasData').on('click', function() {
+            $('#showData3').val(JSON.stringify($cropper.cropper('getCanvasData')));
+        });
+
+        // Set canvas data
+        $('#setCanvasData').on('click', function() {
+            $cropper.cropper('setCanvasData', {
+                left: -50,
+                top: 0,
+                width: 750,
+                height: 750
+            });
+
+            $('#showData3').val('Canvas data has been changed');
+        });
+
+
+        // Get crop box data
+        $('#getCropBoxData').on('click', function() {
+            $('#showData4').val(JSON.stringify($cropper.cropper('getCropBoxData')));
+        });
+
+        // Set crop box data
+        $('#setCropBoxData').on('click', function() {
+            $cropper.cropper('setCropBoxData', {
+                left: 395,
+                top: 68,
+                width: 183,
+                height: 183
+            });
+
+            $('#showData4').val('Crop box data has been changed');
+        });
+    };
+
+
+    //
+    // Return objects assigned to module
+    //
+
+    return {
+        init: function() {
+            _componentImageCropper();
+        }
+    }
+}();
+
+
+// Initialize module
+// ------------------------------
+
+document.addEventListener('DOMContentLoaded', function() {
+    ImageCropper.init();
+});

@@ -21,7 +21,7 @@ router.get('/', function (req, res) {
                             <li class="list-group-item"><a href="/api/soldiers">Quân nhân </a></li>
                             <li class="list-group-item"><a href="/api/accounts">Tài khoản </a></li>
                             <li class="list-group-item"><a href="/api/measureUnits">Đơn vị tính </a></li>
-                            <li class="list-group-item"><a href="/api/contentGroups">Nội dung kiểm tra </a></li>
+                            <li class="list-group-item"><a href="/api/contentGroups">Nhóm nội dung </a></li>
                             <li class="list-group-item"><a href="/api/documents">Thông tư </a></li>
                             <li class="list-group-item"><a href="/api/plans">Kế hoạch </a></li>
                             <li class="list-group-item"><a href="/api/results">Kết quả </a></li>

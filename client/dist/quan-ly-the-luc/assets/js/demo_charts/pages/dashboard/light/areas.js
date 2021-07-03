@@ -1,1 +1,519 @@
-var DashboardAreas={init:function(){!function(t,e,a){if("undefined"!=typeof d3){if($(t).length>0){var n=d3.select(t),r={top:20,right:35,bottom:40,left:35},d=n.node().getBoundingClientRect().width-r.left-r.right,i=(e=e-r.top-r.bottom,d3.time.format("%Y-%m-%d").parse),o=d3.bisector(function(t){return t.date}).left,s=d3.time.format("%b %d"),l=n.append("svg"),c=l.attr("width",d+r.left+r.right).attr("height",e+r.top+r.bottom).append("g").attr("transform","translate("+r.left+","+r.top+")"),u=d3.svg.area().x(function(t){return f(t.date)}).y0(e).y1(function(t){return p(t.value)}).interpolate("monotone"),f=d3.time.scale().range([0,d]),p=d3.scale.linear().range([e,0]),m=d3.svg.axis().scale(f).orient("bottom").ticks(d3.time.days,6).innerTickSize(4).tickPadding(8).tickFormat(d3.time.format("%b %d"));d3.json("../../../../global_assets/demo_data/dashboard/monthly_sales.json",function(t,h){if(t)return console.error(t);h.forEach(function(t){t.date=i(t.date),t.value=+t.value});var g=d3.max(h,function(t){return t.value}),y=h.map(function(t){return{date:t.date,value:0}});f.domain(d3.extent(h,function(t,e){return t.date})),p.domain([0,d3.max(h,function(t){return t.value})]),c.append("g").attr("class","d3-axis d3-axis-horizontal").attr("transform","translate(0,"+e+")").call(m).selectAll(".d3-axis-subticks").data(f.ticks(d3.time.days),function(t){return t}).enter().append("line").attr("class","d3-axis-subticks").attr("y1",0).attr("y2",4).attr("x1",f).attr("x2",f),c.append("path").datum(h).attr("class","d3-area").attr("d",u).style("fill",a).transition().duration(1e3).attrTween("d",function(){var t=d3.interpolateArray(y,h);return function(e){return u(t(e))}});var v=c.append("g").style("display","none");v.append("line").attr("class","vertical-crosshair d3-crosshair-line").attr("y1",0).attr("y2",-g);var x=c.append("g").attr("class","d3-crosshair-pointer").style("display","none");x.append("circle").attr("class","d3-line-circle").attr("r",3).style("stroke",a).style("stroke-width",1.5);var w=c.append("g").attr("class","d3-crosshair-text").style("display","none");w.append("text").attr("class","d3-text").attr("dy",-10).style("font-size",12),c.append("rect").attr("class","d3-crosshair-overlay").style("fill","none").style("pointer-events","all").attr("width",d).attr("height",e).on("mouseover",function(){x.style("display",null),v.style("display",null),w.style("display",null)}).on("mouseout",function(){x.style("display","none"),v.style("display","none"),w.style("display","none")}).on("mousemove",function(){var t=d3.mouse(this)[0],a=f.invert(t),d=o(h,a),i=h[d-1],l=h[d],c=a-i.date>l.date-a?l:i;v.attr("transform","translate("+f(c.date)+","+e+")"),x.attr("transform","translate("+f(c.date)+","+p(c.value)+")"),t>=n.node().getBoundingClientRect().width-w.select("text").node().getBoundingClientRect().width-r.right-r.left?w.select("text").attr("text-anchor","end").attr("x",function(){return f(c.date)-15+"px"}).text(s(c.date)+" - "+c.value+" sales"):w.select("text").attr("text-anchor","start").attr("x",function(){return f(c.date)+15+"px"}).text(s(c.date)+" - "+c.value+" sales")}),window.addEventListener("resize",k);var b=document.querySelector(".sidebar-control");function k(){d=n.node().getBoundingClientRect().width-r.left-r.right,l.attr("width",d+r.left+r.right),c.attr("width",d+r.left+r.right),f.range([0,d]),c.selectAll(".d3-axis-horizontal").call(m),c.selectAll(".d3-axis-subticks").attr("x1",f).attr("x2",f),c.selectAll(".d3-area").datum(h).attr("d",u),c.selectAll(".d3-crosshair-overlay").attr("width",d)}b&&b.addEventListener("click",k)})}}else console.warn("Warning - d3.min.js is not loaded.")}("#monthly-sales-stats",100,"#4DB6AC"),function(t,e,a){if("undefined"!=typeof d3){if($(t).length>0){var n=d3.select(t),r={top:0,right:0,bottom:0,left:0},d=n.node().getBoundingClientRect().width-r.left-r.right,i=(e=e-r.top-r.bottom,d3.time.format("%Y-%m-%d").parse),o=n.append("svg"),s=o.attr("width",d+r.left+r.right).attr("height",e+r.top+r.bottom).append("g").attr("transform","translate("+r.left+","+r.top+")"),l=d3.svg.area().x(function(t){return c(t.date)}).y0(e).y1(function(t){return u(t.value)}).interpolate("monotone"),c=d3.time.scale().range([0,d]),u=d3.scale.linear().range([e,0]);d3.json("../../../../global_assets/demo_data/dashboard/monthly_sales.json",function(t,e){if(t)return console.error(t);e.forEach(function(t){t.date=i(t.date),t.value=+t.value}),d3.max(e,function(t){return t.value});var a=e.map(function(t){return{date:t.date,value:0}});c.domain(d3.extent(e,function(t,e){return t.date})),u.domain([0,d3.max(e,function(t){return t.value})]),s.append("path").datum(e).attr("class","d3-area").style("fill","#5C6BC0").attr("d",l).transition().duration(1e3).attrTween("d",function(){var t=d3.interpolateArray(a,e);return function(e){return l(t(e))}}),window.addEventListener("resize",p);var f=document.querySelector(".sidebar-control");function p(){d=n.node().getBoundingClientRect().width-r.left-r.right,o.attr("width",d+r.left+r.right),s.attr("width",d+r.left+r.right),c.range([0,d]),s.selectAll(".d3-area").datum(e).attr("d",l)}f&&f.addEventListener("click",p)})}}else console.warn("Warning - d3.min.js is not loaded.")}("#messages-stats",40)}};document.addEventListener("DOMContentLoaded",function(){DashboardAreas.init()});
+/* ------------------------------------------------------------------------------
+ *
+ *  # D3.js - horizontal bar chart
+ *
+ *  Demo d3.js horizontal bar chart setup with .csv data source
+ *
+ * ---------------------------------------------------------------------------- */
+
+
+// Setup module
+// ------------------------------
+
+var DashboardAreas = function() {
+
+
+    //
+    // Setup module components
+    //
+
+    // Monthly sales area chart
+    var _MonthlySalesAreaChart = function(element, height, color) {
+        if (typeof d3 == 'undefined') {
+            console.warn('Warning - d3.min.js is not loaded.');
+            return;
+        }
+
+        // Initialize chart only if element exsists in the DOM
+        if($(element).length > 0) {
+
+
+            // Basic setup
+            // ------------------------------
+
+            // Define main variables
+            var d3Container = d3.select(element),
+                margin = {top: 20, right: 35, bottom: 40, left: 35},
+                width = d3Container.node().getBoundingClientRect().width - margin.left - margin.right,
+                height = height - margin.top - margin.bottom;
+
+            // Date and time format
+            var parseDate = d3.time.format('%Y-%m-%d').parse,
+                bisectDate = d3.bisector(function(d) { return d.date; }).left,
+                formatDate = d3.time.format('%b %d');
+
+
+            // Create SVG
+            // ------------------------------
+
+            // Container
+            var container = d3Container.append('svg');
+
+            // SVG element
+            var svg = container
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+
+
+
+            // Construct chart layout
+            // ------------------------------
+
+            // Area
+            var area = d3.svg.area()
+                .x(function(d) { return x(d.date); })
+                .y0(height)
+                .y1(function(d) { return y(d.value); })
+                .interpolate('monotone')
+
+
+            // Construct scales
+            // ------------------------------
+
+            // Horizontal
+            var x = d3.time.scale().range([0, width ]);
+
+            // Vertical
+            var y = d3.scale.linear().range([height, 0]);
+
+
+            // Create axes
+            // ------------------------------
+
+            // Horizontal
+            var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient('bottom')
+                .ticks(d3.time.days, 6)
+                .innerTickSize(4)
+                .tickPadding(8)
+                .tickFormat(d3.time.format('%b %d'));
+
+
+            // Load data
+            // ------------------------------
+
+            d3.json('../../../../global_assets/demo_data/dashboard/monthly_sales.json', function (error, data) {
+
+                // Show what's wrong if error
+                if (error) return console.error(error);
+
+                // Pull out values
+                data.forEach(function (d) {
+                    d.date = parseDate(d.date);
+                    d.value = +d.value;
+                });
+
+                // Get the maximum value in the given array
+                var maxY = d3.max(data, function(d) { return d.value; });
+
+                // Reset start data for animation
+                var startData = data.map(function(datum) {
+                    return {
+                        date: datum.date,
+                        value: 0
+                    };
+                });
+
+
+                // Set input domains
+                // ------------------------------
+
+                // Horizontal
+                x.domain(d3.extent(data, function(d, i) { return d.date; }));
+
+                // Vertical
+                y.domain([0, d3.max( data, function(d) { return d.value; })]);
+
+
+
+                //
+                // Append chart elements
+                //
+
+                // Append axes
+                // -------------------------
+
+                // Horizontal
+                var horizontalAxis = svg.append('g')
+                    .attr('class', 'd3-axis d3-axis-horizontal')
+                    .attr('transform', 'translate(0,' + height + ')')
+                    .call(xAxis);
+
+                // Add extra subticks for hidden hours
+                horizontalAxis.selectAll('.d3-axis-subticks')
+                    .data(x.ticks(d3.time.days), function(d) { return d; })
+                    .enter()
+                        .append('line')
+                        .attr('class', 'd3-axis-subticks')
+                        .attr('y1', 0)
+                        .attr('y2', 4)
+                        .attr('x1', x)
+                        .attr('x2', x);
+
+
+
+                // Append area
+                // -------------------------
+
+                // Add area path
+                svg.append('path')
+                    .datum(data)
+                    .attr('class', 'd3-area')
+                    .attr('d', area)
+                    .style('fill', color)
+                    .transition() // begin animation
+                        .duration(1000)
+                        .attrTween('d', function() {
+                            var interpolator = d3.interpolateArray(startData, data);
+                            return function (t) {
+                                return area(interpolator (t));
+                            }
+                        });
+
+
+
+                // Append crosshair and tooltip
+                // -------------------------
+
+                //
+                // Line
+                //
+
+                // Line group
+                var focusLine = svg.append('g')
+                    .style('display', 'none');
+
+                // Line element
+                focusLine.append('line')
+                    .attr('class', 'vertical-crosshair d3-crosshair-line')
+                    .attr('y1', 0)
+                    .attr('y2', -maxY);
+
+
+                //
+                // Pointer
+                //
+
+                // Pointer group
+                var focusPointer = svg.append('g')
+                    .attr('class', 'd3-crosshair-pointer')
+                    .style('display', 'none');
+
+                // Pointer element
+                focusPointer.append('circle')
+                    .attr('class', 'd3-line-circle')
+                    .attr('r', 3)
+                    .style('stroke', color)
+                    .style('stroke-width', 1.5);
+
+
+                //
+                // Text
+                //
+
+                // Text group
+                var focusText = svg.append('g')
+                    .attr('class', 'd3-crosshair-text')
+                    .style('display', 'none');
+
+                // Text element
+                focusText.append('text')
+                    .attr('class', 'd3-text')
+                    .attr('dy', -10)
+                    .style('font-size', 12);
+
+
+                //
+                // Overlay with events
+                //
+
+                svg.append('rect')
+                    .attr('class', 'd3-crosshair-overlay')
+                    .style('fill', 'none')
+                    .style('pointer-events', 'all')
+                    .attr('width', width)
+                    .attr('height', height)
+                        .on('mouseover', function() {
+                            focusPointer.style('display', null);        
+                            focusLine.style('display', null)
+                            focusText.style('display', null);
+                        })
+                        .on('mouseout', function() {
+                            focusPointer.style('display', 'none'); 
+                            focusLine.style('display', 'none');
+                            focusText.style('display', 'none');
+                        })
+                        .on('mousemove', mousemove);
+
+
+                // Display tooltip on mousemove
+                function mousemove() {
+
+                    // Define main variables
+                    var mouse = d3.mouse(this),
+                        mousex = mouse[0],
+                        mousey = mouse[1],
+                        x0 = x.invert(mousex),
+                        i = bisectDate(data, x0),
+                        d0 = data[i - 1],
+                        d1 = data[i],
+                        d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+
+                    // Move line
+                    focusLine.attr('transform', 'translate(' + x(d.date) + ',' + height + ')');
+
+                    // Move pointer
+                    focusPointer.attr('transform', 'translate(' + x(d.date) + ',' + y(d.value) + ')');
+
+                    // Reverse tooltip at the end point
+                    if(mousex >= (d3Container.node().getBoundingClientRect().width - focusText.select('text').node().getBoundingClientRect().width - margin.right - margin.left)) {
+                        focusText.select('text').attr('text-anchor', 'end').attr('x', function () { return (x(d.date) - 15) + 'px' }).text(formatDate(d.date) + ' - ' + d.value + ' sales');
+                    }
+                    else {
+                        focusText.select('text').attr('text-anchor', 'start').attr('x', function () { return (x(d.date) + 15) + 'px' }).text(formatDate(d.date) + ' - ' + d.value + ' sales');
+                    }
+                }
+
+
+
+                // Resize chart
+                // ------------------------------
+
+                // Call function on window resize
+                window.addEventListener('resize', monthlySalesAreaResize);
+
+                // Call function on sidebar width change
+                var sidebarToggle = document.querySelector('.sidebar-control');
+                sidebarToggle && sidebarToggle.addEventListener('click', monthlySalesAreaResize);
+
+
+                // Resize function
+                // 
+                // Since D3 doesn't support SVG resize by default,
+                // we need to manually specify parts of the graph that need to 
+                // be updated on window resize
+                function monthlySalesAreaResize() {
+
+                    // Layout variables
+                    width = d3Container.node().getBoundingClientRect().width - margin.left - margin.right;
+
+
+                    // Layout
+                    // -------------------------
+
+                    // Main svg width
+                    container.attr('width', width + margin.left + margin.right);
+
+                    // Width of appended group
+                    svg.attr('width', width + margin.left + margin.right);
+
+
+                    // Axes
+                    // -------------------------
+
+                    // Horizontal range
+                    x.range([0, width]);
+
+                    // Horizontal axis
+                    svg.selectAll('.d3-axis-horizontal').call(xAxis);
+
+                    // Horizontal axis subticks
+                    svg.selectAll('.d3-axis-subticks').attr('x1', x).attr('x2', x);
+
+
+                    // Chart elements
+                    // -------------------------
+
+                    // Area path
+                    svg.selectAll('.d3-area').datum(data).attr('d', area);
+
+                    // Crosshair
+                    svg.selectAll('.d3-crosshair-overlay').attr('width', width);
+                }
+            });
+        }
+    };
+
+    // Messages area chart
+    var _MessagesAreaChart = function(element, height, color) {
+        if (typeof d3 == 'undefined') {
+            console.warn('Warning - d3.min.js is not loaded.');
+            return;
+        }
+
+        // Initialize chart only if element exsists in the DOM
+        if($(element).length > 0) {
+
+
+            // Basic setup
+            // ------------------------------
+
+            // Define main variables
+            var d3Container = d3.select(element),
+                margin = {top: 0, right: 0, bottom: 0, left: 0},
+                width = d3Container.node().getBoundingClientRect().width - margin.left - margin.right,
+                height = height - margin.top - margin.bottom;
+
+            // Date and time format
+            var parseDate = d3.time.format('%Y-%m-%d').parse;
+
+
+            // Create SVG
+            // ------------------------------
+
+            // Container
+            var container = d3Container.append('svg');
+
+            // SVG element
+            var svg = container
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+
+
+            // Construct chart layout
+            // ------------------------------
+
+            // Area
+            var area = d3.svg.area()
+                .x(function(d) { return x(d.date); })
+                .y0(height)
+                .y1(function(d) { return y(d.value); })
+                .interpolate('monotone')
+
+
+            // Construct scales
+            // ------------------------------
+
+            // Horizontal
+            var x = d3.time.scale().range([0, width ]);
+
+            // Vertical
+            var y = d3.scale.linear().range([height, 0]);
+
+
+            // Load data
+            // ------------------------------
+
+            d3.json('../../../../global_assets/demo_data/dashboard/monthly_sales.json', function (error, data) {
+
+                // Show what's wrong if error
+                if (error) return console.error(error);
+
+                // Pull out values
+                data.forEach(function (d) {
+                    d.date = parseDate(d.date);
+                    d.value = +d.value;
+                });
+
+                // Get the maximum value in the given array
+                var maxY = d3.max(data, function(d) { return d.value; });
+
+                // Reset start data for animation
+                var startData = data.map(function(datum) {
+                    return {
+                        date: datum.date,
+                        value: 0
+                    };
+                });
+
+
+                // Set input domains
+                // ------------------------------
+
+                // Horizontal
+                x.domain(d3.extent(data, function(d, i) { return d.date; }));
+
+                // Vertical
+                y.domain([0, d3.max( data, function(d) { return d.value; })]);
+
+
+
+                //
+                // Append chart elements
+                //
+
+                // Add area path
+                svg.append('path')
+                    .datum(data)
+                    .attr('class', 'd3-area')
+                    .style('fill', color)
+                    .attr('d', area)
+                    .transition() // begin animation
+                        .duration(1000)
+                        .attrTween('d', function() {
+                            var interpolator = d3.interpolateArray(startData, data);
+                            return function (t) {
+                                return area(interpolator (t));
+                            }
+                        });
+
+
+                // Resize chart
+                // ------------------------------
+
+                // Call function on window resize
+                window.addEventListener('resize', messagesAreaResize);
+
+                // Call function on sidebar width change
+                var sidebarToggle = document.querySelector('.sidebar-control');
+                sidebarToggle && sidebarToggle.addEventListener('click', messagesAreaResize);
+
+                // Resize function
+                // 
+                // Since D3 doesn't support SVG resize by default,
+                // we need to manually specify parts of the graph that need to 
+                // be updated on window resize
+                function messagesAreaResize() {
+
+                    // Layout variables
+                    width = d3Container.node().getBoundingClientRect().width - margin.left - margin.right;
+
+
+                    // Layout
+                    // -------------------------
+
+                    // Main svg width
+                    container.attr('width', width + margin.left + margin.right);
+
+                    // Width of appended group
+                    svg.attr('width', width + margin.left + margin.right);
+
+                    // Horizontal range
+                    x.range([0, width]);
+
+
+                    // Chart elements
+                    // -------------------------
+
+                    // Area path
+                    svg.selectAll('.d3-area').datum( data ).attr('d', area);
+                }
+            });
+        }
+    };
+
+
+    //
+    // Return objects assigned to module
+    //
+
+    return {
+        init: function() {
+            _MonthlySalesAreaChart('#monthly-sales-stats', 100, '#4DB6AC');
+            _MessagesAreaChart('#messages-stats', 40, '#5C6BC0');
+        }
+    }
+}();
+
+
+// Initialize module
+// ------------------------------
+
+document.addEventListener('DOMContentLoaded', function() {
+    DashboardAreas.init();
+});

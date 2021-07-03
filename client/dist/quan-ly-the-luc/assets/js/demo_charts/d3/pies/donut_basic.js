@@ -1,1 +1,129 @@
-var D3PieDonutBasic={init:function(){!function(){if("undefined"!=typeof d3){var t=document.getElementById("d3-donut-basic");if(t){var e=d3.scale.category20(),a=d3.select(t).append("svg").attr("width",240).attr("height",240).append("g").attr("transform","translate(120,120)"),n=d3.svg.arc().outerRadius(120).innerRadius(120/1.75),d=d3.layout.pie().sort(null).value(function(t){return t.population});d3.csv("../../../../global_assets/demo_data/d3/pies/pies_basic.csv",function(t,i){i.forEach(function(t){t.population=+t.population});var r=a.selectAll(".d3-arc").data(d(i)).enter().append("g").attr("class","d3-arc");r.append("path").attr("d",n).attr("class","d3-slice-border").style("fill",function(t){return e(t.data.age)}),r.append("text").attr("transform",function(t){return"translate("+n.centroid(t)+")"}).attr("dy",".35em").style("fill","#fff").style("font-size",12).style("text-anchor","middle").text(function(t){return t.data.age})})}}else console.warn("Warning - d3.min.js is not loaded.")}()}};document.addEventListener("DOMContentLoaded",function(){D3PieDonutBasic.init()});
+/* ------------------------------------------------------------------------------
+ *
+ *  # D3.js - basic donut chart
+ *
+ *  Demo d3.js donut chart setup with .csv data source
+ *
+ * ---------------------------------------------------------------------------- */
+
+
+// Setup module
+// ------------------------------
+
+var D3PieDonutBasic = function() {
+
+
+    //
+    // Setup module components
+    //
+
+    // Chart
+    var _pieDonutBasic = function() {
+        if (typeof d3 == 'undefined') {
+            console.warn('Warning - d3.min.js is not loaded.');
+            return;
+        }
+
+        // Main variables
+        var element = document.getElementById('d3-donut-basic'),
+            radius = 120;
+
+
+        // Initialize chart only if element exsists in the DOM
+        if(element) {
+
+            // Basic setup
+            // ------------------------------
+
+            // Colors
+            var pie_colors = d3.scale.category20(),
+                pie_text_color = '#fff';
+
+
+            // Create chart
+            // ------------------------------
+
+            // Add SVG element
+            var container = d3.select(element).append("svg");
+
+            // Add SVG group
+            var svg = container
+                .attr("width", radius * 2)
+                .attr("height", radius * 2)
+                .append("g")
+                    .attr("transform", "translate(" + radius + "," + radius + ")");
+
+
+            // Construct chart layout
+            // ------------------------------
+
+            // Arc
+            var arc = d3.svg.arc()
+                .outerRadius(radius)
+                .innerRadius(radius / 1.75);
+
+            // Pie
+            var pie = d3.layout.pie()
+                .sort(null)
+                .value(function(d) { return d.population; });
+
+
+            // Load data
+            // ------------------------------
+
+            d3.csv("../../../../global_assets/demo_data/d3/pies/pies_basic.csv", function(error, data) {
+
+                // Pull out values
+                data.forEach(function(d) {
+                    d.population = +d.population;
+                });
+
+
+                //
+                // Append chart elements
+                //
+
+                // Bind data
+                var g = svg.selectAll(".d3-arc")
+                    .data(pie(data))
+                    .enter()
+                    .append("g")
+                        .attr("class", "d3-arc");
+
+                // Add arc path
+                g.append("path")
+                    .attr("d", arc)
+                    .attr("class", "d3-slice-border")
+                    .style("fill", function(d) { return pie_colors(d.data.age); });
+
+                // Add text labels
+                g.append("text")
+                    .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+                    .attr("dy", ".35em")
+                    .style("fill", pie_text_color)
+                    .style("font-size", 12)
+                    .style("text-anchor", "middle")
+                    .text(function(d) { return d.data.age; });
+            });
+        }
+    };
+
+
+    //
+    // Return objects assigned to module
+    //
+
+    return {
+        init: function() {
+            _pieDonutBasic();
+        }
+    }
+}();
+
+
+// Initialize module
+// ------------------------------
+
+document.addEventListener('DOMContentLoaded', function() {
+    D3PieDonutBasic.init();
+});

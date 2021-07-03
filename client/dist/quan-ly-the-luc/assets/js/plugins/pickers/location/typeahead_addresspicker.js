@@ -1,1 +1,232 @@
-(function(){var e=function(e,t){return function(){return e.apply(t,arguments)}},t={}.hasOwnProperty;!function(o){this.AddressPickerResult=function(){function e(e,t){this.placeResult=e,this.fromReverseGeocoding=null!=t&&t,this.latitude=this.placeResult.geometry.location.lat(),this.longitude=this.placeResult.geometry.location.lng()}return e.prototype.addressTypes=function(){var e,t,o,r,s,i,n,a;for(a=[],e=0,o=(s=this.addressComponents()).length;e<o;e++)for(t=0,r=(i=s[e].types).length;t<r;t++)-1===a.indexOf(n=i[t])&&a.push(n);return a},e.prototype.addressComponents=function(){return this.placeResult.address_components||[]},e.prototype.address=function(){return this.placeResult.formatted_address},e.prototype.nameForType=function(e,t){var o,r,s,i;for(null==t&&(t=!1),r=0,s=(i=this.addressComponents()).length;r<s;r++)if(-1!==(o=i[r]).types.indexOf(e))return t?o.short_name:o.long_name;return null},e.prototype.lat=function(){return this.latitude},e.prototype.lng=function(){return this.longitude},e.prototype.setLatLng=function(e,t){this.latitude=e,this.longitude=t},e.prototype.isAccurate=function(){return!this.placeResult.geometry.viewport},e.prototype.isReverseGeocoding=function(){return this.fromReverseGeocoding},e}(),this.AddressPicker=function(r){function s(t){null==t&&(t={}),this.markerDragged=e(this.markerDragged,this),this.updateBoundsForPlace=e(this.updateBoundsForPlace,this),this.updateMap=e(this.updateMap,this),this.options=o.extend({local:[],datumTokenizer:function(e){return Bloodhound.tokenizers.whitespace(e.num)},queryTokenizer:Bloodhound.tokenizers.whitespace,autocompleteService:{types:["geocode"]},zoomForLocation:16,reverseGeocoding:!1,placeDetails:!0,remote:"fakeRemote"},t),s.__super__.constructor.call(this,this.options),this.options.map&&this.initMap(),this.placeService=new google.maps.places.PlacesService(document.createElement("div"))}return function(e,o){for(var r in o)t.call(o,r)&&(e[r]=o[r]);function s(){this.constructor=e}s.prototype=o.prototype,e.prototype=new s,e.__super__=o.prototype}(s,Bloodhound),s.prototype.bindDefaultTypeaheadEvent=function(e){return e.bind("typeahead:selected",this.updateMap),e.bind("typeahead:autocompleted",this.updateMap),e.bind("typeahead:cursorchanged",this.updateMap)},s.prototype.initMap=function(){var e,t,r;if((null!=(t=this.options)&&null!=(r=t.map)?r.gmap:void 0)?this.map=this.options.map.gmap:(this.mapOptions=o.extend({zoom:3,center:new google.maps.LatLng(0,0),mapTypeId:google.maps.MapTypeId.ROADMAP,boundsForLocation:this.updateBoundsForPlace},this.options.map),this.map=new google.maps.Map(o(this.mapOptions.id)[0],this.mapOptions)),this.lastResult=null,e=o.extend({draggable:!0,visible:!1,position:this.map.getCenter(),map:this.map},this.options.marker||{}),this.marker=new google.maps.Marker(e),e.draggable)return google.maps.event.addListener(this.marker,"dragend",this.markerDragged)},s.prototype.search=function(e,t,r){var s,i;return s=new google.maps.places.AutocompleteService,this.options.autocompleteService.input=e,s.getPlacePredictions(this.options.autocompleteService,(i=this,function(e){return o(i).trigger("addresspicker:predictions",[e]),r(e)}))},s.prototype.updateMap=function(e,t){return this.options.placeDetails?this.placeService.getDetails(t,(r=this,function(e){var t;return r.lastResult=new AddressPickerResult(e),r.marker&&(r.marker.setPosition(e.geometry.location),r.marker.setVisible(!0)),r.map&&null!=(t=r.mapOptions)&&t.boundsForLocation(e),o(r).trigger("addresspicker:selected",r.lastResult)})):o(this).trigger("addresspicker:selected",t);var r},s.prototype.updateBoundsForPlace=function(e){return e.geometry.viewport?this.map.fitBounds(e.geometry.viewport):(this.map.setCenter(e.geometry.location),this.map.setZoom(this.options.zoomForLocation))},s.prototype.markerDragged=function(){return this.options.reverseGeocoding?this.reverseGeocode(this.marker.getPosition()):(this.lastResult?this.lastResult.setLatLng(this.marker.getPosition().lat(),this.marker.getPosition().lng()):this.lastResult=new AddressPickerResult({geometry:{location:this.marker.getPosition()}}),o(this).trigger("addresspicker:selected",this.lastResult))},s.prototype.reverseGeocode=function(e){return null==this.geocoder&&(this.geocoder=new google.maps.Geocoder),this.geocoder.geocode({location:e},(t=this,function(e){if(e&&e.length>0)return t.lastResult=new AddressPickerResult(e[0],!0),o(t).trigger("addresspicker:selected",t.lastResult)}));var t},s.prototype.getGMap=function(){return this.map},s.prototype.getGMarker=function(){return this.marker},s}()}(jQuery)}).call(this);
+(function() {
+  var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  (function($) {
+    this.AddressPickerResult = (function() {
+      function AddressPickerResult(placeResult, fromReverseGeocoding) {
+        this.placeResult = placeResult;
+        this.fromReverseGeocoding = fromReverseGeocoding != null ? fromReverseGeocoding : false;
+        this.latitude = this.placeResult.geometry.location.lat();
+        this.longitude = this.placeResult.geometry.location.lng();
+      }
+
+      AddressPickerResult.prototype.addressTypes = function() {
+        var component, i, j, len, len1, ref, ref1, type, types;
+        types = [];
+        ref = this.addressComponents();
+        for (i = 0, len = ref.length; i < len; i++) {
+          component = ref[i];
+          ref1 = component.types;
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            type = ref1[j];
+            if (types.indexOf(type) === -1) {
+              types.push(type);
+            }
+          }
+        }
+        return types;
+      };
+
+      AddressPickerResult.prototype.addressComponents = function() {
+        return this.placeResult.address_components || [];
+      };
+
+      AddressPickerResult.prototype.address = function() {
+        return this.placeResult.formatted_address;
+      };
+
+      AddressPickerResult.prototype.nameForType = function(type, shortName) {
+        var component, i, len, ref;
+        if (shortName == null) {
+          shortName = false;
+        }
+        ref = this.addressComponents();
+        for (i = 0, len = ref.length; i < len; i++) {
+          component = ref[i];
+          if (component.types.indexOf(type) !== -1) {
+            return (shortName ? component.short_name : component.long_name);
+          }
+        }
+        return null;
+      };
+
+      AddressPickerResult.prototype.lat = function() {
+        return this.latitude;
+      };
+
+      AddressPickerResult.prototype.lng = function() {
+        return this.longitude;
+      };
+
+      AddressPickerResult.prototype.setLatLng = function(latitude, longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+      };
+
+      AddressPickerResult.prototype.isAccurate = function() {
+        return !this.placeResult.geometry.viewport;
+      };
+
+      AddressPickerResult.prototype.isReverseGeocoding = function() {
+        return this.fromReverseGeocoding;
+      };
+
+      return AddressPickerResult;
+
+    })();
+    return this.AddressPicker = (function(superClass) {
+      extend(AddressPicker, superClass);
+
+      function AddressPicker(options) {
+        if (options == null) {
+          options = {};
+        }
+        this.markerDragged = bind(this.markerDragged, this);
+        this.updateBoundsForPlace = bind(this.updateBoundsForPlace, this);
+        this.updateMap = bind(this.updateMap, this);
+        this.options = $.extend({
+          local: [],
+          datumTokenizer: function(d) {
+            return Bloodhound.tokenizers.whitespace(d.num);
+          },
+          queryTokenizer: Bloodhound.tokenizers.whitespace,
+          autocompleteService: {
+            types: ["geocode"]
+          },
+          zoomForLocation: 16,
+          reverseGeocoding: false,
+          placeDetails: true,
+          remote: 'fakeRemote'
+        }, options);
+        AddressPicker.__super__.constructor.call(this, this.options);
+        if (this.options.map) {
+          this.initMap();
+        }
+        this.placeService = new google.maps.places.PlacesService(document.createElement('div'));
+      }
+
+      AddressPicker.prototype.bindDefaultTypeaheadEvent = function(typeahead) {
+        typeahead.bind("typeahead:selected", this.updateMap);
+        typeahead.bind("typeahead:autocompleted", this.updateMap);
+        return typeahead.bind("typeahead:cursorchanged", this.updateMap);
+      };
+
+      AddressPicker.prototype.initMap = function() {
+        var markerOptions, ref, ref1;
+        if ((ref = this.options) != null ? (ref1 = ref.map) != null ? ref1.gmap : void 0 : void 0) {
+          this.map = this.options.map.gmap;
+        } else {
+          this.mapOptions = $.extend({
+            zoom: 3,
+            center: new google.maps.LatLng(0, 0),
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            boundsForLocation: this.updateBoundsForPlace
+          }, this.options.map);
+          this.map = new google.maps.Map($(this.mapOptions.id)[0], this.mapOptions);
+        }
+        this.lastResult = null;
+        markerOptions = $.extend({
+          draggable: true,
+          visible: false,
+          position: this.map.getCenter(),
+          map: this.map
+        }, this.options.marker || {});
+        this.marker = new google.maps.Marker(markerOptions);
+        if (markerOptions.draggable) {
+          return google.maps.event.addListener(this.marker, 'dragend', this.markerDragged);
+        }
+      };
+
+      AddressPicker.prototype.search = function(query, sync, async) {
+        var service;
+        service = new google.maps.places.AutocompleteService();
+        this.options.autocompleteService.input = query;
+        return service.getPlacePredictions(this.options.autocompleteService, (function(_this) {
+          return function(predictions) {
+            $(_this).trigger('addresspicker:predictions', [predictions]);
+            return async(predictions);
+          };
+        })(this));
+      };
+
+      AddressPicker.prototype.updateMap = function(event, place) {
+        if (this.options.placeDetails) {
+          return this.placeService.getDetails(place, (function(_this) {
+            return function(response) {
+              var ref;
+              _this.lastResult = new AddressPickerResult(response);
+              if (_this.marker) {
+                _this.marker.setPosition(response.geometry.location);
+                _this.marker.setVisible(true);
+              }
+              if (_this.map) {
+                if ((ref = _this.mapOptions) != null) {
+                  ref.boundsForLocation(response);
+                }
+              }
+              return $(_this).trigger('addresspicker:selected', _this.lastResult);
+            };
+          })(this));
+        } else {
+          return $(this).trigger('addresspicker:selected', place);
+        }
+      };
+
+      AddressPicker.prototype.updateBoundsForPlace = function(response) {
+        if (response.geometry.viewport) {
+          return this.map.fitBounds(response.geometry.viewport);
+        } else {
+          this.map.setCenter(response.geometry.location);
+          return this.map.setZoom(this.options.zoomForLocation);
+        }
+      };
+
+      AddressPicker.prototype.markerDragged = function() {
+        if (this.options.reverseGeocoding) {
+          return this.reverseGeocode(this.marker.getPosition());
+        } else {
+          if (this.lastResult) {
+            this.lastResult.setLatLng(this.marker.getPosition().lat(), this.marker.getPosition().lng());
+          } else {
+            this.lastResult = new AddressPickerResult({
+              geometry: {
+                location: this.marker.getPosition()
+              }
+            });
+          }
+          return $(this).trigger('addresspicker:selected', this.lastResult);
+        }
+      };
+
+      AddressPicker.prototype.reverseGeocode = function(position) {
+        if (this.geocoder == null) {
+          this.geocoder = new google.maps.Geocoder();
+        }
+        return this.geocoder.geocode({
+          location: position
+        }, (function(_this) {
+          return function(results) {
+            if (results && results.length > 0) {
+              _this.lastResult = new AddressPickerResult(results[0], true);
+              return $(_this).trigger('addresspicker:selected', _this.lastResult);
+            }
+          };
+        })(this));
+      };
+
+      AddressPicker.prototype.getGMap = function() {
+        return this.map;
+      };
+
+      AddressPicker.prototype.getGMarker = function() {
+        return this.marker;
+      };
+
+      return AddressPicker;
+
+    })(Bloodhound);
+  })(jQuery);
+
+}).call(this);

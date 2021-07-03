@@ -16,11 +16,14 @@ exports.index = function (req, res) {
 // Handle create contact actions
 exports.new = function (req, res) {
     var document = new Document();
-    document.key = req.body.key;
-    document.value = req.body.value;
-    document.title = req.body.title;
-    document.slash = req.body.slash;
-    document.parentId = req.body.parentId;
+    document.name = req.body.name;
+    document.docNumber = req.body.docNumber;
+    document.unit = req.body.unit;
+    document.unitId = req.body.unitId;
+    document.startDate = req.body.startDate;
+    document.namduoi45 = req.body.namduoi45;
+    document.namtren45 = req.body.namtren45;
+    document.nu = req.body.nu;
     // save the document and check for errors
     document.save(function (err) {
         // if (err)
@@ -41,11 +44,14 @@ exports.update = function (req, res) {
     Document.findById(req.params.document_id, function (err, document) {
         if (err)
             res.send(err);
-        document.key = req.body.key;
-        document.value = req.body.value;
-        document.title = req.body.title;
-        document.slash = req.body.slash;
-        document.parentId = req.body.parentId;
+            document.name = req.body.name;
+            document.docNumber = req.body.docNumber;
+            document.unit = req.body.unit;
+            document.unitId = req.body.unitId;
+            document.startDate = req.body.startDate;
+            document.namduoi45 = req.body.namduoi45;
+            document.namtren45 = req.body.namtren45;
+            document.nu = req.body.nu;
         // save the document and check for errors
         document.save(function (err) {
             if (err)

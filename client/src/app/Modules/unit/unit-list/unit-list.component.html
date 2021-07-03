@@ -39,7 +39,7 @@
                                         <div class="collapse"
                                             [ngClass]="(collapseId == unit._id && collapseStatus) ? '' : 'show'">
                                             <div *ngFor="let child of unit.children">
-                                                <app-unit-tree-card [child]="child" [userRole]="userRole"></app-unit-tree-card>
+                                                <app-unit-tree-card [child]="child"></app-unit-tree-card>
                                             </div>
                                         </div>
                                     </div>

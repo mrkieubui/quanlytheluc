@@ -1,1 +1,156 @@
-var dqtv=function(e){return{library3rd:function(){e('[data-toggle="tooltip"]').tooltip(),e(".arcodion").click(function(){e(this).hasClass("actived")?(e(this).removeClass("actived"),e(this).next().removeClass("show")):(e(".arcodion").removeClass("actived"),e(".panel").removeClass("show"),e(this).addClass("actived"),e(this).next().addClass("show"))}),e(".slider").slick(),e(".col-hotnews").slick({infinite:!0,autoplay:!0,speed:500,autoplaySpeed:5e3,slidesToShow:1,slidesToScroll:1,arrows:!1,dots:!1}),e("#datepicker-from").datepicker({dateFormat:"dd/mm/yy",minDate:"now",showOn:"focus",buttonText:"Ch\u1ecdn ng\xe0y"}),e(".icon-calendar-from").click(function(){e("#datepicker-from").focus()}),e("#datepicker-to").datepicker({dateFormat:"dd/mm/yy",minDate:"now",showOn:"focus",buttonText:"Ch\u1ecdn ng\xe0y"}),e(".icon-calendar-to").click(function(){e("#datepicker-to").focus()}),e("#datepicker-regis").datepicker({dateFormat:"dd/mm/yy",minDate:"now",showOn:"focus",buttonText:"Ch\u1ecdn ng\xe0y"}),e(".icon-calendar-regis").click(function(){e("#datepicker-regis").focus()}),e(".owl-carousel").owlCarousel({loop:!0,margin:10,responsiveClass:!0,loop:!0,autoplay:!0,responsive:{0:{items:1,nav:!0},480:{items:1,nav:!1},768:{items:1,nav:!0,loop:!0},1024:{items:2,nav:!0,loop:!0}}})},datapickerVNI:function(){e.datepicker.regional["vi-VN"]={closeText:"\u0110\xf3ng",prevText:"Tr\u01b0\u1edbc",nextText:"Sau",currentText:"H\xf4m nay",monthNames:["Th\xe1ng m\u1ed9t","Th\xe1ng hai","Th\xe1ng ba","Th\xe1ng t\u01b0","Th\xe1ng n\u0103m","Th\xe1ng s\xe1u","Th\xe1ng b\u1ea3y","Th\xe1ng t\xe1m","Th\xe1ng ch\xedn","Th\xe1ng m\u01b0\u1eddi","Th\xe1ng m\u01b0\u1eddi m\u1ed9t","Th\xe1ng m\u01b0\u1eddi hai"],monthNamesShort:["M\u1ed9t","Hai","Ba","B\u1ed1n","N\u0103m","S\xe1u","B\u1ea3y","T\xe1m","Ch\xedn","M\u01b0\u1eddi","M\u01b0\u1eddi m\u1ed9t","M\u01b0\u1eddi hai"],dayNames:["Ch\u1ee7 nh\u1eadt","Th\u1ee9 hai","Th\u1ee9 ba","Th\u1ee9 t\u01b0","Th\u1ee9 n\u0103m","Th\u1ee9 s\xe1u","Th\u1ee9 b\u1ea3y"],dayNamesShort:["CN","Hai","Ba","T\u01b0","N\u0103m","S\xe1u","B\u1ea3y"],dayNamesMin:["CN","T2","T3","T4","T5","T6","T7"],weekHeader:"Tu\u1ea7n",dateFormat:"dd/mm/yy",firstDay:1,isRTL:!1,showMonthAfterYear:!1,yearSuffix:""},e.datepicker.setDefaults(e.datepicker.regional["vi-VN"])},toTop:function(){var t=e("#button-top");e(window).scroll(function(){e(window).scrollTop()>300?t.addClass("show"):t.removeClass("show")}),t.on("click",function(t){t.preventDefault(),e("html, body").animate({scrollTop:0},"300")})}}}(jQuery);jQuery(document).ready(function(){dqtv.library3rd(),dqtv.datapickerVNI(),dqtv.toTop()});
+var dqtv = (function ($) {
+  function library3rd() {
+    //tooltip
+    $('[data-toggle="tooltip"]').tooltip()
+    //arcodion
+    $('.arcodion').click(function () {
+
+      if ($(this).hasClass('actived')) {
+        $(this).removeClass('actived');
+        $(this).next().removeClass('show');
+      } else {
+        $('.arcodion').removeClass('actived');
+        $('.panel').removeClass('show');
+
+        $(this).addClass('actived');
+        $(this).next().addClass('show');
+      }
+
+    })
+    //slick
+    $('.slider').slick();
+    $('.col-hotnews').slick({
+      infinite: true,
+      autoplay: true,
+      speed: 500,
+      autoplaySpeed: 5000,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: false,
+      dots: false
+    });
+    //datapicker
+    $("#datepicker-from").datepicker({
+      dateFormat: 'dd/mm/yy',
+      minDate: 'now',
+      showOn: "focus",
+      buttonText: "Chọn ngày"
+    })
+    $('.icon-calendar-from').click(function () {
+      $("#datepicker-from").focus();
+    });
+    $("#datepicker-to").datepicker({
+      dateFormat: 'dd/mm/yy',
+      minDate: 'now',
+      showOn: "focus",
+      buttonText: "Chọn ngày"
+    })
+    $('.icon-calendar-to').click(function () {
+      $("#datepicker-to").focus();
+    });
+    $("#datepicker-regis").datepicker({
+      dateFormat: 'dd/mm/yy',
+      minDate: 'now',
+      showOn: "focus",
+      buttonText: "Chọn ngày"
+    })
+    $('.icon-calendar-regis').click(function () {
+      $("#datepicker-regis").focus();
+    });
+    //owl carousel
+    $('.owl-carousel').owlCarousel({
+      loop: true,
+      margin: 10,
+      responsiveClass: true,
+      loop: true,
+      autoplay: true,
+      responsive: {
+        0: {
+          items: 1,
+          nav: true
+        },
+        480: {
+          items: 1,
+          nav: false
+        },
+        768: {
+          items: 1,
+          nav: true,
+          loop: true
+        },
+        1024: {
+          items: 2,
+          nav: true,
+          loop: true
+        }
+      }
+    })
+  }
+  function menuMobile() {
+    //menu-hamberger
+    document.querySelector('.navbar-toggler-menu_icon').onclick = function () {
+      var btnBorder = document.querySelectorAll('.navbar-border');
+      for (let index = 0; index < btnBorder.length; index++) {
+        btnBorder[index].classList.toggle('active-border')
+      }
+    }
+    var searchClose = document.querySelector('.btn-search-close')
+    searchClose.onclick = function () {
+      document.querySelector('.fa-search').classList.toggle('fa-times')
+    }
+  }
+  function datapickerVNI() {
+    $.datepicker.regional["vi-VN"] =
+    {
+      closeText: "Đóng",
+      prevText: "Trước",
+      nextText: "Sau",
+      currentText: "Hôm nay",
+      monthNames: ["Tháng một", "Tháng hai", "Tháng ba", "Tháng tư", "Tháng năm", "Tháng sáu", "Tháng bảy", "Tháng tám", "Tháng chín", "Tháng mười", "Tháng mười một", "Tháng mười hai"],
+      monthNamesShort: ["Một", "Hai", "Ba", "Bốn", "Năm", "Sáu", "Bảy", "Tám", "Chín", "Mười", "Mười một", "Mười hai"],
+      dayNames: ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"],
+      dayNamesShort: ["CN", "Hai", "Ba", "Tư", "Năm", "Sáu", "Bảy"],
+      dayNamesMin: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
+      weekHeader: "Tuần",
+      dateFormat: "dd/mm/yy",
+      firstDay: 1,
+      isRTL: false,
+      showMonthAfterYear: false,
+      yearSuffix: ""
+    };
+
+    $.datepicker.setDefaults($.datepicker.regional["vi-VN"]);
+  }
+  function toTop() {
+    var btn = $('#button-top');
+
+    $(window).scroll(function () {
+      if ($(window).scrollTop() > 300) {
+        btn.addClass('show');
+      } else {
+        btn.removeClass('show');
+      }
+    });
+
+    btn.on('click', function (e) {
+      e.preventDefault();
+      $('html, body').animate({ scrollTop: 0 }, '300');
+    });
+  }
+  return {
+    library3rd: library3rd,
+    // menuMobile: menuMobile,
+    datapickerVNI: datapickerVNI,
+    toTop: toTop
+    // isQuestion:isQuestion
+
+  };
+})(jQuery);
+jQuery(document).ready(function () {
+  dqtv.library3rd();
+  // dqtv.menuMobile();
+  dqtv.datapickerVNI()
+  dqtv.toTop();
+  // dqtv.isQuestion()
+});
+

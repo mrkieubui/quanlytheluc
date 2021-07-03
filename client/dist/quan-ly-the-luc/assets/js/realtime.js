@@ -1,1 +1,53 @@
-document.addEventListener("DOMContentLoaded",function(){var t=$("#date"),e=$("#hours"),n=$("#minutes"),g=$("#seconds"),h=$("#ampm"),s=["th\xe1ng 1","th\xe1ng 2","th\xe1ng 3","th\xe1ng 4","th\xe1ng 5","th\xe1ng 6","th\xe1ng 7","th\xe1ng 8","th\xe1ng 9","th\xe1ng 10","th\xe1ng 11","th\xe1ng 12"],o=["Ch\u1ee7 nh\u1eadt","Th\u1ee9 hai","Th\u1ee9 ba","Th\u1ee9 t\u01b0","Th\u1ee9 n\u0103m","Th\u1ee9 s\xe1u","Th\u1ee9 b\u1ea3y"];function u(){var u=new Date,a=u.getHours()<12?"AM":"PM",r=0==u.getHours()||(u.getHours(),u.getHours()),d=(r=u.getHours()<10?"0"+u.getHours():u.getHours(),u.getMinutes()<10?"0"+u.getMinutes():u.getMinutes()),i=u.getSeconds()<10?"0"+u.getSeconds():u.getSeconds(),c=o[u.getDay()],H=s[u.getMonth()],M=u.getDate(),m=u.getFullYear();t.text(c+", ng\xe0y "+M+" "+H+" n\u0103m "+m),e.text(r),n.text(d),g.text(i),h.text(a)}u(),window.setInterval(u,1e3)},!1);
+document.addEventListener('DOMContentLoaded', function () {
+  // console.log('123')
+  var $dOut = $('#date'),
+    $hOut = $('#hours'),
+    $mOut = $('#minutes'),
+    $sOut = $('#seconds'),
+    $ampmOut = $('#ampm');
+  var months = [
+    'tháng 1', 'tháng 2', 'tháng 3', 'tháng 4', 'tháng 5', 'tháng 6', 'tháng 7', 'tháng 8', 'tháng 9', 'tháng 10', 'tháng 11', 'tháng 12'
+  ];
+  var days = [
+    'Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy'
+  ];
+  function update() {
+    var date = new Date();
+
+    var ampm = date.getHours() < 12
+      ? 'AM'
+      : 'PM';
+
+    var hours = date.getHours() == 0
+      ? 12
+      : date.getHours() > 12
+        ? date.getHours() - 12
+        : date.getHours();
+    var hours = date.getHours() < 10
+      ? '0' + date.getHours()
+      : date.getHours();
+    var minutes = date.getMinutes() < 10
+      ? '0' + date.getMinutes()
+      : date.getMinutes();
+
+    var seconds = date.getSeconds() < 10
+      ? '0' + date.getSeconds()
+      : date.getSeconds();
+
+    var dayOfWeek = days[date.getDay()];
+    var month = months[date.getMonth()];
+    var day = date.getDate();
+    var year = date.getFullYear();
+
+    var dateString = dayOfWeek + ', ngày ' + day + ' ' + month + ' năm ' + year;
+
+    $dOut.text(dateString);
+    $hOut.text(hours);
+    $mOut.text(minutes);
+    $sOut.text(seconds);
+    $ampmOut.text(ampm);
+  }
+  update();
+  window.setInterval(update, 1000);
+
+}, false)

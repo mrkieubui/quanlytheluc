@@ -1,1 +1,204 @@
-var D3TreeDendrogram={init:function(){!function(){if("undefined"!=typeof d3){var t=document.getElementById("d3-tree-dendrogram"),e=800;if(t){var n=d3.select(t),r={top:0,right:0,bottom:0,left:40},d=n.node().getBoundingClientRect().width-r.left-r.right,a=(e=e-r.top-r.bottom-5,n.append("svg")),o=a.attr("width",d+r.left+r.right).attr("height",e+r.top+r.bottom).append("g").attr("transform","translate("+r.left+","+r.top+")"),i=d3.layout.cluster().size([e,d-180]),l=d3.svg.diagonal().projection(function(t){return[t.y,t.x]});d3.json("../../../../global_assets/demo_data/d3/tree/tree_data_dendrogram.json",function(t,s){var c=i.nodes(s),u=i.links(c),g=(o.append("g").attr("class","d3-tree-link-group").selectAll(".d3-tree-link").data(u).enter().append("path").attr("class","d3-tree-link d3-line-connect").style("stroke-width",1.5).attr("d",l),o.append("g").attr("class","d3-tree-node-group").selectAll(".d3-tree-node").data(c).enter().append("g").attr("class","d3-tree-node").attr("transform",function(t){return"translate("+t.y+","+t.x+")"}));g.append("circle").attr("class","d3-line-circle").attr("r",4.5).style("stroke","#2196F3").style("stroke-width",1.5),g.append("text").attr("class","d3-text").attr("dx",function(t){return t.children?-10:10}).attr("dy",4).style("text-anchor",function(t){return t.children?"end":"start"}).style("font-size",12).text(function(t){return t.name}),window.addEventListener("resize",p);var f=document.querySelector(".sidebar-control");function p(){d=n.node().getBoundingClientRect().width-r.left-r.right,c=i.nodes(s),u=i.links(c),a.attr("width",d+r.left+r.right),o.attr("width",d+r.left+r.right),i.size([e,d-180]),o.selectAll(".d3-tree-link").attr("d",l),o.selectAll(".d3-tree-node").attr("transform",function(t){return"translate("+t.y+","+t.x+")"})}f&&f.addEventListener("click",p)})}}else console.warn("Warning - d3.min.js is not loaded.")}()}};document.addEventListener("DOMContentLoaded",function(){D3TreeDendrogram.init()});
+/* ------------------------------------------------------------------------------
+ *
+ *  # D3.js - cluster dendrogram
+ *
+ *  Demo of cluster dendrogram setup in cartesian orientation
+ *
+ * ---------------------------------------------------------------------------- */
+
+
+// Setup module
+// ------------------------------
+
+var D3TreeDendrogram = function() {
+
+
+    //
+    // Setup module components
+    //
+
+    // Chart
+    var _treeDendrogram = function() {
+        if (typeof d3 == 'undefined') {
+            console.warn('Warning - d3.min.js is not loaded.');
+            return;
+        }
+
+        // Main variables
+        var element = document.getElementById('d3-tree-dendrogram'),
+            height = 800;
+
+
+        // Initialize chart only if element exsists in the DOM
+        if(element) {
+
+            // Basic setup
+            // ------------------------------
+
+            // Define main variables
+            var d3Container = d3.select(element),
+                margin = {top: 0, right: 0, bottom: 0, left: 40},
+                width = d3Container.node().getBoundingClientRect().width - margin.left - margin.right,
+                height = height - margin.top - margin.bottom - 5;
+
+            // Colors
+            var color = '#2196F3';
+
+
+
+            // Create chart
+            // ------------------------------
+
+            // Add SVG element
+            var container = d3Container.append("svg");
+
+            // Add SVG group
+            var svg = container
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+
+            // Construct chart layout
+            // ------------------------------
+
+            // Cluster
+            var cluster = d3.layout.cluster()
+                .size([height, width - 180]);
+
+            // Diagonal projection
+            var diagonal = d3.svg.diagonal()
+                .projection(function(d) { return [d.y, d.x]; });
+
+
+
+            // Load data
+            // ------------------------------
+
+            d3.json("../../../../global_assets/demo_data/d3/tree/tree_data_dendrogram.json", function(error, root) {
+
+                var nodes = cluster.nodes(root),
+                    links = cluster.links(nodes);
+
+
+                // Links
+                // ------------------------------
+
+                // Append link group
+                var linkGroup = svg.append("g")
+                    .attr("class", "d3-tree-link-group");
+
+                // Append link path
+                var link = linkGroup.selectAll(".d3-tree-link")
+                    .data(links)
+                    .enter()
+                    .append("path")
+                        .attr("class", "d3-tree-link d3-line-connect")
+                        .style("stroke-width", 1.5)
+                        .attr("d", diagonal);
+
+
+                // Nodes
+                // ------------------------------
+
+                // Append node group
+                var nodeGroup = svg.append("g")
+                    .attr("class", "d3-tree-node-group");
+
+                // Append node
+                var node = nodeGroup.selectAll(".d3-tree-node")
+                    .data(nodes)
+                    .enter()
+                    .append("g")
+                        .attr("class", "d3-tree-node")
+                        .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+
+                // Append node circles
+                node.append("circle")
+                    .attr("class", "d3-line-circle")
+                    .attr("r", 4.5)
+                    .style("stroke", color)
+                    .style("stroke-width", 1.5);
+
+                // Append node text
+                var text = node.append("text")
+                    .attr("class", "d3-text")
+                    .attr("dx", function(d) { return d.children ? -10 : 10; })
+                    .attr("dy", 4)
+                    .style("text-anchor", function(d) { return d.children ? "end" : "start"; })
+                    .style("font-size", 12)
+                    .text(function(d) { return d.name; });
+
+
+
+                // Resize chart
+                // ------------------------------
+
+                // Call function on window resize
+                window.addEventListener('resize', resize);
+
+                // Call function on sidebar width change
+                var sidebarToggle = document.querySelector('.sidebar-control');
+                sidebarToggle && sidebarToggle.addEventListener('click', resize);
+
+
+                // Resize function
+                // 
+                // Since D3 doesn't support SVG resize by default,
+                // we need to manually specify parts of the graph that need to 
+                // be updated on window resize
+                function resize() {
+
+                    // Layout variables
+                    width = d3Container.node().getBoundingClientRect().width - margin.left - margin.right,
+                    nodes = cluster.nodes(root),
+                    links = cluster.links(nodes);
+
+                    // Layout
+                    // -------------------------
+
+                    // Main svg width
+                    container.attr("width", width + margin.left + margin.right);
+
+                    // Width of appended group
+                    svg.attr("width", width + margin.left + margin.right);
+
+
+                    // Tree size
+                    cluster.size([height, width - 180]);
+
+
+                    // Chart elements
+                    // -------------------------
+
+                    // Link paths
+                    svg.selectAll(".d3-tree-link").attr("d", diagonal)
+
+                    // Node paths
+                    svg.selectAll(".d3-tree-node").attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+                }
+            });
+        }
+    };
+
+
+    //
+    // Return objects assigned to module
+    //
+
+    return {
+        init: function() {
+            _treeDendrogram();
+        }
+    }
+}();
+
+
+// Initialize module
+// ------------------------------
+
+document.addEventListener('DOMContentLoaded', function() {
+    D3TreeDendrogram.init();
+});

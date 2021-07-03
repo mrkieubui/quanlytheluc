@@ -1,1 +1,121 @@
-var Pagination={initComponents:function(){$().twbsPagination?($(".twbs-default").twbsPagination({totalPages:35,visiblePages:4,prev:"Prev",first:null,last:null,onPageClick:function(t,n){$(".twbs-content-default").text("Page #"+n+" content")}}),$(".twbs-flat").twbsPagination({totalPages:35,visiblePages:4,prev:"Prev",first:null,last:null,onPageClick:function(t,n){$(".twbs-content-flat").text("Page #"+n+" content")}}),$(".twbs-separated").twbsPagination({totalPages:35,visiblePages:4,prev:"Prev",first:null,last:null,onPageClick:function(t,n){$(".twbs-content-separated").text("Page #"+n+" content")}}),$(".twbs-prev-next").twbsPagination({totalPages:35,visiblePages:3,prev:"rtl"==$("html").attr("dir")?"&#8674;":"&#8672;",next:"rtl"==$("html").attr("dir")?"&#8672;":"&#8674;",first:"rtl"==$("html").attr("dir")?"&#8677;":"&#8676;",last:"rtl"==$("html").attr("dir")?"&#8676;":"&#8677;",onPageClick:function(t,n){$(".twbs-content-prev-next").text("Page #"+n+" content")}}),$(".twbs-page-start").twbsPagination({totalPages:35,visiblePages:4,startPage:3,prev:"Prev",first:null,last:null,onPageClick:function(t,n){$(".twbs-content-page-start").text("Page #"+n+" content")}}),$(".twbs-visible-pages").twbsPagination({totalPages:35,visiblePages:2,prev:"rtl"==$("html").attr("dir")?"&rarr;":"&larr;",next:"rtl"==$("html").attr("dir")?"&larr;":"&rarr;",first:null,last:null,onPageClick:function(t,n){$(".twbs-content-visible-pages").text("Page #"+n+" content")}})):console.warn("Warning - sweet_alert.min.js is not loaded.")}};document.addEventListener("DOMContentLoaded",function(){Pagination.initComponents()});
+/* ------------------------------------------------------------------------------
+ *
+ *  # Pagination
+ *
+ *  Specific JS code additions for components_pagination.html page
+ *
+ * ---------------------------------------------------------------------------- */
+
+
+// Setup module
+// ------------------------------
+
+var Pagination = function () {
+
+
+    //
+    // Setup module components
+    //
+
+    // Dynamic pagination
+    var _componentPaginationDynamic = function() {
+        if (!$().twbsPagination) {
+            console.warn('Warning - sweet_alert.min.js is not loaded.');
+            return;
+        }
+
+        // Basic
+        $('.twbs-default').twbsPagination({
+            totalPages: 35,
+            visiblePages: 4,
+            prev: 'Prev',
+            first: null,
+            last: null,
+            onPageClick: function (event, page) {
+                $('.twbs-content-default').text('Page #' + page + ' content');
+            }
+        });
+
+        // Flat style
+        $('.twbs-flat').twbsPagination({
+            totalPages: 35,
+            visiblePages: 4,
+            prev: 'Prev',
+            first: null,
+            last: null,
+            onPageClick: function (event, page) {
+                $('.twbs-content-flat').text('Page #' + page + ' content');
+            }
+        });
+
+        // Separated style
+        $('.twbs-separated').twbsPagination({
+            totalPages: 35,
+            visiblePages: 4,
+            prev: 'Prev',
+            first: null,
+            last: null,
+            onPageClick: function (event, page) {
+                $('.twbs-content-separated').text('Page #' + page + ' content');
+            }
+        });
+
+        // Custom button text
+        $('.twbs-prev-next').twbsPagination({
+            totalPages: 35,
+            visiblePages: 3,
+            prev: $('html').attr('dir') == 'rtl' ? '&#8674;' : '&#8672;',
+            next: $('html').attr('dir') == 'rtl' ? '&#8672;' : '&#8674;',
+            first: $('html').attr('dir') == 'rtl' ? '&#8677;' : '&#8676;',
+            last: $('html').attr('dir') == 'rtl' ? '&#8676;' : '&#8677;',
+            onPageClick: function (event, page) {
+                $('.twbs-content-prev-next').text('Page #' + page + ' content');
+            }
+        });
+
+        // Custom start page
+        $('.twbs-page-start').twbsPagination({
+            totalPages: 35,
+            visiblePages: 4,
+            startPage: 3,
+            prev: 'Prev',
+            first: null,
+            last: null,
+            onPageClick: function (event, page) {
+                $('.twbs-content-page-start').text('Page #' + page + ' content');
+            }
+        });
+
+        // Set number of visible pages
+        $('.twbs-visible-pages').twbsPagination({
+            totalPages: 35,
+            visiblePages: 2,
+            prev: $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;',
+            next: $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;',
+            first: null,
+            last: null,
+            onPageClick: function (event, page) {
+                $('.twbs-content-visible-pages').text('Page #' + page + ' content');
+            }
+        });
+    };
+
+
+    //
+    // Return objects assigned to module
+    //
+
+    return {
+        initComponents: function() {
+            _componentPaginationDynamic();
+        }
+    }
+}();
+
+
+// Initialize module
+// ------------------------------
+
+document.addEventListener('DOMContentLoaded', function() {
+    Pagination.initComponents();
+});

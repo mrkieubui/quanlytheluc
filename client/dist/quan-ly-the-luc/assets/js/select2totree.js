@@ -1,1 +1,164 @@
-!function(e){e.fn.select2ToTree=function(l){var n=e.extend({},l);n.treeData&&function(a,l){function n(e,t){for(var a=e,l=0;l<t.length;l++){var n=t[l];if(!a[n])return"MISSING";a=a[n]}return a}(function s(r,d,o){var p,i;a.labelFld&&a.labelFld.split(".").length>1&&(p=a.labelFld.split(".")),a.valFld&&a.valFld.split(".").length>1&&(i=a.valFld.split("."));for(var u=0;u<r.length;u++){var c=r[u]||{},v=e("<option></option>");v.text(p?n(c,p):c[a.labelFld||"text"]),v.val(i?n(c,i):c[a.valFld||"id"]),c[a.selFld||"selected"]&&"true"===String(c[a.selFld||"selected"])&&v.prop("selected",c[a.selFld||"selected"]),""===v.val()&&(v.prop("disabled",!0),v.val("autoUniqueVal_"+t++)),v.addClass("l"+d),o&&v.attr("data-pup",o),l.append(v);var f=c[a.incFld||"inc"];f&&f.length>0&&(v.addClass("non-leaf"),s(f,d+1,v.val()))}})(a.dataArr,1,""),a.dftVal&&l.val(a.dftVal)}(n.treeData,this),n._templateResult=n.templateResult,n.templateResult=function(t,a){var l=t.text;"function"==typeof n._templateResult&&(l=n._templateResult(t,a));var s=e("<span class='item-label'></span>").append(l);if(t.element){var r=t.element;if(a.setAttribute("data-val",r.value),r.className&&(a.className+=" "+r.className),r.getAttribute("data-pup")&&a.setAttribute("data-pup",r.getAttribute("data-pup")),e(a).hasClass("non-leaf"))return e.merge(e('<span class="expand-collapse" onmouseup="expColMouseupHandler(event);"></span>'),s)}return s},window.expColMouseupHandler=function(t){var l;e((l=t.target||t.srcElement).parentNode).toggleClass("opened"),a(l.parentNode),t.stopPropagation?t.stopPropagation():t.cancelBubble=!0,t.preventDefault?t.preventDefault():t.returnValue=!1};var s=this.select2(n);function r(t){var a=s.data("select2");e(this).val().trim().length>0?a.$dropdown.addClass("searching-result"):a.$dropdown.removeClass("searching-result")}return s.on("select2:open",function(e){var t=s.data("select2");t.$dropdown.addClass("s2-to-tree"),t.$dropdown.removeClass("searching-result");var a=t.$dropdown.find(".select2-search__field").add(t.$container.find(".select2-search__field"));a.off("input",r),a.on("input",r)}),s};var t=1;function a(t){var l=t,n=e(t).parent(".select2-results__options"),s=!0;do{var r=(e(l).attr("data-pup")||"").replace(/'/g,"\\'");if(l=null,r){var d=n.find(".select2-results__option[data-val='"+r+"']");if(d.length>0){if(!d.eq(0).hasClass("opened")){e(t).removeClass("showme"),s=!1;break}l=d[0]}}}while(l);s&&e(t).addClass("showme");var o=(e(t).attr("data-val")||"").replace(/'/g,"\\'");n.find(".select2-results__option[data-pup='"+o+"']").each(function(){a(this)})}}(jQuery);
+/*!
+ * Select2-to-Tree 1.1.1
+ * https://github.com/clivezhg/select2-to-tree
+ */
+(function ($) {
+	$.fn.select2ToTree = function (options) {
+		var opts = $.extend({}, options);
+
+		if (opts.treeData) {
+			buildSelect(opts.treeData, this);
+		}
+
+		opts._templateResult = opts.templateResult;
+		opts.templateResult = function (data, container) {
+			var label = data.text;
+			if (typeof opts._templateResult === "function") {
+				label = opts._templateResult(data, container);
+			}
+			var $iteme = $("<span class='item-label'></span>").append(label);
+			if (data.element) {
+				var ele = data.element;
+				container.setAttribute("data-val", ele.value);
+				if (ele.className) container.className += " " + ele.className;
+				if (ele.getAttribute("data-pup")) {
+					container.setAttribute("data-pup", ele.getAttribute("data-pup"));
+				}
+				if ($(container).hasClass("non-leaf")) {
+					return $.merge($('<span class="expand-collapse" onmouseup="expColMouseupHandler(event);"></span>'), $iteme);
+				}
+			}
+			return $iteme;
+		};
+
+		window.expColMouseupHandler = function (evt) {
+			toggleSubOptions(evt.target || evt.srcElement);
+			/* prevent Select2 from doing "select2:selecting","select2:unselecting","select2:closing" */
+			evt.stopPropagation ? evt.stopPropagation() : evt.cancelBubble = true;
+			evt.preventDefault ? evt.preventDefault() : evt.returnValue = false;
+		}
+
+		var s2inst = this.select2(opts);
+
+		s2inst.on("select2:open", function (evt) {
+			var s2data = s2inst.data("select2");
+			s2data.$dropdown.addClass("s2-to-tree");
+			s2data.$dropdown.removeClass("searching-result");
+			var $allsch = s2data.$dropdown.find(".select2-search__field").add(s2data.$container.find(".select2-search__field"));
+			$allsch.off("input", inputHandler);
+			$allsch.on("input", inputHandler);
+		});
+
+		/* Show search result options even if they are collapsed */
+		function inputHandler(evt) {
+			var s2data = s2inst.data("select2");
+			if ($(this).val().trim().length > 0) {
+				s2data.$dropdown.addClass("searching-result");
+			}
+			else {
+				s2data.$dropdown.removeClass("searching-result");
+			}
+		}
+
+		return s2inst;
+	};
+
+	/* Build the Select Option elements */
+	function buildSelect(treeData, $el) {
+
+		/* Support the object path (eg: `item.label`) for 'valFld' & 'labelFld' */
+		function readPath(object, path) {
+			var currentPosition = object;
+			for (var j = 0; j < path.length; j++) {
+				var currentPath = path[j];
+				if (currentPosition[currentPath]) {
+					currentPosition = currentPosition[currentPath];
+					continue;
+				}
+				return 'MISSING';
+			}
+			return currentPosition;
+		}
+
+		function buildOptions(dataArr, curLevel, pup) {
+			var labelPath;
+			if (treeData.labelFld && treeData.labelFld.split('.').length > 1) {
+				labelPath = treeData.labelFld.split('.');
+			}
+			var idPath;
+			if (treeData.valFld && treeData.valFld.split('.').length > 1) {
+				idPath = treeData.valFld.split('.');
+			}
+
+			for (var i = 0; i < dataArr.length; i++) {
+				var data = dataArr[i] || {};
+				var $opt = $("<option></option>");
+				if (labelPath) {
+					$opt.text(readPath(data, labelPath));
+				} else {
+					$opt.text(data[treeData.labelFld || "text"]);
+				}
+				if (idPath) {
+					$opt.val(readPath(data, idPath));
+				} else {
+					$opt.val(data[treeData.valFld || "id"]);
+				}
+				if (data[treeData.selFld || "selected"] && String(data[treeData.selFld || "selected"]) === "true") {
+					$opt.prop("selected", data[treeData.selFld || "selected"]);
+				}
+				if ($opt.val() === "") {
+					$opt.prop("disabled", true);
+					$opt.val(getUniqueValue());
+				}
+				$opt.addClass("l" + curLevel);
+				if (pup) $opt.attr("data-pup", pup);
+				$el.append($opt);
+				var inc = data[treeData.incFld || "inc"];
+				if (inc && inc.length > 0) {
+					$opt.addClass("non-leaf");
+					buildOptions(inc, curLevel + 1, $opt.val());
+				}
+			} // end 'for'
+		} // end 'buildOptions'
+
+		buildOptions(treeData.dataArr, 1, "");
+		if (treeData.dftVal) $el.val(treeData.dftVal);
+	}
+
+	var uniqueIdx = 1;
+	function getUniqueValue() {
+		return "autoUniqueVal_" + uniqueIdx++;
+	}
+
+	function toggleSubOptions(target) {
+		$(target.parentNode).toggleClass("opened");
+		showHideSub(target.parentNode);
+	}
+
+	function showHideSub(ele) {
+		var curEle = ele;
+		var $options = $(ele).parent(".select2-results__options");
+		var shouldShow = true;
+		do {
+			var pup = ($(curEle).attr("data-pup") || "").replace(/'/g, "\\'");
+			curEle = null;
+			if (pup) {
+				var pupEle = $options.find(".select2-results__option[data-val='" + pup + "']");
+				if (pupEle.length > 0) {
+					if (!pupEle.eq(0).hasClass("opened")) { // hide current node if any parent node is collapsed
+						$(ele).removeClass("showme");
+						shouldShow = false;
+						break;
+					}
+					curEle = pupEle[0];
+				}
+			}
+		} while (curEle);
+		if (shouldShow) $(ele).addClass("showme");
+
+		var val = ($(ele).attr("data-val") || "").replace(/'/g, "\\'");
+		$options.find(".select2-results__option[data-pup='" + val + "']").each(function () {
+			showHideSub(this);
+		});
+	}
+})(jQuery);

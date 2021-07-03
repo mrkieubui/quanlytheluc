@@ -24,8 +24,7 @@ var documentSchema = mongoose.Schema({
     },
     namduoi45: [],
     namtren45: [],
-    nu: [],
-
+    nu: []
 });
 // Export Contact model
 var document = module.exports = mongoose.model('document', documentSchema);
