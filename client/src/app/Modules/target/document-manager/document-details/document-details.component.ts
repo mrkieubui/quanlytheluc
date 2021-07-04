@@ -84,7 +84,7 @@ export class DocumentDetailsComponent implements OnInit {
         this.newContent.hvsq = this.thanhtich;
         this.newContent.csnv = this.thanhtich;
         this.thongtu.namduoi45.push(this.newContent);
-        console.log("duoi 45")
+        // console.log("duoi 45")
       } else if (this.currentTab == "namtren45") {
         this.newContent.namtren55 = this.thanhtich;
         this.newContent.namduoi55 = this.thanhtich;

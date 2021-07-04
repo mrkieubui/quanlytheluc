@@ -21,6 +21,7 @@ export class ResultInfoComponent implements OnInit {
     // get one participant
     this.AppService.getItem('results', this.id).subscribe((res) => {
       this.ketqua = res;
+      console.log(res.startDate)
     });
   }
 

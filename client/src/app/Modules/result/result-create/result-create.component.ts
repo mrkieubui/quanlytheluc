@@ -17,7 +17,7 @@ export class ResultCreateComponent implements OnInit {
     document: "Thong tu the luc-BCTT-2021",
     unit: "BCTT",
     unitId: "1",
-    startDate: "2021-08-08"
+    startDate: ""
   }
   // custom tree select 
   expandKeys = ['1'];
