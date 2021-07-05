@@ -13,6 +13,24 @@ exports.index = function (req, res) {
         res.json(plans);
     });
 };
+// Filter plans by unitId
+exports.search = function (req, res) {
+    Plan.get(function (err, plans) {
+        if (err) {
+            res.json({
+                status: "error",
+                message: err,
+            });
+        }
+        var data = [];
+        plans.forEach(plan => {
+            if (plan.unitId == req.params.unitId) {
+                data.push(plan)
+            }
+        });
+        res.json(data)
+    });
+};
 // Handle create contact actions
 exports.new = function (req, res) {
     var plan = new Plan();

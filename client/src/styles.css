@@ -686,10 +686,10 @@ body {
 }
 
 .customTable.table td, .customTable.table tr {
-    white-space: nowrap;
+    white-space: break-spaces;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 120px;
+    max-width: 40px;
 }
 
 .tab-content .nav-tabs .nav-item.show .nav-link, .tab-content .nav-tabs .nav-link.active {

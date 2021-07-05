@@ -140,7 +140,9 @@ router.route('/plans/:plan_id')
     .patch(planController.update)
     .put(planController.update)
     .delete(planController.delete);
-
+router.route('/plans/search/:unitId')
+    .get(planController.search)
+    
 // Thong tu
 var documentController = require('./api/documents/documentController');
 // document routes
@@ -152,7 +154,6 @@ router.route('/documents/:document_id')
     .patch(documentController.update)
     .put(documentController.update)
     .delete(documentController.delete);
-
 // Ket qua
 var resultController = require('./api/results/resultController');
 // result routes
@@ -200,6 +201,7 @@ router.route('/soldiers/:soldier_id')
     .patch(soldierController.update)
     .put(soldierController.update)
     .delete(soldierController.delete);
-
+router.route('/soldiers/search/:unitId')
+    .get(soldierController.search)
 // Export API routes
 module.exports = router;

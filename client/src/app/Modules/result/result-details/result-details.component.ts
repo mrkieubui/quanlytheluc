@@ -13,6 +13,8 @@ export class ResultDetailsComponent implements OnInit {
   ketqua: any = {};
   id: any;
   document: any = {};
+  documents: any = {};
+  soldiers: any = {};
   // custom tree select 
   expandKeys = ['1'];
   nodes: any = [];
@@ -24,14 +26,20 @@ export class ResultDetailsComponent implements OnInit {
   ngOnInit(): void {
     // get participant id from url param to edit
     this.id = this.route.snapshot.paramMap.get('id');
-    // get one participant
+    this.AppService.getAllItems('documents').subscribe(res => {
+      var length = res.length - 1;
+      this.document = res[length];
+    });
     this.AppService.getItem('results', this.id).subscribe((res) => {
       this.ketqua = res;
-      this.AppService.getItem('documents', res.documentId).subscribe(res => {
-        this.document = res;
-        // console.log(this.document)
-
-      })
+      // this.AppService.getItem('documents', res.documentId).subscribe(res => {
+      //   this.document = res;
+      //   console.log(res)
+      // });
+      
+      this.AppService.getMultiItems('soldiers', res.unitId).subscribe(res => {
+        this.soldiers = res;
+      });
     });
     // get unit nodes
     setTimeout(() => {

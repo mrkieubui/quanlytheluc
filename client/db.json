@@ -1837,7 +1837,74 @@
           "old": "30",
           "unit": "d30 - SQTT - BCTT",
           "unitId": "085339a4-9181-aaa5-ec20-cee752e67ad5",
-          "contents": []
+          "rank": "Trung sĩ",
+          "rankId": "4",
+          "totalLevel": "Giỏi",
+          "contents": [
+            {
+              "contentId": "1",
+              "score": "12",
+              "level": "G"
+            },
+            {
+              "contentId": "2",
+              "score": "2.5",
+              "level": "K"
+            },
+            {
+              "contentId": "3",
+              "score": "6",
+              "level": "G"
+            },
+            {
+              "contentId": "4",
+              "score": "12",
+              "level": "Khá"
+            },
+            {
+              "contentId": "5",
+              "score": "100",
+              "level": "G"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "identitynumber": "TSQ-100102",
+          "name": "Lê Trung Dũng",
+          "old": "40",
+          "unit": "d30 - SQTT - BCTT",
+          "unitId": "085339a4-9181-aaa5-ec20-cee752e67ad5",
+          "rank": "Trung sĩ",
+          "rankId": "4",
+          "totalLevel": "Giỏi",
+          "contents": [
+            {
+              "contentId": "1",
+              "score": "12",
+              "level": "G"
+            },
+            {
+              "contentId": "2",
+              "score": "2.5",
+              "level": "K"
+            },
+            {
+              "contentId": "3",
+              "score": "6",
+              "level": "G"
+            },
+            {
+              "contentId": "4",
+              "score": "12",
+              "level": "Khá"
+            },
+            {
+              "contentId": "5",
+              "score": "100",
+              "level": "G"
+            }
+          ]
         }
       ],
       "nu": [
@@ -1848,7 +1915,74 @@
           "old": "30",
           "unit": "d30 - SQTT - BCTT",
           "unitId": "085339a4-9181-aaa5-ec20-cee752e67ad5",
-          "contents": []
+          "rank": "Trung sĩ",
+          "rankId": "4",
+          "totalLevel": "Giỏi",
+          "contents": [
+            {
+              "contentId": "1",
+              "score": "12",
+              "level": "G"
+            },
+            {
+              "contentId": "2",
+              "score": "2.5",
+              "level": "K"
+            },
+            {
+              "contentId": "3",
+              "score": "6",
+              "level": "G"
+            },
+            {
+              "contentId": "4",
+              "score": "12",
+              "level": "Khá"
+            },
+            {
+              "contentId": "5",
+              "score": "100",
+              "level": "G"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "identitynumber": "TSQ-100102",
+          "name": "Lê Trung Dũng",
+          "old": "40",
+          "unit": "d30 - SQTT - BCTT",
+          "unitId": "085339a4-9181-aaa5-ec20-cee752e67ad5",
+          "rank": "Trung sĩ",
+          "rankId": "4",
+          "totalLevel": "Giỏi",
+          "contents": [
+            {
+              "contentId": "1",
+              "score": "12",
+              "level": "G"
+            },
+            {
+              "contentId": "2",
+              "score": "2.5",
+              "level": "K"
+            },
+            {
+              "contentId": "3",
+              "score": "6",
+              "level": "G"
+            },
+            {
+              "contentId": "4",
+              "score": "12",
+              "level": "Khá"
+            },
+            {
+              "contentId": "5",
+              "score": "100",
+              "level": "G"
+            }
+          ]
         }
       ]
     },

@@ -14,7 +14,7 @@
                                 </label>
                                 <div class="col-lg-9">
                                     <input type="text" required name="name" #rnamne="ngModel" [(ngModel)]="ketqua.name"
-                                        class="form-control mb-2" placeholder="Nhập tên kết quả" pattern="^(?!\s*$).+">
+                                        class="form-control mb-1" placeholder="Nhập tên kết quả" pattern="^(?!\s*$).+">
                                     <div *ngIf="rnamne.invalid && resultForm.submitted" [ngClass]="'error'"
                                         class="ml-2 text-danger">
                                         Chưa nhập tên kết quả!
@@ -27,10 +27,12 @@
                                         class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-9">
-                                    <input type="text" required name="planNumber" #rplanNumber="ngModel"
-                                        [(ngModel)]="ketqua.planNumber" class="form-control mb-2"
-                                        placeholder="Nhập kế hoạch" pattern="^(?!\s*$).+">
-                                    <div *ngIf="rplanNumber.invalid && resultForm.submitted" class="ml-2 text-danger">
+                                    <select class="form-control" required data-placeholder="Chọn kế hoạch" name="planId"
+                                        [(ngModel)]="ketqua.planId" #rplanId="ngModel">
+                                        <option label="Chọn kế hoạch"></option>
+                                        <option *ngFor="let plan of plans" [ngValue]="plan._id">{{plan.name}}</option>
+                                    </select>
+                                    <div *ngIf="rplanId.invalid && resultForm.submitted" class="ml-2 text-danger">
                                         Chưa nhập kế hoạch!
                                     </div>
                                 </div>
@@ -41,8 +43,8 @@
                                 </label>
                                 <div class="col-lg-9">
                                     <input type="date" required name="startDate" #rstartDate="ngModel"
-                                        [(ngModel)]="ketqua.startDate" class="form-control mb-2"
-                                        placeholder="Nhập ngày ban hành" pattern="^(?!\s*$).+">
+                                        [(ngModel)]="ketqua.startDate" class="form-control mb-1"
+                                        placeholder="Nhập ngày ban hành">
                                     <div *ngIf="rstartDate.invalid && resultForm.submitted" class="ml-2 text-danger">
                                         Chưa nhập ngày thực hiện!
                                     </div>
@@ -59,8 +61,8 @@
                                     </nz-tree-select>
                                 </div>
                             </div>
-
-                            <div class="form-group row ">
+                            <!-- Nhập file kết quả -->
+                            <!-- <div class="form-group row ">
                                 <label class="col-form-label col-lg-3 text-500">File đính kèm
                                 </label>
                                 <div class="col-lg-9">
@@ -71,7 +73,261 @@
                                         data-main-class="input-group-lg">
                                     <span class="text-danger"></span>
                                 </div>
+                            </div> -->
+
+                            <!-- <div class="card-body card-body-content tab-content"> -->
+                            <ul class="nav nav-tabs nav-tabs-bottom">
+                                <li class="nav-item"><a href="#bottom-tab1" class="nav-link active"
+                                        data-toggle="tab">Nam trên 45
+                                        tuổi</a>
+                                </li>
+                                <li class="nav-item"><a href="#bottom-tab2" class="nav-link" data-toggle="tab">Nam
+                                        dưới 45 tuổi</a>
+                                </li>
+                                <li class="nav-item"><a href="#bottom-tab3" class="nav-link" data-toggle="tab">Nữ</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="bottom-tab1">
+                                    <div class="table-responsive mb-4">
+                                        <!-- <div class="alert alert-info alert-sm">Không tìm thấy
+                                            dữ liệu
+                                        </div> -->
+                                        <table class="table table-bordered table-group-object customTable">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-500 text-center" style="width: 120px;">Mã QN</td>
+                                                    <td class="text-500 text-center" style="width: 150px;">Họ và tên
+                                                    </td>
+                                                    <td class="text-500 text-center" style="width: 150px;">Đơn vị</td>
+                                                    <td class="text-500 text-center" style="width: 100px;">Cấp bậc</td>
+                                                    <td class="text-500 text-center" style="width: 50px;">Tuổi</td>
+                                                    <td *ngFor="let cont of document.namduoi45"
+                                                        class="text-500 text-center">
+                                                        {{cont.name}}<br>({{cont.measureUnit}})</td>
+                                                </tr>
+                                                <tr *ngFor="let soldier of ketqua.namduoi45">
+                                                    <td class="text">{{soldier.identitynumber}}</td>
+                                                    <td class="text">{{soldier.name}}</td>
+                                                    <td class="text">{{soldier.unit}}</td>
+                                                    <td class="text text-center">{{soldier.rank}}</td>
+                                                    <td class="text text-center">{{soldier.old}}</td>
+                                                    <td *ngIf="document.namduoi45 && document.namduoi45.length >=1"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_1" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.namduoi45 && document.namduoi45.length >=2"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_2" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.namduoi45 && document.namduoi45.length >=3"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_3" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.namduoi45 && document.namduoi45.length >=4"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_4" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.namduoi45 && document.namduoi45.length >=5"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_5" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.namduoi45 && document.namduoi45.length >=6"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_6" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.namduoi45 && document.namduoi45.length >=7"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_7" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.namduoi45 && document.namduoi45.length >=8"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_8" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.namduoi45 && document.namduoi45.length >=9"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_9" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.namduoi45 && document.namduoi45.length >=10"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_10" class="form-control">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="bottom-tab2">
+                                    <div class="table-responsive mb-4">
+                                        <!-- <div class="alert alert-info alert-sm">Không tìm thấy
+                                            dữ liệu
+                                        </div> -->
+                                        <table class="table table-bordered table-group-object customTable">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-500 text-center" style="width: 120px;">Mã QN</td>
+                                                    <td class="text-500 text-center" style="width: 150px;">Họ và tên
+                                                    </td>
+                                                    <td class="text-500 text-center" style="width: 150px;">Đơn vị</td>
+                                                    <td class="text-500 text-center" style="width: 100px;">Cấp bậc</td>
+                                                    <td class="text-500 text-center" style="width: 50px;">Tuổi</td>
+                                                    <td *ngFor="let cont of document.namtren45"
+                                                        class="text-500 text-center">
+                                                        {{cont.name}}<br>({{cont.measureUnit}})</td>
+                                                </tr>
+                                                <tr *ngFor="let soldier of ketqua.namtren45">
+                                                    <td class="text">{{soldier.identitynumber}}</td>
+                                                    <td class="text">{{soldier.name}}</td>
+                                                    <td class="text">{{soldier.unit}}</td>
+                                                    <td class="text text-center">{{soldier.rank}}</td>
+                                                    <td class="text text-center">{{soldier.old}}</td>
+                                                    <td *ngIf="document.namtren45 && document.namtren45.length >=1"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_1" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.namtren45 && document.namtren45.length >=2"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_2" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.namtren45 && document.namtren45.length >=3"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_3" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.namtren45 && document.namtren45.length >=4"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_4" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.namtren45 && document.namtren45.length >=5"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_5" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.namtren45 && document.namtren45.length >=6"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_6" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.namtren45 && document.namtren45.length >=7"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_7" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.namtren45 && document.namtren45.length >=8"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_8" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.namtren45 && document.namtren45.length >=9"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_9" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.namtren45 && document.namtren45.length >=10"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_10" class="form-control">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="bottom-tab3">
+                                    <div class="table-responsive mb-4">
+                                        <!-- <div class="alert alert-info alert-sm">Không tìm thấy
+                                            dữ liệu
+                                        </div> -->
+                                        <table class="table table-bordered table-group-object customTable">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-500 text-center" style="width: 120px;">Mã QN</td>
+                                                    <td class="text-500 text-center" style="width: 150px;">Họ và tên
+                                                    </td>
+                                                    <td class="text-500 text-center" style="width: 150px;">Đơn vị</td>
+                                                    <td class="text-500 text-center" style="width: 100px;">Cấp bậc</td>
+                                                    <td class="text-500 text-center" style="width: 50px;">Tuổi</td>
+                                                    <td *ngFor="let cont of document.nu" class="text-500 text-center">
+                                                        {{cont.name}}<br>({{cont.measureUnit}})</td>
+                                                </tr>
+                                                <tr *ngFor="let soldier of ketqua.nu">
+                                                    <td class="text">{{soldier.identitynumber}}</td>
+                                                    <td class="text">{{soldier.name}}</td>
+                                                    <td class="text">{{soldier.unit}}</td>
+                                                    <td class="text text-center">{{soldier.rank}}</td>
+                                                    <td class="text text-center">{{soldier.old}}</td>
+                                                    <td *ngIf="document.nu && document.nu.length >=1"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_1" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.nu && document.nu.length >=2"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_2" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.nu && document.nu.length >=3"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_3" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.nu && document.nu.length >=4"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_4" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.nu && document.nu.length >=5"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_5" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.nu && document.nu.length >=6"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_6" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.nu && document.nu.length >=7"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_7" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.nu && document.nu.length >=8"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_8" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.nu && document.nu.length >=9"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_9" class="form-control">
+                                                    </td>
+                                                    <td *ngIf="document.nu && document.nu.length >=10"
+                                                        class="text-500 text-center">
+                                                        <input type="text" name="soldier._id"
+                                                            [(ngModel)]="soldier.content_10" class="form-control">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
+                            <!-- </div> -->
 
                             <div class="d-flex justify-content-center align-items-center btn-group-content">
                                 <a routerLink="/result-manager" type="button" class="btn btn-light">Hủy</a>

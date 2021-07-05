@@ -2,24 +2,20 @@
 var mongoose = require('mongoose');
 // Setup schema
 var resultSchema = mongoose.Schema({
-    document: {
-        type: String,
-        required: true
-    },
-    documentNumber: {
-        type: String,
-        required: true
-    },
     name: {
         type: String,
         required: true
     },
-    planNumber: {
+    planId: {
+        type: String,
+        required: true
+    },
+    documentId: {
         type: String,
         required: true
     },
     startDate: {
-        type: Date,
+        type: String,
         required: true
     },
     unit: {
@@ -29,7 +25,10 @@ var resultSchema = mongoose.Schema({
     unitId: {
         type: String,
         required: true
-    }
+    },
+    namduoi45: [],
+    namtren45: [],
+    nu: []
 });
 // Export Contact model
 var result = module.exports = mongoose.model('result', resultSchema);

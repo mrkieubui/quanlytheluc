@@ -9,8 +9,8 @@ import * as arrayToTree from 'array-to-tree';
 export class AppService implements OnInit {
 
   // baseURL: string = "http://localhost:3000/";
-  // baseURL: string = "http://localhost:3000/api/";
-  baseURL: string = "https://quanlytheluc.herokuapp.com/api/";
+  baseURL: string = "http://localhost:3000/api/";
+  // baseURL: string = "https://quanlytheluc.herokuapp.com/api/";
   idStored: any;
   loginStatus: boolean = false;
   unitIdStored: any;
@@ -26,16 +26,24 @@ export class AppService implements OnInit {
   constructor(public http: HttpClient) { }
 
   ngOnInit(): void {
-    
+
   }
 
   // get all item dung chung cho cac module
   public getAllItems(path: string): Observable<any> {
     return this.http.get(this.baseURL + path);
   }
+  // get multi item dung chung cho cac module
+  public getMultiItems(path: string, param: string): Observable<any> {
+    return this.http.get(this.baseURL + path + '/search/' + param);
+  }
   // get 1 item dung chung cho cac module
   public getItem(path: string, id: any): Observable<any> {
     return this.http.get(this.baseURL + path + '/' + id);
+  }
+  // get last item dung chung cho cac module
+  public getlast(path: string): Observable<any> {
+    return this.http.get(this.baseURL + path);
   }
   // Tao moi 1 item dung chung cho cac module
   public createItem(path: string, data: any): Observable<any> {
@@ -49,6 +57,11 @@ export class AppService implements OnInit {
   // Xoa 1 item dung chung cho cac module
   public deleteItem(path: string, id: any): Observable<any> {
     return this.http.delete(this.baseURL + path + '/' + id);
+  }
+  // get all item dung chung cho cac module
+  public getItemsByParam(path: string, param: string): Observable<any> {
+
+    return this.http.get(this.baseURL + path);
   }
 
   // store parent id

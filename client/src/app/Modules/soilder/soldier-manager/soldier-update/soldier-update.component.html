@@ -134,10 +134,10 @@
                                         class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-9">
-                                    <select name="participant" class="form-control mb-2" #sparticipant="ngModel"
+                                    <select name="participant" class="form-control mb-2" #sparticipant="ngModel" (ngModelChange)="changeParticipant($event)"
                                         [(ngModel)]="soldier.participant" required>
                                         <option value="1">Chọn đối tượng</option>
-                                        <option *ngFor="let participant of participants" [ngValue]="participant.name">
+                                        <option *ngFor="let participant of participants" [ngValue]="participant._id">
                                             {{participant.name}}
                                         </option>
                                     </select>

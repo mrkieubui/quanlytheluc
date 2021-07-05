@@ -41,6 +41,10 @@ var soldierSchema = mongoose.Schema({
     participant: {
         type: String,
         required: true
+    },
+    participantGroup: {
+        type: String,
+        required: true
     }
 });
 // Export Contact model

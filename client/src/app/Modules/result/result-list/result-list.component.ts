@@ -26,7 +26,7 @@ export class ResultListComponent implements OnInit {
     this.getData();
     setTimeout(() => {
       this.nodes = this.AppService.getUnitNodes();
-    }, 500);
+    }, 1000);
   }
   fetchData() {
     this.getData();
@@ -50,7 +50,6 @@ export class ResultListComponent implements OnInit {
       this.results = this.FilterService.searchByNameAndUnit(this.originResults, searchText, this.unit);
     });
   }
-
   // clear search
   clearSearch() {
     this.searchText = "";

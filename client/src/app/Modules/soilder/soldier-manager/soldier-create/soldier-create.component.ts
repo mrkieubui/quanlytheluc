@@ -21,7 +21,8 @@ export class SoldierCreateComponent implements OnInit {
     job: "",
     unitId: "1",
     unit: "BCTT",
-    participant: ""
+    participant: "",
+    participantGroup: ""
   };
   ranks: any = []
   jobs: any = []
@@ -40,13 +41,14 @@ export class SoldierCreateComponent implements OnInit {
     // get data
     setTimeout(() => {
       this.nodes = this.AppService.getUnitNodes();
-    }, 500);
-    this.participants = this.AppService.getDataByModule('participants');
-    this.ranks = this.AppService.getDataByModule('ranks');
-    this.jobs = this.AppService.getDataByModule('jobs');
-    this.genders = this.AppService.getDataByModule('genders');
-    var tempUser: any = localStorage.getItem('currentUser');
-    this.userRole = JSON.parse(tempUser).role;
+      this.participants = this.AppService.getDataByModule('participants');
+      this.ranks = this.AppService.getDataByModule('ranks');
+      this.jobs = this.AppService.getDataByModule('jobs');
+      this.genders = this.AppService.getDataByModule('genders');
+      var tempUser: any = localStorage.getItem('currentUser');
+      this.userRole = JSON.parse(tempUser).role;
+    }, 1000);
+
   }
 
   onCreateSoldier(soldierForm: any) {
@@ -56,6 +58,11 @@ export class SoldierCreateComponent implements OnInit {
         this.NotificationsService.notiCreateSuccess();
       });
     }
+  }
+  changeParticipant(key: any) {
+    this.AppService.getItem('participants', key).subscribe(res => {
+      this.soldier.participantGroup = res.participantGroup;
+    })
   }
 
   onChange(key: any) {

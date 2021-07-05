@@ -13,6 +13,25 @@ exports.index = function (req, res) {
         res.json(soldiers);
     });
 };
+// Filter soldiers by unitId
+exports.search = function (req, res) {
+    Soldier.get(function (err, soldiers) {
+        if (err) {
+            res.json({
+                status: "error",
+                message: err,
+            });
+        }
+        var data = [];
+        soldiers.forEach(soldier => {
+            if (soldier.unitId == req.params.unitId) {
+                data.push(soldier)
+            }
+        });
+        res.json(data)
+    });
+};
+
 // Handle create contact actions
 exports.new = function (req, res) {
     var soldier = new Soldier();
@@ -26,6 +45,7 @@ exports.new = function (req, res) {
     soldier.unit = req.body.unit;
     soldier.unitId = req.body.unitId;
     soldier.participant = req.body.participant;
+    soldier.participantGroup = req.body.participantGroup;
     // save the soldier and check for errors
     soldier.save(function (err) {
         // if (err)
@@ -41,6 +61,7 @@ exports.view = function (req, res) {
         res.json(soldier);
     });
 };
+
 // Handle update contact info
 exports.update = function (req, res) {
     Soldier.findById(req.params.soldier_id, function (err, soldier) {
@@ -56,6 +77,7 @@ exports.update = function (req, res) {
         soldier.unit = req.body.unit;
         soldier.unitId = req.body.unitId;
         soldier.participant = req.body.participant;
+        soldier.participantGroup = req.body.participantGroup;
         // save the soldier and check for errors
         soldier.save(function (err) {
             if (err)

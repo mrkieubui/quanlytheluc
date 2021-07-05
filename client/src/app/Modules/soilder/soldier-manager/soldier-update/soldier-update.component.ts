@@ -49,6 +49,11 @@ export class SoldierUpdateComponent implements OnInit {
       });
     }
   }
+  changeParticipant(key: any) {
+    this.AppService.getItem('participants', key).subscribe(res => {
+      this.soldier.participantGroup = res.participantGroup;
+    })
+  }
   onChange(key: any) {
     this.soldier.unitId = key;
     // store unitid

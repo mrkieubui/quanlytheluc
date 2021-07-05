@@ -17,26 +17,29 @@ export class ResultUpdateComponent implements OnInit {
   nodes: any = [];
   unitId: any = "1";
   userUnitId: any;
+  plans: any;
 
   constructor(private route: ActivatedRoute, private AppService: AppService, private router: Router, private NotificationsService: NotificationsService) { }
 
   ngOnInit(): void {
+    var tempUser: any = localStorage.getItem('currentUser');
+    this.userUnitId = JSON.parse(tempUser).unitId;
     // get participant id from url param to edit
     this.id = this.route.snapshot.paramMap.get('id');
-    // get one participant
-    this.AppService.getItem('results', this.id).subscribe((res) => {
-      this.ketqua = res;
-    });
     // get unit nodes
     setTimeout(() => {
       this.nodes = this.AppService.getUnitNodes();
     }, 1000);
-    var tempUser: any = localStorage.getItem('currentUser');
-    this.userUnitId = JSON.parse(tempUser).unitId;
+    this.AppService.getItem('results', this.id).subscribe((res) => {
+      this.ketqua = res;
+    });
+    this.AppService.getMultiItems('plans', this.userUnitId).subscribe(res => {
+      this.plans = res;
+    });
   }
 
   onUpdateResult(resultUpdateForm: any) {
-    if (resultUpdateForm.value.name !== "" && resultUpdateForm.value.name.trim() !== "" && resultUpdateForm.value.planNumber !== "" && resultUpdateForm.value.planNumber.trim() !== "" && resultUpdateForm.value.startDate !== "" && resultUpdateForm.value.startDate.trim() !== "" && resultUpdateForm.value.unitId !== "") {
+    if (resultUpdateForm.value.name !== "" && resultUpdateForm.value.name.trim() !== "" && resultUpdateForm.value.planId !== "" && resultUpdateForm.value.planId.trim() !== "" && resultUpdateForm.value.startDate !== "" && resultUpdateForm.value.startDate.trim() !== "" && resultUpdateForm.value.unitId !== "") {
       this.AppService.updateItem('results', this.id, this.ketqua).subscribe(() => {
         this.router.navigate(['/result-manager']);
         this.NotificationsService.notiUpdateSuccess();
