@@ -6,6 +6,10 @@ var planSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    plan: {
+        type: String,
+        required: true
+    },
     planNumber: {
         type: String,
         required: true

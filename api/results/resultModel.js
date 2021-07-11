@@ -6,6 +6,10 @@ var resultSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    plan: {
+        type: String,
+        required: true
+    },
     planId: {
         type: String,
         required: true

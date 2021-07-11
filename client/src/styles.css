@@ -331,6 +331,13 @@ body {
     line-height: 20px;
     font-style: normal;
 }
+.text-600 {
+    font-family: 'Roboto-Black';
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    font-style: normal;
+}
 
 .text-black {
     color: #000;
@@ -762,4 +769,7 @@ body {
 }
 .ngx-pagination {
     margin: 5px !important;
+}
+.navbar.navbar-expand-md.navbar-dark.bg-indigo.navbar-static.fixed-header {
+    padding-left: 7px;
 }

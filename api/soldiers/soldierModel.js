@@ -42,6 +42,10 @@ var soldierSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    participantId: {
+        type: String,
+        required: true
+    },
     participantGroup: {
         type: String,
         required: true

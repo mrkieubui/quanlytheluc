@@ -133,7 +133,7 @@
                                 </label>
                                 <div class="col-lg-9">
                                     <select name="participant" class="form-control mb-2" #sparticipant="ngModel"
-                                        [(ngModel)]="soldier.participant" required (ngModelChange)="changeParticipant($event)">
+                                        [(ngModel)]="soldier.participantId" required (ngModelChange)="changeParticipant($event)">
                                         <option value="">Chọn đối tượng</option>
                                         <option *ngFor="let participant of participants" [ngValue]="participant._id">
                                             {{participant.name}}

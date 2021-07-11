@@ -14,7 +14,7 @@
                                 </label>
                                 <div class="col-lg-9">
                                     <input type="text" required name="name" #rnamne="ngModel" [(ngModel)]="ketqua.name"
-                                        class="form-control mb-1" placeholder="Nhập tên kết quả" pattern="^(?!\s*$).+">
+                                        class="form-control mb-0" placeholder="Nhập tên kết quả" pattern="^(?!\s*$).+">
                                     <div *ngIf="rnamne.invalid && resultForm.submitted" [ngClass]="'error'"
                                         class="ml-2 text-danger">
                                         Chưa nhập tên kết quả!
@@ -28,7 +28,8 @@
                                 </label>
                                 <div class="col-lg-9">
                                     <select class="form-control" required data-placeholder="Chọn kế hoạch" name="planId"
-                                        [(ngModel)]="ketqua.planId" #rplanId="ngModel">
+                                        [(ngModel)]="ketqua.planId" #rplanId="ngModel"
+                                        (ngModelChange)="onChangePlan($event)">
                                         <option label="Chọn kế hoạch"></option>
                                         <option *ngFor="let plan of plans" [ngValue]="plan._id">{{plan.name}}</option>
                                     </select>
@@ -43,7 +44,7 @@
                                 </label>
                                 <div class="col-lg-9">
                                     <input type="date" required name="startDate" #rstartDate="ngModel"
-                                        [(ngModel)]="ketqua.startDate" class="form-control mb-1"
+                                        [(ngModel)]="ketqua.startDate" class="form-control mb-0"
                                         placeholder="Nhập ngày ban hành">
                                     <div *ngIf="rstartDate.invalid && resultForm.submitted" class="ml-2 text-danger">
                                         Chưa nhập ngày thực hiện!
@@ -51,14 +52,10 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-form-label col-lg-3 text-500">Chọn đơn vị <span
-                                        class="text-danger">*</span>
-                                </label>
+                                <label class="col-form-label col-lg-3 text-500">Đơn vị</label>
                                 <div class="col-lg-9">
-                                    <nz-tree-select style="width: 100%" nzPlaceHolder="Chọn đơn vị"
-                                        [nzExpandedKeys]="expandKeys" [nzNodes]="nodes" [(ngModel)]="ketqua.unitId"
-                                        #runitId="ngModel" name="unitId" (ngModelChange)="onChange($event)">
-                                    </nz-tree-select>
+                                    <input type="text" disabled name="unit" [(ngModel)]="ketqua.unit"
+                                        class="form-control mb-0" placeholder="Đơn vị">
                                 </div>
                             </div>
                             <!-- Nhập file kết quả -->
@@ -112,56 +109,76 @@
                                                     <td class="text">{{soldier.name}}</td>
                                                     <td class="text">{{soldier.unit}}</td>
                                                     <td class="text text-center">{{soldier.rank}}</td>
-                                                    <td class="text text-center">{{soldier.old}}</td>
+                                                    <td class="text text-center">{{onConvertOld(soldier.birthday)}}</td>
                                                     <td *ngIf="document.namduoi45 && document.namduoi45.length >=1"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_1" class="form-control">
+                                                            [(ngModel)]="soldier.content[0]"
+                                                            (blur)="onClassifyNamDuoi45(soldier, soldier.content[0], document.namduoi45[0], soldier.participantId, 0)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.namduoi45 && document.namduoi45.length >=2"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_2" class="form-control">
+                                                            [(ngModel)]="soldier.content[1]"
+                                                            (blur)="onClassifyNamDuoi45(soldier, soldier.content[1], document.namduoi45[1], soldier.participantId, 1)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.namduoi45 && document.namduoi45.length >=3"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_3" class="form-control">
+                                                            [(ngModel)]="soldier.content[2]"
+                                                            (blur)="onClassifyNamDuoi45(soldier, soldier.content[2], document.namduoi45[2], soldier.participantId, 2)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.namduoi45 && document.namduoi45.length >=4"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_4" class="form-control">
+                                                            [(ngModel)]="soldier.content[3]"
+                                                            (blur)="onClassifyNamDuoi45(soldier, soldier.content[3], document.namduoi45[3], soldier.participantId, 3)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.namduoi45 && document.namduoi45.length >=5"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_5" class="form-control">
+                                                            [(ngModel)]="soldier.content[4]"
+                                                            (blur)="onClassifyNamDuoi45(soldier, soldier.content[4], document.namduoi45[4], soldier.participantId, 4)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.namduoi45 && document.namduoi45.length >=6"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_6" class="form-control">
+                                                            [(ngModel)]="soldier.content[5]"
+                                                            (blur)="onClassifyNamDuoi45(soldier, soldier.content[5], document.namduoi45[5], soldier.participantId, 5)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.namduoi45 && document.namduoi45.length >=7"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_7" class="form-control">
+                                                            [(ngModel)]="soldier.content[6]"
+                                                            (blur)="onClassifyNamDuoi45(soldier, soldier.content[6], document.namduoi45[6], soldier.participantId, 6)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.namduoi45 && document.namduoi45.length >=8"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_8" class="form-control">
+                                                            [(ngModel)]="soldier.content[7]"
+                                                            (blur)="onClassifyNamDuoi45(soldier, soldier.content[7], document.namduoi45[7], soldier.participantId, 7)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.namduoi45 && document.namduoi45.length >=9"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_9" class="form-control">
+                                                            [(ngModel)]="soldier.content[8]"
+                                                            (blur)="onClassifyNamDuoi45(soldier, soldier.content[8], document.namduoi45[8], soldier.participantId, 8)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.namduoi45 && document.namduoi45.length >=10"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_10" class="form-control">
+                                                            [(ngModel)]="soldier.content[9]"
+                                                            (blur)="onClassifyNamDuoi45(soldier, soldier.content[9], document.namduoi45[9], soldier.participantId, 9)"
+                                                            class="form-control">
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -185,62 +202,84 @@
                                                     <td *ngFor="let cont of document.namtren45"
                                                         class="text-500 text-center">
                                                         {{cont.name}}<br>({{cont.measureUnit}})</td>
+                                                    <td class="text-500 text-center" style="width: 100px;">Xếp loại
+                                                        chung</td>
                                                 </tr>
                                                 <tr *ngFor="let soldier of ketqua.namtren45">
                                                     <td class="text">{{soldier.identitynumber}}</td>
                                                     <td class="text">{{soldier.name}}</td>
                                                     <td class="text">{{soldier.unit}}</td>
                                                     <td class="text text-center">{{soldier.rank}}</td>
-                                                    <td class="text text-center">{{soldier.old}}</td>
+                                                    <td class="text text-center">{{onConvertOld(soldier.birthday)}}</td>
                                                     <td *ngIf="document.namtren45 && document.namtren45.length >=1"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_1" class="form-control">
+                                                            [(ngModel)]="soldier.content[0]"
+                                                            (blur)="onClassifyNamTren45(soldier, soldier.content[0], document.namtren45[0], soldier.participantId, 0)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.namtren45 && document.namtren45.length >=2"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_2" class="form-control">
+                                                            [(ngModel)]="soldier.content[1]"
+                                                            (blur)="onClassifyNamTren45(soldier, soldier.content[1], document.namtren45[1], soldier.participantId, 1)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.namtren45 && document.namtren45.length >=3"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_3" class="form-control">
+                                                            [(ngModel)]="soldier.content[2]"
+                                                            (blur)="onClassifyNamTren45(soldier, soldier.content[2], document.namtren45[2], soldier.participantId, 2)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.namtren45 && document.namtren45.length >=4"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_4" class="form-control">
+                                                            [(ngModel)]="soldier.content[3]"
+                                                            (blur)="onClassifyNamTren45(soldier, soldier.content[3], document.namtren45[3], soldier.participantId, 3)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.namtren45 && document.namtren45.length >=5"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_5" class="form-control">
+                                                            [(ngModel)]="soldier.content[4]"
+                                                            (blur)="onClassifyNamTren45(soldier, soldier.content[4], document.namtren45[4], soldier.participantId, 4)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.namtren45 && document.namtren45.length >=6"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_6" class="form-control">
+                                                            [(ngModel)]="soldier.content[5]"
+                                                            (blur)="onClassifyNamTren45(soldier, soldier.content[5], document.namtren45[5], soldier.participantId, 5)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.namtren45 && document.namtren45.length >=7"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_7" class="form-control">
+                                                            [(ngModel)]="soldier.content[6]"
+                                                            (blur)="onClassifyNamTren45(soldier, soldier.content[6], document.namtren45[6], soldier.participantId, 6)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.namtren45 && document.namtren45.length >=8"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_8" class="form-control">
+                                                            [(ngModel)]="soldier.content[7]"
+                                                            (blur)="onClassifyNamTren45(soldier, soldier.content[7], document.namtren45[7], soldier.participantId, 7)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.namtren45 && document.namtren45.length >=9"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_9" class="form-control">
+                                                            [(ngModel)]="soldier.content[8]"
+                                                            (blur)="onClassifyNamTren45(soldier, soldier.content[8], document.namtren45[8], soldier.participantId, 8)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.namtren45 && document.namtren45.length >=10"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_10" class="form-control">
+                                                            [(ngModel)]="soldier.content[9]"
+                                                            (blur)="onClassifyNamTren45(soldier, soldier.content[9], document.namtren45[9], soldier.participantId, 9)"
+                                                            class="form-control">
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -264,62 +303,84 @@
                                                     <td class="text-500 text-center" style="width: 50px;">Tuổi</td>
                                                     <td *ngFor="let cont of document.nu" class="text-500 text-center">
                                                         {{cont.name}}<br>({{cont.measureUnit}})</td>
+                                                    <td class="text-500 text-center" style="width: 100px;">Xếp loại
+                                                        chung</td>
                                                 </tr>
                                                 <tr *ngFor="let soldier of ketqua.nu">
                                                     <td class="text">{{soldier.identitynumber}}</td>
                                                     <td class="text">{{soldier.name}}</td>
                                                     <td class="text">{{soldier.unit}}</td>
                                                     <td class="text text-center">{{soldier.rank}}</td>
-                                                    <td class="text text-center">{{soldier.old}}</td>
+                                                    <td class="text text-center">{{onConvertOld(soldier.birthday)}}</td>
                                                     <td *ngIf="document.nu && document.nu.length >=1"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_1" class="form-control">
+                                                            [(ngModel)]="soldier.content[0]"
+                                                            (blur)="onClassifyNu(soldier, soldier.content[0], document.nu[0], soldier.participantId, 0)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.nu && document.nu.length >=2"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_2" class="form-control">
+                                                            [(ngModel)]="soldier.content[1]"
+                                                            (blur)="onClassifyNu(soldier, soldier.content[1], document.nu[1], soldier.participantId, 1)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.nu && document.nu.length >=3"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_3" class="form-control">
+                                                            [(ngModel)]="soldier.content[2]"
+                                                            (blur)="onClassifyNu(soldier, soldier.content[2], document.nu[2], soldier.participantId, 2)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.nu && document.nu.length >=4"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_4" class="form-control">
+                                                            [(ngModel)]="soldier.content[3]"
+                                                            (blur)="onClassifyNu(soldier, soldier.content[3], document.nu[3], soldier.participantId, 3)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.nu && document.nu.length >=5"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_5" class="form-control">
+                                                            [(ngModel)]="soldier.content[4]"
+                                                            (blur)="onClassifyNu(soldier, soldier.content[4], document.nu[4], soldier.participantId, 4)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.nu && document.nu.length >=6"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_6" class="form-control">
+                                                            [(ngModel)]="soldier.content[5]"
+                                                            (blur)="onClassifyNu(soldier, soldier.content[5], document.nu[5], soldier.participantId, 5)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.nu && document.nu.length >=7"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_7" class="form-control">
+                                                            [(ngModel)]="soldier.content[6]"
+                                                            (blur)="onClassifyNu(soldier, soldier.content[6], document.nu[6], soldier.participantId, 6)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.nu && document.nu.length >=8"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_8" class="form-control">
+                                                            [(ngModel)]="soldier.content[7]"
+                                                            (blur)="onClassifyNu(soldier, soldier.content[7], document.nu[7], soldier.participantId, 7)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.nu && document.nu.length >=9"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_9" class="form-control">
+                                                            [(ngModel)]="soldier.content[8]"
+                                                            (blur)="onClassifyNu(soldier, soldier.content[8], document.nu[8], soldier.participantId, 8)"
+                                                            class="form-control">
                                                     </td>
                                                     <td *ngIf="document.nu && document.nu.length >=10"
                                                         class="text-500 text-center">
                                                         <input type="text" name="soldier._id"
-                                                            [(ngModel)]="soldier.content_10" class="form-control">
+                                                            [(ngModel)]="soldier.content[9]"
+                                                            (blur)="onClassifyNu(soldier, soldier.content[9], document.nu[9], soldier.participantId, 9)"
+                                                            class="form-control">
                                                     </td>
                                                 </tr>
                                             </tbody>

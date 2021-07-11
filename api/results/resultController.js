@@ -17,6 +17,7 @@ exports.index = function (req, res) {
 exports.new = function (req, res) {
     var result = new Result();
     result.name = req.body.name;
+    result.plan = req.body.plan;
     result.planId = req.body.planId;
     result.documentId = req.body.documentId;
     result.startDate = req.body.startDate;
@@ -46,6 +47,7 @@ exports.update = function (req, res) {
         if (err)
             res.send(err);
         result.name = req.body.name;
+        result.plan = req.body.plan;
         result.planId = req.body.planId;
         result.documentId = req.body.documentId;
         result.startDate = req.body.startDate;

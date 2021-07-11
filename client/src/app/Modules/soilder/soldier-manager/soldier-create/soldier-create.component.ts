@@ -21,6 +21,7 @@ export class SoldierCreateComponent implements OnInit {
     job: "",
     unitId: "1",
     unit: "BCTT",
+    participantId: "",
     participant: "",
     participantGroup: ""
   };
@@ -62,6 +63,7 @@ export class SoldierCreateComponent implements OnInit {
   changeParticipant(key: any) {
     this.AppService.getItem('participants', key).subscribe(res => {
       this.soldier.participantGroup = res.participantGroup;
+      this.soldier.participant = res.name;
     })
   }
 

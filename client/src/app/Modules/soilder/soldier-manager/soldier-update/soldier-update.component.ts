@@ -52,6 +52,7 @@ export class SoldierUpdateComponent implements OnInit {
   changeParticipant(key: any) {
     this.AppService.getItem('participants', key).subscribe(res => {
       this.soldier.participantGroup = res.participantGroup;
+      this.soldier.participant = res.name;
     })
   }
   onChange(key: any) {

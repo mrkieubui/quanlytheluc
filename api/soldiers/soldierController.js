@@ -45,6 +45,7 @@ exports.new = function (req, res) {
     soldier.unit = req.body.unit;
     soldier.unitId = req.body.unitId;
     soldier.participant = req.body.participant;
+    soldier.participantId = req.body.participantId;
     soldier.participantGroup = req.body.participantGroup;
     // save the soldier and check for errors
     soldier.save(function (err) {
@@ -76,6 +77,7 @@ exports.update = function (req, res) {
         soldier.job = req.body.job;
         soldier.unit = req.body.unit;
         soldier.unitId = req.body.unitId;
+        soldier.participantId = req.body.participantId;
         soldier.participant = req.body.participant;
         soldier.participantGroup = req.body.participantGroup;
         // save the soldier and check for errors

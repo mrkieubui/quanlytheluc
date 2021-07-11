@@ -4,10 +4,6 @@
             <div class="card-header card-header-content text-center d-flex justify-content-between align-items-center">
                 <h5 class="big-title mb-0 text-uppercase">Danh sách kết quả kiểm tra thể lực</h5>
                 <div class="list-icons">
-                    <a class="btn btn-outline bg-slate-600 text-slate-600">
-                        <i class="icon-file-download mr-1"></i>
-                        <span>Tải file mẫu</span>
-                    </a>
                     <a routerLink="create" class="btn btn-outline bg-slate-600 text-slate-600 border-slate-600"
                         data-toggle="modal" data-target="#modal_enter_result">
                         <i class="icon-file-upload mr-1"></i>
@@ -66,7 +62,7 @@
                                 <td class="text text-center">{{index + 1}}</td>
                                 <td class="text">{{result.name}}</td>
                                 <td class="text">{{result.unit}}</td>
-                                <td class="text">{{result.planNumber}}</td>
+                                <td class="text">{{result.plan}}</td>
                                 <td class="text text-center">{{result.startDate | date : 'dd-MM-yyyy'}}</td>
                                 <td class="text text-center">
                                     <div class="list-icons">
