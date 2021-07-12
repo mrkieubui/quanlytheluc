@@ -60,7 +60,7 @@
                     <li class="nav-item"><a href="#bottom-tab3" class="nav-link" data-toggle="tab">Nữ</a></li>
                 </ul>
 
-                <div class="tab-content">
+                <div class="tab-content pb-0">
                     <div class="tab-pane fade show active" id="bottom-tab1">
                         <div class="table-responsive mb-4">
                             <div class="alert alert-info alert-sm"
@@ -124,7 +124,7 @@
                                     <tr *ngFor="let soldier of ketqua.namduoi45">
                                         <td class="text text-center">{{soldier.identitynumber}}</td>
                                         <td class="text">{{soldier.name}}</td>
-                                        <td class="text">{{soldier.unit}}</td>
+                                        <td class="text text-center">{{soldier.unit}}</td>
                                         <td class="text text-center">{{soldier.rank}}</td>
                                         <td class="text text-center">{{soldier.old}}</td>
                                         <td class="text text-center"
@@ -256,7 +256,7 @@
                                     <tr *ngFor="let soldier of ketqua.namtren45">
                                         <td class="text text-center">{{soldier.identitynumber}}</td>
                                         <td class="text">{{soldier.name}}</td>
-                                        <td class="text">{{soldier.unit}}</td>
+                                        <td class="text text-center">{{soldier.unit}}</td>
                                         <td class="text text-center">{{soldier.rank}}</td>
                                         <td class="text text-center">{{soldier.old}}</td>
                                         <td class="text text-center"
@@ -390,7 +390,7 @@
                                     <tr *ngFor="let soldier of ketqua.nu">
                                         <td class="text text-center">{{soldier.identitynumber}}</td>
                                         <td class="text">{{soldier.name}}</td>
-                                        <td class="text">{{soldier.unit}}</td>
+                                        <td class="text text-center">{{soldier.unit}}</td>
                                         <td class="text text-center">{{soldier.rank}}</td>
                                         <td class="text text-center">{{soldier.old}}</td>
                                         <td class="text text-center" *ngIf="document.nu && document.nu.length >0">
@@ -433,7 +433,6 @@
                                             {{soldier.classifications[9] == "-" ? "-" : soldier.content[9]}}</td>
                                         <td class="text text-center" *ngIf="document.nu && document.nu.length >9">
                                             {{soldier.classifications[9]}}</td>
-
                                         <td class="text text-center">{{onClassifyNamDuoi45(soldier)}}</td>
                                     </tr>
                                 </tbody>
@@ -448,17 +447,18 @@
                 </div>
                 <div class="card-body px-4">
                     <ul class="d-flex justify-content-between align-items-center mb-0">
-                        <li class="text flex-1 mr-4"><b>Giỏi:</b> <span class="total">20</span> đ/c = <span
-                                class="percen">20</span>%
+                        <li class="text flex-1 mr-4"><b>Giỏi: </b> <span class="total">{{gioi}}</span> đ/c = <span
+                                class="percen">{{gioi/total | percent}}</span>
                         </li>
-                        <li class="text flex-1 mr-4"><b>Khá:</b> <span class="total">20</span> đ/c = <span
-                                class="percen">20</span>% </li>
-                        <li class="text flex-1 mr-4"><b>Đạt:</b> <span class="total">20</span> đ/c = <span
-                                class="percen">20</span>% </li>
-                        <li class="text flex-1 mr-4"><b>Không Đạt:</b> <span class="total">20</span> đ/c =
-                            <span class="percen">20</span>%
+                        <li class="text flex-1 mr-4"><b>Khá: </b> <span class="total">{{kha}}</span> đ/c = <span
+                                class="percen">{{kha/total | percent}}</span> </li>
+                        <li class="text flex-1 mr-4"><b>Đạt: </b> <span class="total">{{dat}}</span> đ/c = <span
+                                class="percen">{{dat/total | percent}}</span> </li>
+                        <li class="text flex-1 mr-4"><b>Không Đạt: </b> <span class="total">{{khongdat}}</span> đ/c =
+                            <span class="percen">{{khongdat/total | percent}}</span>
                         </li>
-                        <li class="text flex-1 mr-0"><b>Đơn vị đạt loại:</b> <span>Khá</span></li>
+                        <li class="text flex-1 mr-0"><b>Đơn vị đạt loại: {{onTotalClassify()}}</b> <span></span>
+                        </li>
                     </ul>
                 </div>
                 <div class="d-flex justify-content-center align-items-center btn-group-content pb-2">

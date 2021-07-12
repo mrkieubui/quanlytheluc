@@ -14,13 +14,20 @@ export class ResultDetailsComponent implements OnInit {
   id: any;
   document: any = {};
   documents: any = {};
-  soldiers: any = {};
+  // soldiers: any = {};
   // custom tree select 
   expandKeys = ['1'];
   nodes: any = [];
   unitId: any = "1";
   userUnitId: any;
   participants: any;
+  // total classify
+  data: any;
+  gioi: number = 0;
+  kha: number = 0;
+  dat: number = 0;
+  khongdat: number = 0;
+  total: number = 0;
 
   constructor(private route: ActivatedRoute, private AppService: AppService, private router: Router, private NotificationsService: NotificationsService) { }
 
@@ -34,9 +41,10 @@ export class ResultDetailsComponent implements OnInit {
     });
     this.AppService.getItem('results', this.id).subscribe((res) => {
       this.ketqua = res;
-      this.AppService.getMultiItems('soldiers', res.unitId).subscribe(res => {
-        this.soldiers = res;
-      });
+      // this.AppService.getMultiItems('soldiers', res.unitId).subscribe(res => {
+      //   this.soldiers = res;
+
+      // });
       setTimeout(() => {
         this.AppService.updateItem('results', this.id, this.ketqua)
       }, 3000);
@@ -74,12 +82,16 @@ export class ResultDetailsComponent implements OnInit {
     });
     var sum = gioi + kha + dat + khongdat;
     if ((gioi + kha) / sum == 1 && gioi / sum >= 0.6) {
+      soldier.total = "G";
       return "Giỏi"
     } else if ((gioi + kha + dat) / sum == 1 && gioi + kha / sum >= 0.6) {
+      soldier.total = "K";
       return "Khá"
     } else if ((gioi + kha + dat) / sum >= 0.8) {
+      soldier.total = "Đ";
       return "Đạt"
     } else {
+      soldier.total = "KĐ";
       return "Không đạt"
     }
   }
@@ -102,14 +114,50 @@ export class ResultDetailsComponent implements OnInit {
       }
     });
     if ((gioi + kha) / sum == 1 && gioi >= 2) {
+      soldier.total = "G";
       return "Giỏi"
     } else if ((gioi + kha + dat) / sum == 1 && gioi + kha >= 2) {
+      soldier.total = "K";
       return "Khá"
     } else if (khongdat <= 1) {
+      soldier.total = "Đ";
       return "Đạt"
     } else {
+      soldier.total = "KĐ";
       return "Không đạt"
     }
   }
 
+  onTotalClassify() {
+    if (this.ketqua && this.ketqua.namduoi45) {
+      this.data = this.ketqua.namduoi45.concat(this.ketqua.namtren45).concat(this.ketqua.nu);
+      this.gioi = 0;
+      this.kha = 0;
+      this.dat = 0;
+      this.khongdat = 0;
+      this.data.forEach((element: { total: string; }) => {
+        if (element.total == "G") {
+          this.gioi++;
+        } else if (element.total == "K") {
+          this.kha++;
+        } else if (element.total == "Đ") {
+          this.dat++;
+        } else if (element.total == "KĐ") {
+          this.khongdat++;
+        }
+      });
+      this.total = this.gioi + this.kha + this.dat + this.khongdat;
+      if ((this.gioi + this.kha + this.dat) / this.total >= 0.95 && this.gioi / this.total >= 0.5) {
+        return "Giỏi"
+      } else if ((this.gioi + this.kha + this.dat) / this.total >= 0.9 && this.gioi + this.kha / this.total >= 0.5) {
+        return "Khá"
+      } else if ((this.gioi + this.kha + this.dat) / this.total >= 0.85) {
+        return "Đạt"
+      } else {
+        return "Không đạt"
+      }
+    } else {
+      return "---";
+    }
+  }
 }

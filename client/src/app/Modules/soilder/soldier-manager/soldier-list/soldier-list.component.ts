@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as arrayToTree from 'array-to-tree';
 import { AppService } from 'src/app/Services/app.service';
+import { ExcelService } from 'src/app/Services/excel.service';
 import { FilterService } from 'src/app/Services/filter.service';
+import { Soldier } from './soldier.model';
 
 @Component({
   selector: 'app-soldier-list',
@@ -27,7 +29,9 @@ export class SoldierListComponent implements OnInit {
   rank: string = "";
   userRole: any;
 
-  constructor(private AppService: AppService, private FilterService: FilterService) { }
+  exportSoldiers: Soldier[] = [];
+
+  constructor(private AppService: AppService, private FilterService: FilterService, public ExcelService : ExcelService) { }
 
   ngOnInit(): void {
     this.getData();

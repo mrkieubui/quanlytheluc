@@ -10,7 +10,6 @@ import { FormsModule } from '@angular/forms';
 import { SharesModule } from '../shares/shares.module';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { ResultInfoComponent } from './result-info/result-info.component';
 
 
 @NgModule({
@@ -18,8 +17,7 @@ import { ResultInfoComponent } from './result-info/result-info.component';
     ResultCreateComponent,
     ResultUpdateComponent,
     ResultDetailsComponent,
-    ResultListComponent,
-    ResultInfoComponent
+    ResultListComponent
   ],
   imports: [
     CommonModule,

@@ -9,8 +9,8 @@ import * as arrayToTree from 'array-to-tree';
 export class AppService implements OnInit {
 
   // baseURL: string = "http://localhost:3000/";
-  // baseURL: string = "http://localhost:3000/api/";
-  baseURL: string = "https://quanlytheluc.herokuapp.com/api/";
+  baseURL: string = "http://localhost:3000/api/";
+  // baseURL: string = "https://quanlytheluc.herokuapp.com/api/";
   idStored: any;
   loginStatus: boolean = false;
   unitIdStored: any;

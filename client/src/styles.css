@@ -377,7 +377,8 @@ body {
 }
 
 .content-wrapper .form-control:disabled, .content-wrapper .select2-selection--single:disabled {
-    background-color: rgba(240, 240, 240, 0.3);
+    background-color: rgb(240 240 240 / 0%);
+    color: black;
 }
 
 .content-wrapper select:disabled+.select2-container--disabled {
